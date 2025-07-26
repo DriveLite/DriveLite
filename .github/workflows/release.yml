@@ -1,0 +1,43 @@
+name: Release Binary
+
+on:
+  release:
+    types: [published]
+
+env:
+  GO_VERSION: '1.24'
+
+jobs:
+  build-release:
+    name: Build & Upload Binary to GitHub Release
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Go ${{ env.GO_VERSION }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache: true
+
+      - name: Build Linux Binary
+        run: |
+          GOOS=linux GOARCH=amd64 go build -o drivelite-linux ./cmd/api
+          GOOS=darwin GOARCH=amd64 go build -o drivelite-macos ./cmd/api
+          GOOS=windows GOARCH=amd64 go build -o drivelite.exe ./cmd/api
+
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            backend/drivelite-linux
+            backend/drivelite-macos
+            backend/drivelite.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

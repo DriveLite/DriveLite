@@ -2,9 +2,17 @@ name: Go Backend
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - dev
+      - feature/**
+      - fix/**
+      - docs/**
+      - ci/**
   pull_request:
-    branches: [main]
+    branches:
+      - main
+      - dev
 
 env:
   GO_VERSION: '1.24'
@@ -22,25 +30,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Go ${{ env.GO_VERSION }}
+      - name: Setup Go ${{ env.GO_VERSION }}
         uses: actions/setup-go@v5
         with:
           go-version: ${{ env.GO_VERSION }}
           cache: true
 
-      - name: Install dependencies
+      - name: Download Dependencies
         run: go mod download
 
-      - name: Build binary
+      - name: Build Binary
         run: go build -v ./cmd/api
 
-      - name: Run tests
+      - name: Run Unit Tests
         run: go test ./... -v -cover
 
-      # - name: Lint with golangci-lint
+      # - name: 🧹 (Optional) Lint with golangci-lint
+      #   if: always()
       #   uses: golangci/golangci-lint-action@v6
       #   with:
       #     version: latest
       #     working-directory: backend
       #     args: --timeout 3m
-
