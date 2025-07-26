@@ -38,3 +38,7 @@ then visit http://localhost:3000 and create an account
 ## License
 
 MIT - free for personal and commercial use
+
+## Roadmap
+
+[See Roadmap](./ROADMAP.md)
