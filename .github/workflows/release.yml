@@ -7,9 +7,12 @@ on:
 env:
   GO_VERSION: '1.24'
 
+permissions:
+  contents: write  
+
 jobs:
   build-release:
-    name: Build & Upload Binary to GitHub Release
+    name: 🚀 Build & Upload Binary to GitHub Release
     runs-on: ubuntu-latest
 
     defaults:
@@ -17,22 +20,22 @@ jobs:
         working-directory: backend
 
     steps:
-      - name: Checkout repository
+      - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Go ${{ env.GO_VERSION }}
+      - name: 🧰 Setup Go ${{ env.GO_VERSION }}
         uses: actions/setup-go@v5
         with:
           go-version: ${{ env.GO_VERSION }}
           cache: true
 
-      - name: Build Linux Binary
+      - name: 🛠️ Build Binaries
         run: |
           GOOS=linux GOARCH=amd64 go build -o drivelite-linux ./cmd/api
           GOOS=darwin GOARCH=amd64 go build -o drivelite-macos ./cmd/api
           GOOS=windows GOARCH=amd64 go build -o drivelite.exe ./cmd/api
 
-      - name: Upload Release Assets
+      - name: 📤 Upload Release Assets
         uses: softprops/action-gh-release@v2
         with:
           files: |
