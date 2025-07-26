@@ -26,7 +26,7 @@ Project maintainers are responsible for enforcing this code of conduct fairly an
 
 ## Enforcement
 
-Instances of abusive or unacceptable behavior may be reported by contacting the maintainers at [your-email@example.com].
+Instances of abusive or unacceptable behavior may be reported by contacting the maintainers at [moukhtar.youssef06@gmail.com].
 
 ## Attribution
 
