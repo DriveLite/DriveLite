@@ -42,3 +42,5 @@ MIT - free for personal and commercial use
 ## Roadmap
 
 [See Roadmap](./ROADMAP.md)
+
+👉 [Want to contribute? Start here](./CONTRIBUTING.md)
