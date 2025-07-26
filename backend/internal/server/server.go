@@ -1,3 +1,4 @@
+// Package server ...
 package server
 
 import (
@@ -6,14 +7,14 @@ import (
 	"os"
 	"strconv"
 	"time"
-
-	_ "github.com/joho/godotenv/autoload"
 )
 
+// Server is Main server struct
 type Server struct {
 	port int
 }
 
+// NewServer is a function to create a new http server with chi routes
 func NewServer() *http.Server {
 	port, _ := strconv.Atoi(os.Getenv("PORT"))
 	NewServer := &Server{

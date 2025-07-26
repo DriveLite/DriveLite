@@ -1,10 +1,10 @@
+// Package server ...
 package server
 
 import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -15,6 +15,7 @@ type response struct {
 	Message string `json:"message"`
 }
 
+// RegisterRoutes register main Routes for the backend
 func (s *Server) RegisterRoutes() http.Handler {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
@@ -32,18 +33,10 @@ func (s *Server) RegisterRoutes() http.Handler {
 	return r
 }
 
-func (s *Server) HelloWorldHandler(w http.ResponseWriter, r *http.Request) {
+// HelloWorldHandler A test handler that return hello world
+func (s *Server) HelloWorldHandler(w http.ResponseWriter, _ *http.Request) {
 	resp := response{
 		Message: "Hello world",
-	}
-	Cookie := http.Cookie{
-		Name:     "auth_toekn",
-		Value:    "Hello",
-		Path:     "/",
-		Expires:  time.Now().Add(24 * time.Hour),
-		HttpOnly: true,
-		Secure:   false,
-		SameSite: http.SameSiteLaxMode,
 	}
 
 	jsonResp, err := json.Marshal(resp)
@@ -52,7 +45,6 @@ func (s *Server) HelloWorldHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	http.SetCookie(w, &Cookie)
 	_, _ = w.Write(jsonResp)
 }
 
