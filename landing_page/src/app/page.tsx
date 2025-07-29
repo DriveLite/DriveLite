@@ -1,5 +1,10 @@
 import Image from "next/image";
 
+/**
+ * Renders the main landing page layout with Next.js branding, instructions, and resource links.
+ *
+ * Displays the Next.js logo, step-by-step instructions for editing the page, call-to-action buttons for deployment and documentation, and a footer with links to learning resources, example templates, and the Next.js homepage. The layout is styled responsively using Tailwind CSS and supports dark mode.
+ */
 export default function Home() {
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
