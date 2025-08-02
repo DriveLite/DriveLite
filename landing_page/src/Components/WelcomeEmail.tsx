@@ -1,3 +1,4 @@
+// emails/WelcomeEmail.tsx
 import {
   Html,
   Head,
@@ -19,14 +20,14 @@ export default function WelcomeEmail({ email }: { email: string }) {
         <Container style={container}>
           <Section style={section}>
             <Img
-              src="https://drivelite.org/logo.svg"
+              src="https://drivelite.org/logo.png"
               alt="DriveLite Logo"
               width="64"
               height="64"
               style={{ margin: "0 auto", marginBottom: 20 }}
             />
 
-            <Text style={heading}>Welcome to DriveLite 👋</Text>
+            <Text style={heading}>Welcome to DriveLite</Text>
 
             <Text style={paragraph}>
               Hey {email},<br />
@@ -43,6 +44,34 @@ export default function WelcomeEmail({ email }: { email: string }) {
             <Text style={footer}>The DriveLite Team</Text>
           </Section>
         </Container>
+
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              @media (prefers-color-scheme: dark) {
+                body {
+                  background-color: #0f172a !important;
+                  color: #f8fafc !important;
+                }
+                .container {
+                  background-color: #1e293b !important;
+                }
+                .heading {
+                  color: #e2e8f0 !important;
+                }
+                .paragraph {
+                  color: #cbd5e1 !important;
+                }
+                .footer {
+                  color: #94a3b8 !important;
+                }
+                a.button {
+                  background-color: #60a5fa !important;
+                }
+              }
+            `,
+          }}
+        />
       </Body>
     </Html>
   );
@@ -56,7 +85,7 @@ const main = {
 } as const;
 
 const container = {
-  backgroundColor: "#fff",
+  backgroundColor: "#ffffff",
   borderRadius: "12px",
   maxWidth: "600px",
   margin: "0 auto",
@@ -90,6 +119,7 @@ const button = {
   fontWeight: 600,
   textDecoration: "none",
   display: "inline-block",
+  className: "button",
 } as const;
 
 const footer = {
