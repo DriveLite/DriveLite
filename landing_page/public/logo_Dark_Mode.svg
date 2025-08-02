@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient" x1="0" y1="0" x2="0.8" y2="1.2">
+      <stop offset="0%" stop-color="#1E90FF"/>
+      <stop offset="100%" stop-color="#0057D9"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="32" fill="#0D1117"/>
+  <g transform="translate(40, 40)">
+    <path d="M0 0H60L70 15H120C123.314 15 126 17.6863 126 21V99C126 102.314 123.314 105 120 105H0V0Z" fill="url(#gradient)" />
+    <path d="M10 60L30 40L55 75L85 45L115 90" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="100" y="172" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="20" fill="white">DriveLite</text>
+  <text x="100" y="190" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#CCCCCC">Private. Secure. Yours.</text>
+</svg>
