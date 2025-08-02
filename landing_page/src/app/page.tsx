@@ -1,16 +1,19 @@
-import Image from "next/image";
+import LogoSection from "@/Components/logoSection";
+import HeroSection from "@/Components/HeroSection";
+import FeatureSection from "@/Components/FeatureSection";
+import OSSSection from "@/Components/OSSSection";
+import WaitlistSection from "@/Components/WailtistSection";
+import FooterSection from "@/Components/FooterSection";
 
 export default function Home() {
   return (
-    <div className="grid min-h-screen place-items-end pr-8">
-      <Image
-        src="/logo.svg"
-        alt="Next.js Logo"
-        width={300}
-        height={300}
-        className="dark:invert m-0"
-        priority
-      />
-    </div>
+    <main className="min-h-screen px-6 py-12 max-w-6xl mx-auto">
+      <LogoSection />
+      <HeroSection />
+      <FeatureSection />
+      <OSSSection />
+      <WaitlistSection />
+      <FooterSection />
+    </main>
   );
 }

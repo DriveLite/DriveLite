@@ -34,6 +34,7 @@ Welcome to the DriveLite roadmap! Here’s what’s planned for the open-source 
 - [ ] Admin dashboard
 - [ ] CLI setup tool
 - [ ] Region-based storage (MinIO/S3)
+- [ ] Ability to customize Database options and S3 compatable file storage
 
 ---
 
