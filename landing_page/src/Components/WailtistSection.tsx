@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const WaitlistSection = () => {
   const [email, setEmail] = useState("");
@@ -13,11 +14,11 @@ const WaitlistSection = () => {
     });
 
     if (res.ok) {
-      alert("Thanks! You're on the waitlist");
+      toast.success("Thanks! You 're on the waitlist");
       setEmail("");
     } else {
       const { error } = await res.json();
-      alert(error || "something went wrong");
+      toast.error(error || "something went wrong");
     }
   }
   return (
