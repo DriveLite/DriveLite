@@ -8,6 +8,7 @@
 [![last Commit](https://img.shields.io/github/last-commit/moukhtar-youssef/DriveLite?style=flat-square)](https://github.com/moukhtar-youssef/DriveLite)
 [![Top Language](https://img.shields.io/github/languages/top/moukhtar-youssef/DriveLite?style=flat-square)](https://github.com/moukhtar-youssef/DriveLite)
 [![Language Count](https://img.shields.io/github/languages/count/moukhtar-youssef/DriveLite?style=flat-square)](https://github.com/moukhtar-youssef/DriveLite)
+[![GitHub Stars](https://img.shields.io/github/stars/moukhtar-youssef/DriveLite?style=social)](https://github.com/moukhtar-youssef/DriveLite/stargazers)
 
 </div>
 
@@ -63,6 +64,24 @@ Self-host it or use our free cloud instance with encryption, sharing and sync.
 ## Roadmap
 
 See the [ROADMAP.md](./ROADMAP.md) for upcoming features and milestones.
+
+---
+
+## 🙌 Support This Project
+
+DriveLite is fully open-source and community-driven.  
+If you find it valuable, consider supporting its development:
+
+- ☕ [Ko-fi](https://ko-fi.com/drivelite)
+- 🌍 [Buy us coffee](https://buymeacoffee.com/drivelite?new=1)
+
+Your support keeps DriveLite independent and evolving. Thank you! 🙏
+
+---
+
+## 🌐 Official Website
+
+👉 [DriveLite.org](https://drivelite.org)
 
 ---
 
