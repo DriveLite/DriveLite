@@ -19,14 +19,6 @@ export default function WelcomeEmail({ email }: { email: string }) {
       <Body style={main}>
         <Container style={container}>
           <Section style={section}>
-            <Img
-              src="https://drivelite.org/logo.png"
-              alt="DriveLite Logo"
-              width="64"
-              height="64"
-              style={{ margin: "0 auto", marginBottom: 20 }}
-            />
-
             <Text style={heading}>Welcome to DriveLite</Text>
 
             <Text style={paragraph}>

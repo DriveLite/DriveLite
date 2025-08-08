@@ -14,20 +14,38 @@ export async function POST(req: Request) {
   }
 
   const { email } = await req.json();
+  const normalizedEmail = email.toLowerCase();
 
-  if (!email || !email.includes("@")) {
-    return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+  const { data: exists, error: existserror } = await supabase
+    .from("waitlist_emails")
+    .select()
+    .eq("email", normalizedEmail)
+    .maybeSingle();
+
+  if (existserror) {
+    console.error("Error checking existing email:", existserror);
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 },
+    );
+  }
+
+  if (exists) {
+    return NextResponse.json(
+      { error: "You're already on the waitlist!" },
+      { status: 400 },
+    );
   }
 
   const { data, error } = await supabase
     .from("waitlist_emails")
-    .insert([{ email }]);
+    .insert([{ email: normalizedEmail }]);
 
   if (error) {
     console.error("Error saving to waitlist:", error);
     return NextResponse.json(
       { error: "Failed to join waitlist" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 

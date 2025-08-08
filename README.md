@@ -67,18 +67,6 @@ See the [ROADMAP.md](./ROADMAP.md) for upcoming features and milestones.
 
 ---
 
-## 🙌 Support This Project
-
-DriveLite is fully open-source and community-driven.  
-If you find it valuable, consider supporting its development:
-
-- ☕ [Ko-fi](https://ko-fi.com/drivelite)
-- 🌍 [Buy us coffee](https://buymeacoffee.com/drivelite?new=1)
-
-Your support keeps DriveLite independent and evolving. Thank you! 🙏
-
----
-
 ## 🌐 Official Website
 
 👉 [DriveLite.org](https://drivelite.org)

@@ -45,7 +45,7 @@ cd backend
 go run ./cmd/api
 
 # Frontend (Next.js)
-cd frontend
+cd web
 npm install
 npm run dev
 ```
@@ -106,7 +106,7 @@ Before opening a new issue, check existing ones.
 ## 🧪 Tests
 
 - Backend: `go test ./...`
-- Frontend: `npm run test`
+- Web: `npm run test`
 
 > If your PR includes logic changes, add or update tests.
 
