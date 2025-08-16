@@ -7,4 +7,3 @@ linters:
     - unused
     - staticcheck
     - revive
-

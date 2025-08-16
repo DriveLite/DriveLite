@@ -4,6 +4,7 @@ CODE_EXTENSIONS=("*.js" "*.ts" "*.tsx" "*.jsx" "*.go" "*.py" "*.md" "*.sh" "*.ht
 
 EXCLUDE_DIRS=(
     "node_modules" 
+    "public"
     "vendor" 
     "dist" 
     "build" 

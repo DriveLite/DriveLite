@@ -4,15 +4,9 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "sonner";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUp,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
+import Header from "@/Components/UI/common/header";
+import Footer from "@/Components/UI/common/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,31 +33,24 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <ClerkProvider>
-        <html lang="en">
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <ClerkProvider
+            publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
           >
-            <header className="flex justify-end items-center p-4 gap-4 h-16">
-              <SignedOut>
-                <SignInButton />
-                <SignUpButton>
-                  <button className="bg-[#6c47ff text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer ">
-                    Sign up
-                  </button>
-                </SignUpButton>
-              </SignedOut>
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-            </header>
-            {children}
+            <Header />
+            <main className="min-h-screen px-6 py-12 max-w-6xl mx-auto">
+              {children}
+            </main>
+            <Footer />
             <Toaster position="top-center" richColors />
             <Analytics />
             <SpeedInsights />
-          </body>
-        </html>
-      </ClerkProvider>
+          </ClerkProvider>
+        </body>
+      </html>
     </>
   );
 }

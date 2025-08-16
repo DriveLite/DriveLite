@@ -2,6 +2,7 @@
 package server
 
 import (
+	"DriveLite/internal/database"
 	"fmt"
 	"net/http"
 	"os"
@@ -9,20 +10,29 @@ import (
 	"time"
 )
 
-// Server is Main server struct
 type Server struct {
 	port int
+	HTTP *http.Server
+	DB   database.Service
 }
 
-// NewServer is a function to create a new http server with chi routes
-func NewServer() *http.Server {
-	port, _ := strconv.Atoi(os.Getenv("PORT"))
+func NewServer() (*Server, error) {
+	port, _ := strconv.Atoi(os.Getenv("BACKEND_PORT"))
+	dbType := os.Getenv("BACKEND_DB_TYPE")
+	if dbType == "" {
+		return nil, fmt.Errorf("BACKEND_DB_TYPE must be set in .env postgres")
+	}
+	dbService, err := database.New(dbType)
+	if err != nil {
+		return nil, fmt.Errorf("failed to init DB: %w", err)
+	}
 	NewServer := &Server{
 		port: port,
+		DB:   dbService,
 	}
 
 	// Declare Server config
-	server := &http.Server{
+	NewServer.HTTP = &http.Server{
 		Addr:         fmt.Sprintf(":%d", NewServer.port),
 		Handler:      NewServer.RegisterRoutes(),
 		IdleTimeout:  time.Minute,
@@ -30,5 +40,5 @@ func NewServer() *http.Server {
 		WriteTimeout: 30 * time.Second,
 	}
 
-	return server
+	return NewServer, nil
 }

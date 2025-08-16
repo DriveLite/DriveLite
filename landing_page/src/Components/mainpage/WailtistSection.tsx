@@ -12,7 +12,6 @@ export default function WailtistSection() {
     if (isSignedIn && user) {
       const primaryEmail = user.primaryEmailAddress?.emailAddress || "";
       setEmail(primaryEmail);
-      console.log(primaryEmail);
     }
   }, [isSignedIn, user]);
 

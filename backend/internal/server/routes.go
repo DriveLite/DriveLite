@@ -2,117 +2,59 @@
 package server
 
 import (
-	"encoding/json"
-	"log"
+	"DriveLite/internal/handlers"
+	"DriveLite/internal/middlewares"
+	"fmt"
 	"net/http"
 
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
-	"github.com/go-chi/cors"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
-type response struct {
-	Message string `json:"message"`
+func (s *Server) RegisterRoutes() http.Handler {
+	e := echo.New()
+	setupMiddleware(e)
+
+	handler := handlers.NewHandler(s.DB)
+
+	e.GET("/", handler.HelloWorld)
+	e.GET("/health", handler.Health)
+
+	return e
 }
 
-// RegisterRoutes register main Routes for the backend
-func (s *Server) RegisterRoutes() http.Handler {
-	r := chi.NewRouter()
-	r.Use(middleware.Logger)
-
-	r.Use(cors.Handler(cors.Options{
-		AllowedOrigins:   []string{"https://*", "http://*"},
-		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
-		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type"},
+func setupMiddleware(e *echo.Echo) {
+	skipper := func(c echo.Context) bool {
+		// Skip health check endpoint
+		return c.Request().URL.Path == "/health"
+	}
+	e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
+		LogStatus:       true,
+		LogURI:          true,
+		Skipper:         skipper,
+		LogRemoteIP:     true,
+		LogLatency:      true,
+		LogResponseSize: true,
+		LogValuesFunc: func(c echo.Context, v middleware.RequestLoggerValues) error {
+			fmt.Printf("REQUEST: uri: %v, status: %v, IP: %v, Latency: %v, ResponseSize: %v\n", v.URI, v.Status, v.RemoteIP, v.Latency, v.ResponseSize)
+			return nil
+		},
+	}))
+	e.Use(echo.MiddlewareFunc(func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			c.Request().Body = http.MaxBytesReader(c.Response(), c.Request().Body, 10<<20)
+			return next(c)
+		}
+	}))
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins:     []string{"https://*", "http://*"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
+		AllowHeaders:     []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		AllowCredentials: true,
 		MaxAge:           300,
 	}))
-
-	r.Get("/", s.HelloWorldHandler)
-
-	return r
+	e.Use(middleware.Recover())
+	e.Use(middleware.CSRF())
+	e.Use(middleware.BodyLimit("10M"))
+	e.Use(middlewares.SecureMiddleware())
 }
-
-// HelloWorldHandler A test handler that return hello world
-func (s *Server) HelloWorldHandler(w http.ResponseWriter, _ *http.Request) {
-	resp := response{
-		Message: "Hello world",
-	}
-
-	jsonResp, err := json.Marshal(resp)
-	if err != nil {
-		log.Fatalf("error handling JSON marshal. Err: %v", err)
-	}
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(jsonResp)
-}
-
-// func parseRequest(r *http.Request, target any) error {
-// 	contentType := r.Header.Get("Content-Type")
-//
-// 	if contentType == "application/json" {
-// 		return json.NewDecoder(r.Body).Decode(target)
-// 	}
-//
-// 	if contentType == "application/xml" || contentType == "text/xml" {
-// 		return xml.NewDecoder(r.Body).Decode(target)
-// 	}
-//
-// 	if contentType == "application/x-www-form-urlencoded" {
-// 		if err := r.ParseForm(); err != nil {
-// 			return err
-// 		}
-// 		return formToStruct(r.Form, target)
-// 	}
-//
-// 	if r.URL.Query().Get("") != "" {
-// 		return formToStruct(r.URL.Query(), target)
-// 	}
-// 	if r.Header.Get("") != "" {
-// 		return headerToStruct(r.Header, target)
-// 	}
-// 	return fmt.Errorf("unsupported content type: %s", contentType)
-// }
-//
-// func formToStruct(form url.Values, target any) error {
-// 	val := reflect.ValueOf(target).Elem()
-// 	typ := val.Type()
-//
-// 	for i := range val.NumField() {
-// 		field := typ.Field(i)
-// 		tag := field.Tag.Get("form")
-// 		if tag == "" {
-// 			tag = strings.ToLower(field.Name)
-// 		}
-//
-// 		if values, ok := form[tag]; ok && len(values) > 0 {
-// 			fieldValue := val.Field(i)
-// 			if fieldValue.CanSet() {
-// 				fieldValue.SetString(values[0])
-// 			}
-// 		}
-// 	}
-// 	return nil
-// }
-//
-// func headerToStruct(header http.Header, target any) error {
-// 	val := reflect.ValueOf(target).Elem()
-// 	typ := val.Type()
-//
-// 	for i := range val.NumField() {
-// 		field := typ.Field(i)
-// 		tag := field.Tag.Get("header")
-// 		if tag == "" {
-// 			tag = strings.ToLower(field.Name)
-// 		}
-//
-// 		if values, ok := header[tag]; ok && len(values) > 0 {
-// 			fieldValue := val.Field(i)
-// 			if fieldValue.CanSet() {
-// 				fieldValue.SetString(values[0])
-// 			}
-// 		}
-// 	}
-// 	return nil
-// }

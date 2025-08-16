@@ -42,8 +42,8 @@ Self-host it or use our free cloud instance with encryption, sharing and sync.
 ## Tach Stack
 
 - **Frontend**: Next.js + TailwindCSS + TypeScript
-- **Backend**: Go (Chi router) + PostgreSQL
-- **Storage**: MinIO (or any S3-compatible service)
+- **Backend**: Go (Echo web framework) + PostgreSQL
+- **Storage**: MinIO (or any S3-compatible service) and local files
 
 ---
 

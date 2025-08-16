@@ -26,18 +26,18 @@ export async function POST(req: Request) {
     console.error("Error checking existing email:", existserror);
     return NextResponse.json(
       { error: "Something went wrong" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 
   if (exists) {
     return NextResponse.json(
       { error: "You're already on the waitlist!" },
-      { status: 400 },
+      { status: 400 }
     );
   }
 
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("waitlist_emails")
     .insert([{ email: normalizedEmail }]);
 
@@ -45,7 +45,7 @@ export async function POST(req: Request) {
     console.error("Error saving to waitlist:", error);
     return NextResponse.json(
       { error: "Failed to join waitlist" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 
