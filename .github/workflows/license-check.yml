@@ -11,8 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # Ensure we can push back changes with GITHUB_TOKEN
-          persist-credentials: true  
+          persist-credentials: true
 
       - name: Run license header check
         run: ./scripts/add_license.sh
@@ -21,6 +20,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -e
           if [ -n "$(git status --porcelain)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
