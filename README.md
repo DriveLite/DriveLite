@@ -57,8 +57,7 @@ Self-host it or use our free cloud instance with encryption, sharing and sync.
 
 ## License
 
-**Apache License 2.0** - free for personal and commercial use, with explicit grant of patent rights.  
-You are free to use, modify, and distribute this project, provided that you comply with the license terms.  
+**GNU Affero General Public License v3.0 (AGPLv3)** - free for personal and commercial use, with strong copyleft provisions that require source code disclosure for networked services.
 See the [LICENSE](./LICENSE) file for details.
 
 ---
