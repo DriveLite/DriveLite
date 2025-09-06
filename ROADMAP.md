@@ -14,7 +14,6 @@ Welcome to the DriveLite roadmap! Here’s what’s planned for the open-source 
 - [ ] Drag-and-drop file upload
 - [ ] Download multiple files
 - [ ] Public shareable links
-- [ ] Basic quota enforcement
 
 ---
 

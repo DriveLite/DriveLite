@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CODE_EXTENSIONS=("*.js" "*.ts" "*.tsx" "*.jsx" "*.go" "*.py" "*.md" "*.sh" "*.html" "*.css" "*.scss")
+CODE_EXTENSIONS=("*.js" "*.ts" "*.tsx" "*.jsx" "*.go" "*.py" "*.md" "*.sh" "*.html" "*.css" "*.scss" "*.yml" "*.yaml" "*.hurl")
 
 EXCLUDE_DIRS=(
     "node_modules" 

@@ -1,9 +1,43 @@
 version: "2"
+run:
+  timeout: 5m
+  tests: true
+  concurrency: 4
 
 linters:
   enable:
-    - errcheck
     - govet
-    - unused
-    - staticcheck
+    - errcheck
     - revive
+    - staticcheck
+    - ineffassign
+    - gocyclo
+    - dupl
+    - unused
+    - lll
+    - gosec
+
+linters-settings:
+  revive:
+    severity: warning
+    rules:
+      - name: exported
+        arguments: [ "true" ] # enforce comments on exported symbols
+      - name: indent-error-flow
+      - name: var-naming
+      - name: import-shadowing
+      - name: package-comments
+
+  lll:
+    line-length: 120
+
+  gocyclo:
+    min-complexity: 15
+
+  dupl:
+    threshold: 100
+
+  gosec:
+    # ignore weak crypto warnings if needed
+    exclude:
+      - G401 # e.g., using weak crypto for testing

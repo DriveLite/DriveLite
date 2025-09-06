@@ -41,8 +41,8 @@ Self-host it or use our free cloud instance with encryption, sharing and sync.
 
 ## Tach Stack
 
-- **Frontend**: Next.js + TailwindCSS + TypeScript
-- **Backend**: Go (Echo web framework) + PostgreSQL
+- **Frontend**: SvelteKit (svelte) + TailwindCSS + TypeScript
+- **Backend**: Go (Echo web framework)
 - **Storage**: MinIO (or any S3-compatible service) and local files
 
 ---
@@ -57,7 +57,9 @@ Self-host it or use our free cloud instance with encryption, sharing and sync.
 
 ## License
 
-**MIT** - free for personal and commercial use
+**Apache License 2.0** - free for personal and commercial use, with explicit grant of patent rights.  
+You are free to use, modify, and distribute this project, provided that you comply with the license terms.  
+See the [LICENSE](./LICENSE) file for details.
 
 ---
 

@@ -1,3 +1,2 @@
-GET http://localhost:3000/
+GET {{URL}}/
 HTTP 200
-

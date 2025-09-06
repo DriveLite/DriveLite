@@ -1,4 +1,7 @@
 services:
+  # ----------------------
+  # Databases
+  # ----------------------
   valkey:
     image: valkey/valkey:latest
     restart: unless-stopped

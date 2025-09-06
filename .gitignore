@@ -1,3 +1,4 @@
 .env
 .DS_Store
+.vscode
 docker-compose.local.yml

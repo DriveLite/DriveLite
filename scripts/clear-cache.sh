@@ -5,7 +5,7 @@ echo "Clearing Go build cache..."
 go clean -cache -modcache -testcache
 
 echo "Removing temporary files..."
-find . -type d \( -name ".next" -o -name "dist" -o -name "build" \) -prune -exec rm -rf '{}' \;
+find . -type d \( -name "dist" -o -name "build" \) -prune -exec rm -rf '{}' \;
 
 echo "✅ Cache cleared!"
 
