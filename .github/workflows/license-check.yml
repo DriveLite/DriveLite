@@ -10,11 +10,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Ensure we can push back changes with GITHUB_TOKEN
+          persist-credentials: true  
 
       - name: Run license header check
         run: ./scripts/add_license.sh
 
       - name: Commit changes if headers added
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             git config user.name "github-actions[bot]"
@@ -22,4 +27,3 @@ jobs:
             git add .
             git commit -m "chore: add missing license headers"
             git push
-          fi
