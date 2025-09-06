@@ -1,0 +1,25 @@
+name: License Header Check
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  license:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run license header check
+        run: ./scripts/add_license.sh
+
+      - name: Commit changes if headers added
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add .
+            git commit -m "chore: add missing license headers"
+            git push
+          fi
