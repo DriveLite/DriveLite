@@ -10,21 +10,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: false  # disable auto token to use PAT
 
-      - name: Run license header check
-        run: ./scripts/add_license.sh
-
-      - name: Commit changes if headers added
-        env:
-          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-        run: |
-          set -e
-          if [ -n "$(git status --porcelain)" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add .
-            git commit -m "chore: add missing license headers"
-            git push https://x-access-token:${PAT_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:${GITHUB_REF#refs/heads/}
-          fi
+      - name: Check for license headers
+        run: ./scripts/check_license.sh
