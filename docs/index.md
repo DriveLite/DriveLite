@@ -1,24 +1,22 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
 hero:
-  name: "DriveLite docs"
-  text: "Docs for drivelite the supabase of file storage"
-  tagline: My great project tagline
+  name: "DriveLite Docs"
+  text: "🚧 Still Under Development"
+  tagline: "This documentation site is currently a placeholder while DriveLite is being built."
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: GitHub Repo
+      link: https://github.com/moukhtar-youssef/drivelite
     - theme: alt
-      text: API Examples
-      link: /api-examples
-
+      text: Join the Waitlist
+      link: https://drivelite.org
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: 🚀 API-First
+    details: DriveLite will provide REST + gRPC APIs for seamless integration.
+  - title: 🔐 Own Your Data
+    details: Fully open-source and self-hostable. No tracking, no lock-in.
+  - title: 📦 Pluggable Architecture
+    details: Swap out databases, storage backends, or search engines anytime.
 ---
