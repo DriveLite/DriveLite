@@ -1,3 +1,21 @@
+// DriveLite - The self-hostable file storage solution.
+// Copyright (C) 2025  
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published
+// by the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+// 
+// You should have received a copy of the GNU Affero General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+ 
+
 import { rateLimit } from "@/lib/ratelimit";
 import supabase from "@/lib/supabase";
 import { NextResponse } from "next/server";
@@ -14,29 +32,37 @@ export async function POST(req: Request) {
   }
 
   const { email } = await req.json();
+  const normalizedEmail = email.toLowerCase();
 
-  if (!email || !email.includes("@")) {
-    return NextResponse.json({ error: "Invalid email" }, { status: 400 });
-  }
-
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("waitlist_emails")
-    .insert([{ email }]);
+    .insert([{ email: normalizedEmail }]);
 
   if (error) {
-    console.error("Error saving to waitlist:", error);
+    if (error.code === "23505") {
+      return NextResponse.json(
+        {
+          success: true,
+          message: "You are already on the waitlist.",
+        },
+        { status: 200 },
+      );
+    }
     return NextResponse.json(
-      { error: "Failed to join waitlist" },
-      { status: 500 }
+      { error: "Failed to join waitlist.Please try again." },
+      { status: 500 },
     );
   }
 
-  await resend.emails.send({
+  resend.emails.send({
     from: "welcome@drivelite.org",
     to: email,
     subject: "Welcome to DriveLite!",
     react: WelcomeEmail({ email }),
   });
 
-  return NextResponse.json({ success: true });
+  return NextResponse.json(
+    { success: true, message: "You've been added to the waitlist!" },
+    { status: 200 },
+  );
 }

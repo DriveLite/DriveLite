@@ -8,6 +8,7 @@
 [![last Commit](https://img.shields.io/github/last-commit/moukhtar-youssef/DriveLite?style=flat-square)](https://github.com/moukhtar-youssef/DriveLite)
 [![Top Language](https://img.shields.io/github/languages/top/moukhtar-youssef/DriveLite?style=flat-square)](https://github.com/moukhtar-youssef/DriveLite)
 [![Language Count](https://img.shields.io/github/languages/count/moukhtar-youssef/DriveLite?style=flat-square)](https://github.com/moukhtar-youssef/DriveLite)
+[![GitHub Stars](https://img.shields.io/github/stars/moukhtar-youssef/DriveLite?style=social)](https://github.com/moukhtar-youssef/DriveLite/stargazers)
 
 </div>
 
@@ -40,9 +41,9 @@ Self-host it or use our free cloud instance with encryption, sharing and sync.
 
 ## Tach Stack
 
-- **Frontend**: Next.js + TailwindCSS + TypeScript
-- **Backend**: Go (Chi router) + PostgreSQL
-- **Storage**: MinIO (or any S3-compatible service)
+- **Frontend**: SvelteKit (svelte) + TailwindCSS + TypeScript
+- **Backend**: Go (Echo web framework)
+- **Storage**: MinIO (or any S3-compatible service) and local files
 
 ---
 
@@ -56,13 +57,20 @@ Self-host it or use our free cloud instance with encryption, sharing and sync.
 
 ## License
 
-**MIT** - free for personal and commercial use
+**GNU Affero General Public License v3.0 (AGPLv3)** - free for personal and commercial use, with strong copyleft provisions that require source code disclosure for networked services.
+See the [LICENSE](./LICENSE) file for details.
 
 ---
 
 ## Roadmap
 
 See the [ROADMAP.md](./ROADMAP.md) for upcoming features and milestones.
+
+---
+
+## 🌐 Official Website
+
+👉 [DriveLite.org](https://drivelite.org)
 
 ---
 
