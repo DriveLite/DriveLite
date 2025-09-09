@@ -1,19 +1,23 @@
-import LogoSection from "@/Components/logoSection";
-import HeroSection from "@/Components/HeroSection";
-import FeatureSection from "@/Components/FeatureSection";
-import OSSSection from "@/Components/OSSSection";
-import WaitlistSection from "@/Components/WailtistSection";
-import FooterSection from "@/Components/FooterSection";
+// DriveLite - The self-hostable file storage solution.
+// Copyright (C) 2025  
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published
+// by the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+// 
+// You should have received a copy of the GNU Affero General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+ 
+
+import MainPage from "@/UI/mainpage/MainPage";
 
 export default function Home() {
-  return (
-    <main className="min-h-screen px-6 py-12 max-w-6xl mx-auto">
-      <LogoSection />
-      <HeroSection />
-      <FeatureSection />
-      <OSSSection />
-      <WaitlistSection />
-      <FooterSection />
-    </main>
-  );
+  return <MainPage />;
 }

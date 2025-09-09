@@ -1,118 +1,93 @@
+// DriveLite - The self-hostable file storage solution.
+// Copyright (C) 2025  
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published
+// by the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+// 
+// You should have received a copy of the GNU Affero General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 // Package server ...
 package server
 
 import (
-	"encoding/json"
-	"log"
+	"fmt"
 	"net/http"
+	"time"
 
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
-	"github.com/go-chi/cors"
+	"github.com/moukhtar-youssef/drivelite/backend/internal/handlers"
+	"github.com/moukhtar-youssef/drivelite/backend/internal/middlewares"
+	networkutils "github.com/moukhtar-youssef/drivelite/backend/internal/utils/network_utils"
+
+	"github.com/moukhtar-youssef/drivelite/backend/internal/config"
+
+	"github.com/labstack/echo-contrib/echoprometheus"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
-type response struct {
-	Message string `json:"message"`
+// RegisterRoutes registers all routes for the server and returns the HTTP handler.
+func (s *Server) RegisterRoutes() http.Handler {
+	e := echo.New()
+	setupMiddleware(e)
+
+	handler := handlers.NewHandler(s.DB, s.Storage, s.Logger)
+
+	e.GET("/", handler.TestHandler)
+	e.GET("/health", handler.HealthHandler)
+	e.GET("/metrics", echoprometheus.NewHandler())
+
+	return e
 }
 
-// RegisterRoutes register main Routes for the backend
-func (s *Server) RegisterRoutes() http.Handler {
-	r := chi.NewRouter()
-	r.Use(middleware.Logger)
+func setupMiddleware(e *echo.Echo) {
+	if config.AppENV == "production" {
+		e.Pre(middleware.HTTPSNonWWWRedirect())
+	}
 
-	r.Use(cors.Handler(cors.Options{
-		AllowedOrigins:   []string{"https://*", "http://*"},
-		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
-		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type"},
+	skipper := func(c echo.Context) bool {
+		path := c.Path()
+		return path == "/health"
+	}
+	e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
+		LogStatus:       true,
+		LogURI:          true,
+		Skipper:         skipper,
+		LogRemoteIP:     true,
+		LogLatency:      true,
+		LogResponseSize: true,
+		LogValuesFunc: func(_ echo.Context, v middleware.RequestLoggerValues) error {
+			fmt.Printf(
+				"REQUEST: uri: %v, status: %v, IP: %v, Latency: %v, ResponseSize: %v\n",
+				v.URI, v.Status, networkutils.NormalizeIP(v.RemoteIP), v.Latency, v.ResponseSize,
+			)
+			return nil
+		},
+	}))
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins:     []string{"https://*", "http://*"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
+		AllowHeaders:     []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		AllowCredentials: true,
 		MaxAge:           300,
 	}))
-
-	r.Get("/", s.HelloWorldHandler)
-
-	return r
+	e.Use(middleware.ContextTimeout(60 * time.Second))
+	e.Use(middleware.Recover())
+	e.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{
+		Skipper: func(c echo.Context) bool {
+			return c.Path() == "/health" || c.Path() == "/metrics"
+		},
+	}))
+	e.Use(middleware.BodyLimit("10M"))
+	e.Use(middleware.RequestID())
+	e.Use(middleware.Gzip())
+	e.Use(middlewares.SecureMiddleware())
+	e.Use(echoprometheus.NewMiddleware("DriveLite"))
 }
-
-// HelloWorldHandler A test handler that return hello world
-func (s *Server) HelloWorldHandler(w http.ResponseWriter, _ *http.Request) {
-	resp := response{
-		Message: "Hello world",
-	}
-
-	jsonResp, err := json.Marshal(resp)
-	if err != nil {
-		log.Fatalf("error handling JSON marshal. Err: %v", err)
-	}
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(jsonResp)
-}
-
-// func parseRequest(r *http.Request, target any) error {
-// 	contentType := r.Header.Get("Content-Type")
-//
-// 	if contentType == "application/json" {
-// 		return json.NewDecoder(r.Body).Decode(target)
-// 	}
-//
-// 	if contentType == "application/xml" || contentType == "text/xml" {
-// 		return xml.NewDecoder(r.Body).Decode(target)
-// 	}
-//
-// 	if contentType == "application/x-www-form-urlencoded" {
-// 		if err := r.ParseForm(); err != nil {
-// 			return err
-// 		}
-// 		return formToStruct(r.Form, target)
-// 	}
-//
-// 	if r.URL.Query().Get("") != "" {
-// 		return formToStruct(r.URL.Query(), target)
-// 	}
-// 	if r.Header.Get("") != "" {
-// 		return headerToStruct(r.Header, target)
-// 	}
-// 	return fmt.Errorf("unsupported content type: %s", contentType)
-// }
-//
-// func formToStruct(form url.Values, target any) error {
-// 	val := reflect.ValueOf(target).Elem()
-// 	typ := val.Type()
-//
-// 	for i := range val.NumField() {
-// 		field := typ.Field(i)
-// 		tag := field.Tag.Get("form")
-// 		if tag == "" {
-// 			tag = strings.ToLower(field.Name)
-// 		}
-//
-// 		if values, ok := form[tag]; ok && len(values) > 0 {
-// 			fieldValue := val.Field(i)
-// 			if fieldValue.CanSet() {
-// 				fieldValue.SetString(values[0])
-// 			}
-// 		}
-// 	}
-// 	return nil
-// }
-//
-// func headerToStruct(header http.Header, target any) error {
-// 	val := reflect.ValueOf(target).Elem()
-// 	typ := val.Type()
-//
-// 	for i := range val.NumField() {
-// 		field := typ.Field(i)
-// 		tag := field.Tag.Get("header")
-// 		if tag == "" {
-// 			tag = strings.ToLower(field.Name)
-// 		}
-//
-// 		if values, ok := header[tag]; ok && len(values) > 0 {
-// 			fieldValue := val.Field(i)
-// 			if fieldValue.CanSet() {
-// 				fieldValue.SetString(values[0])
-// 			}
-// 		}
-// 	}
-// 	return nil
-// }

@@ -1,0 +1,34 @@
+# DriveLite robots.txt
+# Optimized for search engine crawling
+# Last updated: 2025
+
+User-agent: *
+Allow: /
+# Allow crawling of everything by default
+
+# Block sensitive areas
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /private/
+Disallow: /config/
+Disallow: /logs/
+
+# Block common files that shouldn't be indexed
+Disallow: /README.md
+Disallow: /LICENSE
+Disallow: /composer.json
+Disallow: /package.json
+Disallow: /*.sql$
+Disallow: /*.env$
+Disallow: /*.ini$
+
+# Block search queries and session IDs
+Disallow: /*?
+Disallow: /*&
+Disallow: /*sessionid=
+Disallow: /*token=
+
+# Sitemap location
+Sitemap: https://drivelite.org/sitemap.xml
+Sitemap: https://drivelite.org/sitemap-images.xml

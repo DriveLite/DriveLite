@@ -1,0 +1,95 @@
+{
+  "id": null,
+  "title": "DriveLite Monitoring",
+  "tags": ["drivelite", "backend", "echo", "prometheus"],
+  "timezone": "browser",
+  "schemaVersion": 26,
+  "version": 1,
+  "panels": [
+    {
+      "type": "graph",
+      "title": "HTTP Requests per Second",
+      "gridPos": {"x":0,"y":0,"w":12,"h":8},
+      "targets": [
+        {
+          "expr": "rate(drivelite_http_requests_total[1m])",
+          "legendFormat": "{{method}} {{code}}"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Request Duration (Latency)",
+      "gridPos": {"x":12,"y":0,"w":12,"h":8},
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.50, sum(rate(drivelite_http_request_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p50"
+        },
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(drivelite_http_request_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p95"
+        },
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(drivelite_http_request_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p99"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Response Status Codes",
+      "gridPos": {"x":0,"y":8,"w":12,"h":8},
+      "targets": [
+        {
+          "expr": "sum(rate(drivelite_http_requests_total[1m])) by (code)",
+          "legendFormat": "{{code}}"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Error Rate (4xx + 5xx)",
+      "gridPos": {"x":12,"y":8,"w":12,"h":8},
+      "targets": [
+        {
+          "expr": "sum(rate(drivelite_http_requests_total{code=~\"4..|5..\"}[1m]))",
+          "legendFormat": "errors"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Total Requests",
+      "gridPos": {"x":0,"y":16,"w":6,"h":4},
+      "targets": [
+        {
+          "expr": "sum(drivelite_http_requests_total)",
+          "legendFormat": "total_requests"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Active Users (Placeholder)",
+      "gridPos": {"x":6,"y":16,"w":6,"h":4},
+      "targets": [
+        {
+          "expr": "0",
+          "legendFormat": "active_users"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Storage Usage (Placeholder)",
+      "gridPos": {"x":12,"y":16,"w":6,"h":4},
+      "targets": [
+        {
+          "expr": "0",
+          "legendFormat": "storage_usage"
+        }
+      ]
+    }
+  ]
+}
