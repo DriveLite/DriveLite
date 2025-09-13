@@ -1,3 +1,3 @@
-module github.com/moukhtar-youssef/drivelite/CLI
+module github.com/moukhtar-youssef/drivelite/cli
 
 go 1.25.0
