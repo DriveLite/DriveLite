@@ -30,9 +30,9 @@ export default function Header() {
           DriveLite
         </Link>
         <nav className="flex items-center gap-4">
-          {/* <Link href="/blog" className="text-sm text-gray-700">
+          <Link href="/blog" className="text-sm text-gray-700">
             Blogs
-          </Link> */}
+          </Link>
 
           {isSignedIn && isAdmin && !loading && (
             <Link href="/dashboard" className="text-sm text-gray-700">
