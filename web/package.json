@@ -51,6 +51,8 @@
 		"vitest-browser-svelte": "^0.1.0"
 	},
 	"dependencies": {
-		"mode-watcher": "^1.1.0"
+		"i18n-js": "^4.5.1",
+		"mode-watcher": "^1.1.0",
+		"svelte-i18n": "^4.0.1"
 	}
 }
