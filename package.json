@@ -1,0 +1,8 @@
+{
+  "name": "drivelite-monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
