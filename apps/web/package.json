@@ -51,10 +51,12 @@
 		"vitest-browser-svelte": "^0.1.0"
 	},
 	"dependencies": {
-		"i18n-js": "^4.5.1",
-		"mode-watcher": "^1.1.0",
-		"svelte-i18n": "^4.0.1",
 		"@drivelite/ui": "workspace:*",
-		"@drivelite/core": "workspace:*"
+		"@drivelite/core": "workspace:*",
+		"@drivelite/i18n": "workspace:*",
+		"@sveltejs/kit": "latest",
+		"@sveltejs/adapter-auto": "latest",
+		"svelte": "latest",
+		"vite": "latest"
 	}
 }

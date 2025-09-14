@@ -16,7 +16,8 @@
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-opener": "^2",
     "@drivelite/ui": "workspace:*",
-    "@drivelite/core": "workspace:*"
+    "@drivelite/core": "workspace:*",
+    "@drivelite/i18n": "workspace:*"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.6",

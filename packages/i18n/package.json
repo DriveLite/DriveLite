@@ -1,0 +1,13 @@
+{
+  "name": "@drivelite/i18n",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./index.ts"
+    }
+  },
+  "dependencies": {
+    "svelte-i18n": "^4.0.1"
+  }
+}
