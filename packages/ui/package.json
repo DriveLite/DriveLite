@@ -1,0 +1,20 @@
+{
+  "name": "@drivelite/ui",
+  "version": "0.1.0",
+  "main": "index.ts",
+  "type": "module",
+  "svelte": "index.ts",
+  "types": "index.ts",
+  "exports": {
+    ".": {
+      "import": "./index.ts",
+      "svelte": "./index.ts",
+      "types": "./index.ts"
+    }
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.13"
+  }
+}

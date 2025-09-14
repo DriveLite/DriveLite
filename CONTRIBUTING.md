@@ -39,18 +39,63 @@ You can contribute by:
 
 ## 💻 Local Development
 
-```bash
-# Backend (Go)
-cd backend
-go run ./cmd/api
+### Prerequisites
 
-# Frontend (Next.js)
-cd web
-npm install
-npm run dev
+- Go 1.22+
+- Bun (package manager)
+- Node.js 18+ (for RN & tooling)
+- Cargo (for Rust/Tauri)
+- Xcode / Android Studio (for mobile builds)
+
+### Install dependencies
+
+```bash
+# at repo root
+bun install
 ```
 
-> Requirements: Go 1.22+, Node.js 18+
+- This will install all Bun workspace packages (apps/web, apps/desktop, packages/ui, packages/core).
+- For the landing page (Next.js) and Flutter mobile, install separately.
+
+```bash
+# Landing_page (Next.js)
+cd apps/landing_page
+npm install
+
+# Mobile app (Flutter)
+cd apps/mobile
+flutter pub get
+```
+
+### Run apps
+
+```bash
+# Landing_page (Next.js)
+cd apps/landing_page
+npm run dev
+
+# Backend (Go)
+cd apps/backend
+go run ./cmd/api
+
+# Frontend (SvelteKit)
+cd apps/web
+bun run dev
+
+# Desktop (SvelteKit + Tauri)
+cd apps/desktop
+bun run tauri dev
+
+# Mobile app (Flutter)
+cd apps/mobile
+flutter run -d ios     # for iOS
+flutter run -d android # for Android
+
+# cli (Go)
+cd apps/cli
+go run ./...
+
+```
 
 ---
 

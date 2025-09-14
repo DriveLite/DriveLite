@@ -14,7 +14,9 @@
   "license": "MIT",
   "dependencies": {
     "@tauri-apps/api": "^2",
-    "@tauri-apps/plugin-opener": "^2"
+    "@tauri-apps/plugin-opener": "^2",
+    "@drivelite/ui": "workspace:*",
+    "@drivelite/core": "workspace:*"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.6",

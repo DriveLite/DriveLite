@@ -16,12 +16,9 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
- 
-
 <script lang="ts">
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
-	import { ModeWatcher } from 'mode-watcher';
 
 	let { children } = $props();
 </script>
@@ -30,5 +27,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<ModeWatcher />
 {@render children?.()}

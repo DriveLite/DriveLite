@@ -2,3 +2,4 @@
 .DS_Store
 .vscode
 docker-compose.local.yml
+node_modules
