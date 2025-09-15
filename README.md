@@ -74,6 +74,12 @@ See the [ROADMAP.md](./ROADMAP.md) for upcoming features and milestones.
 
 ---
 
+## 💖 Support
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E1E41J4LFE)
+
+---
+
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=moukhtar-youssef/DriveLite&type=Date)](https://www.star-history.com/#moukhtar-youssef/DriveLite&Date)
