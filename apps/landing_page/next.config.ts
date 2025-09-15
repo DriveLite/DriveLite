@@ -23,9 +23,6 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 60,
   },
-  experimental: {
-    globalNotFound: true,
-  },
 };
 
 export default nextConfig;

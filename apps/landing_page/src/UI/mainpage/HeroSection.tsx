@@ -39,10 +39,10 @@ export default function HeroSection() {
               ⭐ Star on GitHub
             </Link>
           </Button>
-          <Button className="hover:cursor-pointer shadow-md rounded-xl ml-2 px-6 py-3 transition text-white">
+          <Button className="hover:cursor-pointer shadow-md rounded-xl mt-2 ml-2 px-6 py-3 transition text-white">
             <Link href={"#waitlist"}>Join the waitlist</Link>
           </Button>
-          <Button className="hover:cursor-pointer shadow-md rounded-xl ml-2 px-6 py-3 transition text-white">
+          <Button className="hover:cursor-pointer shadow-md rounded-xl mt-2 ml-2 px-6 py-3 transition text-white">
             <Link href={"https://docs.drivelite.org/"} target="_blank">
               📖 View Docs
             </Link>
