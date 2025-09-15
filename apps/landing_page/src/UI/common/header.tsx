@@ -25,11 +25,6 @@ export default function Header() {
         <Link href="/" className="font-bold text-4xl hover:text-blue-600">
           DriveLite
         </Link>
-        {/* <nav className="flex items-center gap-4"> */}
-        {/*   <Link href="/blog" className="text-sm text-gray-700"> */}
-        {/*     Blogs */}
-        {/*   </Link> */}
-        {/* </nav> */}
       </div>
     </header>
   );
