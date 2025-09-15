@@ -1,4 +1,4 @@
-use anyhow::Result;
+use anyhow::{Result, anyhow};
 use std::fs;
 use std::path::Path;
 
@@ -6,6 +6,13 @@ use std::path::Path;
 pub fn run_sync() -> Result<String> {
     let source = Path::new("./sync_source");
     let destination = Path::new("./sync_dest");
+
+    if !source.exists() {
+        return Err(anyhow!(
+            "Source directory '{}' does not exist",
+            source.display()
+        ));
+    }
 
     if !destination.exists() {
         fs::create_dir_all(destination)?;
