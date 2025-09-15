@@ -20,7 +20,7 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <>
-      <main className="flex-grow flex items-center justify-center px-4 py-16">
+      <main className="flex-grow flex items-center justify-center px-4 py-16 mt-10">
         <div className="container mx-auto max-w-4xl">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
