@@ -15,21 +15,12 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 "use client";
-import { useUser } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 export default function WailtistSection() {
-  const { isSignedIn, user } = useUser();
   const [email, setEmail] = useState("");
   const emailRegex = /^(?!\.)([^\s@]+)@[^\s@]+\.[^\s@]+$/;
-
-  useEffect(() => {
-    if (isSignedIn && user) {
-      const primaryEmail = user.primaryEmailAddress?.emailAddress || "";
-      setEmail(primaryEmail);
-    }
-  }, [isSignedIn, user]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -70,16 +61,14 @@ export default function WailtistSection() {
         onSubmit={handleSubmit}
       >
         <div>
-          {!isSignedIn && (
-            <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              required
-              onChange={(e) => setEmail(e.target.value)}
-              className="px-4 py-2 rounded-lg bg-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          )}
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            required
+            onChange={(e) => setEmail(e.target.value)}
+            className="px-4 py-2 rounded-lg bg-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
           <button className="px-4 py-2 sm:mt-0 m-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 hover:cursor-pointer whitespace-nowrap">
             Join Waitlist
           </button>

@@ -19,7 +19,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { ClerkProvider } from "@clerk/nextjs";
 import Header from "@/UI/common/header";
 import Footer from "@/UI/common/footer";
 import { Toaster } from "@/Components/ui/sonner";
@@ -90,17 +89,13 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <ClerkProvider
-            publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-          >
-            <GAnalytics />
-            <Header />
-            <main className=" mx-auto">{children}</main>
-            <Footer />
-            <Toaster richColors position="top-center" />
-            <Analytics />
-            <SpeedInsights />
-          </ClerkProvider>
+          <GAnalytics />
+          <Header />
+          <main className=" mx-auto">{children}</main>
+          <Footer />
+          <Toaster richColors position="top-center" />
+          <Analytics />
+          <SpeedInsights />
         </body>
       </html>
     </>
