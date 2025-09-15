@@ -20,7 +20,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/moukhtar-youssef/drivelite/backend/internal/database"
+	"github.com/moukhtar-youssef/drivelite/backend/internal/repo"
 	"github.com/moukhtar-youssef/drivelite/backend/internal/storage"
 	"github.com/moukhtar-youssef/drivelite/backend/pkg/logger"
 
@@ -29,14 +29,14 @@ import (
 
 // Handler handles HTTP requests.
 type Handler struct {
-	DB      database.Service
+	Repo    repo.Repository
 	Storage storage.Service
 	Logger  logger.Service
 }
 
 // NewHandler creates a new Handler instance.
-func NewHandler(db database.Service, storage storage.Service, logger logger.Service) *Handler {
-	return &Handler{DB: db, Storage: storage, Logger: logger}
+func NewHandler(repo repo.Repository, storage storage.Service, logger logger.Service) *Handler {
+	return &Handler{Repo: repo, Storage: storage, Logger: logger}
 }
 
 // TestHandler is a simple endpoint to test server connectivity.
@@ -49,5 +49,5 @@ func (h *Handler) TestHandler(c echo.Context) error {
 
 // HealthHandler returns a 200 OK status to indicate server health and check DB health.
 func (h *Handler) HealthHandler(c echo.Context) error {
-	return c.JSON(http.StatusOK, h.DB.Health())
+	return c.JSON(http.StatusOK, h.Repo.Health())
 }

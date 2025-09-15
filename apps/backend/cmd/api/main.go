@@ -48,7 +48,7 @@ func gracefulShutdown(apiServer *server.Server, done chan bool) {
 	}
 
 	apiServer.Logger.Infof("Database closing")
-	if err := apiServer.DB.Close(); err != nil {
+	if err := apiServer.Repo.Close(); err != nil {
 		apiServer.Logger.Errorf("Error closing database: %v", err)
 	} else {
 		apiServer.Logger.Infof("Database connection closed successfully")

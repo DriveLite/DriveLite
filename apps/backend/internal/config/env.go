@@ -23,6 +23,8 @@ import (
 	"log"
 	"os"
 	"strconv"
+
+	"github.com/moukhtar-youssef/drivelite/backend/internal/repo"
 )
 
 var (
@@ -85,5 +87,19 @@ func Load() {
 	JWTSecret = []byte(RequiredEnv("BACKEND_JWT_SECRET"))
 	if len(JWTSecret) < 32 {
 		log.Fatal("JWT_SECRET must be at least 32 bytes")
+	}
+}
+
+func RepoConfig() repo.Config {
+	return repo.Config{
+		Driver:   DBType,
+		Host:     GetEnv("BACKEND_DB_HOST", "localhost"),
+		Port:     GetEnv("BACKEND_DB_PORT", "5432"),
+		User:     GetEnv("BACKEND_DB_USERNAME", "postgres"),
+		Password: GetEnv("BACKEND_DB_PASSWORD", ""),
+		DBName:   GetEnv("BACKEND_DB_DATABASE", "drivelite"),
+		Schema:   GetEnv("BACKEND_DB_SCHEMA", "public"),
+		SSLMode:  GetEnv("BACKEND_DB_SSLMODE", "disable"),
+		FilePath: GetEnv("BACKEND_DB_FILEPATH", "./drivelite.db"), // For SQLite
 	}
 }

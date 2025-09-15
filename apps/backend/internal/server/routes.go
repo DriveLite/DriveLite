@@ -1,16 +1,16 @@
 // DriveLite - The self-hostable file storage solution.
-// Copyright (C) 2025  
-// 
+// Copyright (C) 2025
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
 // by the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
@@ -24,7 +24,7 @@ import (
 
 	"github.com/moukhtar-youssef/drivelite/backend/internal/handlers"
 	"github.com/moukhtar-youssef/drivelite/backend/internal/middlewares"
-	networkutils "github.com/moukhtar-youssef/drivelite/backend/internal/utils/network_utils"
+	"github.com/moukhtar-youssef/drivelite/backend/internal/utils/network"
 
 	"github.com/moukhtar-youssef/drivelite/backend/internal/config"
 
@@ -38,7 +38,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	e := echo.New()
 	setupMiddleware(e)
 
-	handler := handlers.NewHandler(s.DB, s.Storage, s.Logger)
+	handler := handlers.NewHandler(s.Repo, s.Storage, s.Logger)
 
 	e.GET("/", handler.TestHandler)
 	e.GET("/health", handler.HealthHandler)
@@ -66,7 +66,7 @@ func setupMiddleware(e *echo.Echo) {
 		LogValuesFunc: func(_ echo.Context, v middleware.RequestLoggerValues) error {
 			fmt.Printf(
 				"REQUEST: uri: %v, status: %v, IP: %v, Latency: %v, ResponseSize: %v\n",
-				v.URI, v.Status, networkutils.NormalizeIP(v.RemoteIP), v.Latency, v.ResponseSize,
+				v.URI, v.Status, network.NormalizeIP(v.RemoteIP), v.Latency, v.ResponseSize,
 			)
 			return nil
 		},
