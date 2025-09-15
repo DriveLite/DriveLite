@@ -24,6 +24,7 @@ import Footer from "@/UI/common/footer";
 import { Toaster } from "@/Components/ui/sonner";
 import Script from "next/script";
 import { GAnalytics } from "./analytics";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -89,7 +90,9 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <GAnalytics />
+          <Suspense fallback={<div>loading </div>}>
+            <GAnalytics />
+          </Suspense>
           <Header />
           <main className=" mx-auto">{children}</main>
           <Footer />
