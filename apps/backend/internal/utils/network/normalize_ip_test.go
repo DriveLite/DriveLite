@@ -17,40 +17,60 @@
 package network_test
 
 import (
+	"net"
 	"testing"
 
 	"github.com/moukhtar-youssef/drivelite/backend/internal/utils/network"
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 )
 
 func TestNormalizeIP(t *testing.T) {
 	tests := []struct {
-		name string // description of this test case
-		// Named input parameters for target function.
-		ip   string
-		want string
+		input    string
+		expected string
 	}{
-		{
-			name: "A loopback",
-			ip:   "::1",
-			want: "127.0.0.1",
-		},
-		{
-			name: "normal ip",
-			ip:   "127.0.0.1",
-			want: "127.0.0.1",
-		},
+		{"127.0.0.1", "127.0.0.1"},       // IPv4 loopback stays the same
+		{"::1", "127.0.0.1"},             // IPv6 loopback normalized
+		{"192.168.1.10", "192.168.1.10"}, // non-loopback IPv4 unchanged
+		{"2001:db8::1", "2001:db8::1"},   // IPv6 non-loopback unchanged
+		{"", ""},                         // empty string unchanged
 	}
+
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got := network.NormalizeIP(tt.ip)
-			if tt.want != "" {
-				require.NotEmpty(t, got)
-			}
-			if true {
-				assert.Equal(t, tt.want, got)
-			}
+		t.Run(tt.input, func(t *testing.T) {
+			assert.Equal(t, tt.expected, network.NormalizeIP(tt.input))
 		})
 	}
+}
+
+func FuzzTestNormalizeIP(f *testing.F) {
+	seeds := []string{
+		"127.0.0.1",
+		"::1",
+		"192.168.0.1",
+		"255.255.255.255",
+		"0.0.0.0",
+		"2001:db8::1",
+	}
+
+	for _, seed := range seeds {
+		f.Add(seed)
+	}
+
+	f.Fuzz(func(t *testing.T, input string) {
+		output := network.NormalizeIP(input)
+
+		parsed := net.ParseIP(input)
+		if parsed != nil && parsed.IsLoopback() {
+			assert.Equal(t, "127.0.0.1", output,
+				"loopback %q should normalize to 127.0.0.1", input)
+		} else {
+			assert.Equal(t, input, output,
+				"non-loopback or invalid %q should stay unchanged", input)
+		}
+
+		// 🔒 Property test: normalization should be idempotent
+		assert.Equal(t, output, network.NormalizeIP(output),
+			"NormalizeIP should be idempotent for %q", input)
+	})
 }

@@ -30,8 +30,6 @@ import (
 var (
 	// Port is the HTTP server port loaded from environment variables.
 	Port int
-	// DBType is the databse type used loaded from environment variables.
-	DBType string
 	// StorageType is the storage type used loaded from environment variables.
 	StorageType string
 	// LoggerType is the logger type used loaded from environment variables.
@@ -74,7 +72,6 @@ func Load() {
 		log.Fatal("BACKEND_PORT must be a valid port number")
 	}
 
-	DBType = RequiredEnv("BACKEND_DB_TYPE")
 	StorageType = RequiredEnv("BACKEND_STORAGE_TYPE")
 	LoggerType = GetEnv("LOGGER_TYPE", "console")
 	AppENV = GetEnv("APP_ENV", "development")
@@ -92,7 +89,7 @@ func Load() {
 
 func RepoConfig() repo.Config {
 	return repo.Config{
-		Driver:   DBType,
+		Driver:   GetEnv("BACKEND_DB_TYPE", "sqlite"),
 		Host:     GetEnv("BACKEND_DB_HOST", "localhost"),
 		Port:     GetEnv("BACKEND_DB_PORT", "5432"),
 		User:     GetEnv("BACKEND_DB_USERNAME", "postgres"),
@@ -100,6 +97,6 @@ func RepoConfig() repo.Config {
 		DBName:   GetEnv("BACKEND_DB_DATABASE", "drivelite"),
 		Schema:   GetEnv("BACKEND_DB_SCHEMA", "public"),
 		SSLMode:  GetEnv("BACKEND_DB_SSLMODE", "disable"),
-		FilePath: GetEnv("BACKEND_DB_FILEPATH", "./drivelite.db"), // For SQLite
+		FilePath: GetEnv("BACKEND_DB_FILEPATH", "./drivelite.db"),
 	}
 }

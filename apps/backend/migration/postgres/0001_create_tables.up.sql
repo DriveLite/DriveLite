@@ -50,3 +50,4 @@ CREATE TABLE IF NOT EXISTS tokens (
 );
 
 CREATE INDEX IF NOT EXISTS tokens_user_id_index ON tokens (user_id);
+
