@@ -23,7 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>."
 # Function: wrap license with correct comment style
 function license_header() {
   case "$1" in
-    go|js|ts|java|c|cpp|tsx)
+    go|js|ts|java|c|cpp|tsx|dart)
       echo "$LICENSE_TEXT" | sed 's/^/\/\/ /'
       ;;
     py|sh|rb|yaml|yml)
@@ -46,7 +46,7 @@ function license_header() {
 }
 
 # Extensions to check
-EXTENSIONS="go js ts tsx py sh java c cpp yaml yml html xml vue svelte css scss"
+EXTENSIONS="go js ts tsx py sh java c cpp yaml yml html xml vue svelte css scss dart"
 
 for ext in $EXTENSIONS; do
   for file in $(git ls-files "*.$ext"); do

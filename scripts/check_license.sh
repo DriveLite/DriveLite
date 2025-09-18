@@ -4,7 +4,7 @@
 set -euo pipefail
 
 # File extensions to check
-EXTENSIONS="go js ts tsx py sh java c cpp yaml yml html xml vue css scss svelte"
+EXTENSIONS="go js ts tsx py sh java c cpp yaml yml html xml vue css scss svelte dart"
 
 # Track missing files
 MISSING=()
