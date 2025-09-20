@@ -60,7 +60,7 @@ bun install
 ```bash
 # Landing_page (Next.js)
 cd apps/landing_page
-npm install
+bun install
 
 # Mobile app (Flutter)
 cd apps/mobile
@@ -72,7 +72,7 @@ flutter pub get
 ```bash
 # Landing_page (Next.js)
 cd apps/landing_page
-npm run dev
+bun run dev
 
 # Backend (Go)
 cd apps/backend

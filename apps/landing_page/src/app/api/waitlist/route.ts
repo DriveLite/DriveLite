@@ -1,16 +1,16 @@
 // DriveLite - The self-hostable file storage solution.
-// Copyright (C) 2025
-//
+// Copyright (C) 2025  
+// 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
 // by the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-//
+// 
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
-//
+// 
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
@@ -32,14 +32,13 @@ export async function POST(req: Request) {
   const { email } = await req.json();
   const normalizedEmail = email.toLowerCase();
 
-  const token = createUnsubscribeToken(email);
+  const token = createUnsubscribeToken(normalizedEmail);
 
   const { data } = await supabaseAdmin
     .from("waitlist_emails")
     .select("*")
     .eq("email", normalizedEmail)
     .single();
-  console.log(data);
   if (data) {
     return NextResponse.json(
       {
@@ -48,7 +47,7 @@ export async function POST(req: Request) {
       },
       {
         status: 200,
-      }
+      },
     );
   }
 
@@ -59,7 +58,7 @@ export async function POST(req: Request) {
   if (error) {
     return NextResponse.json(
       { error: "Failed to join waitlist.Please try again." },
-      { status: 500 }
+      { status: 500 },
     );
   }
   const unsubscribeUrl = `https://drivelite.org/api/unsubscribe?token=${token}`;
@@ -122,6 +121,6 @@ export async function POST(req: Request) {
 
   return NextResponse.json(
     { success: true, message: "You've been added to the waitlist!" },
-    { status: 200 }
+    { status: 200 },
   );
 }
