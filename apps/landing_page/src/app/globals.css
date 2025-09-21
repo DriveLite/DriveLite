@@ -142,9 +142,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 }
 
 html,
-body {
-  height: 100%;
+body,
+#__next {
   scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
 }
 
 body {

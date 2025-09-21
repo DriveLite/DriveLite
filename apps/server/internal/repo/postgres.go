@@ -20,14 +20,9 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"log"
-	"path/filepath"
 	"strconv"
 	"time"
 
-	"github.com/golang-migrate/migrate/v4"
-	"github.com/golang-migrate/migrate/v4/database/postgres"
-	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/moukhtar-youssef/drivelite/backend/internal/repo/users"
 
 	// Import pgx driver for database/sql
@@ -66,22 +61,6 @@ func newPostgresRepoService(config Config) (Repository, error) {
 	defer cancel()
 	if err := db.PingContext(ctx); err != nil {
 		return nil, fmt.Errorf("database ping failed: %w", err)
-	}
-
-	driver, err := postgres.WithInstance(db, &postgres.Config{})
-	if err != nil {
-		return nil, fmt.Errorf("Failed to migrate postgres migration: %w", err)
-	}
-	absPath, err := filepath.Abs("./migration/encrypted/postgres/")
-	if err != nil {
-		return nil, fmt.Errorf("failed to get absolute path: %w", err)
-	}
-	m, err := migrate.NewWithDatabaseInstance("file://"+absPath, "postgres", driver)
-	if err != nil {
-		return nil, fmt.Errorf("Error creating migration postgress: %w", err)
-	}
-	if err := m.Up(); err != nil && err != migrate.ErrNoChange {
-		log.Fatal(err)
 	}
 
 	return &postgresRepoService{

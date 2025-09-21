@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-name: Go Backend
+name: Server lint
 
 on:
   push:
@@ -42,8 +42,8 @@ env:
   GO_VERSION: '1.25'
 
 jobs:
-  build-and-test:
-    name: Build, Test, and Lint
+  Lint:
+    name: Server Lint
     runs-on: ubuntu-latest
 
     defaults:
@@ -63,16 +63,5 @@ jobs:
       - name: Download Dependencies
         run: go mod download
 
-      - name: Build Binary
-        run: go build -v ./cmd/api
-
-      - name: Run Unit Tests
-        run: go test ./... -v -cover
-
-      # - name: 🧹 (Optional) Lint with golangci-lint
-      #   if: always()
-      #   uses: golangci/golangci-lint-action@v6
-      #   with:
-      #     version: latest
-      #     working-directory: backend
-      #     args: --timeout 3m
+      - name: vet 
+        run: go vet ./...

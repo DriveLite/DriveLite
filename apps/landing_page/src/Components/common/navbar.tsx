@@ -21,6 +21,7 @@ import { ModeToggle } from "../ui/mode-toggle";
 import { Button } from "../ui/button";
 import { useState, useEffect } from "react";
 import { Github, MenuIcon, XIcon } from "lucide-react";
+import Image from "next/image";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -75,16 +76,24 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-background/75 backdrop-blur-md shadow-sm" : "bg-background"}`}
+        className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-background/75 backdrop-blur-md shadow-sm" : "bg-transparent"}`}
       >
         <div className="mx-auto max-w-[1337px] px-4 md:px-6 lg:px-8 ">
           <div className="flex h-16 items-center justify-between">
-            <Link
-              href="/"
-              className="font-bold text-2xl text-foreground hover:text-primary transition-colors duration-200"
-            >
-              DriveLite
-            </Link>
+            <div className="flex items-center justify-center">
+              <Image
+                src={"/logo_icon.svg"}
+                alt={"logo"}
+                width={60}
+                height={60}
+              />
+              <Link
+                href="/"
+                className="font-bold text-2xl text-foreground hover:text-primary transition-colors duration-200"
+              >
+                DriveLite
+              </Link>
+            </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex md:items-center md:justify-between md:gap-6 md:font-semibold">
@@ -182,9 +191,6 @@ export function Navbar() {
           </nav>
         </div>
       </header>
-
-      {/* Add padding to prevent content from being hidden behind navbar */}
-      <div className="h-16" />
     </>
   );
 }

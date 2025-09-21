@@ -19,12 +19,7 @@ package repo
 import (
 	"database/sql"
 	"fmt"
-	"log"
-	"path/filepath"
 
-	"github.com/golang-migrate/migrate/v4"
-	"github.com/golang-migrate/migrate/v4/database/sqlite3"
-	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/moukhtar-youssef/drivelite/backend/internal/repo/users"
 )
@@ -48,22 +43,6 @@ func newSQLiteRepoService(cfg Config) (Repository, error) {
 	// Simple ping to verify connection
 	if err := db.Ping(); err != nil {
 		return nil, fmt.Errorf("sqlite ping failed: %w", err)
-	}
-
-	driver, err := sqlite3.WithInstance(db, &sqlite3.Config{})
-	if err != nil {
-		return nil, fmt.Errorf("Failed to migrate sqlite migration: %w", err)
-	}
-	absPath, err := filepath.Abs("./migration/encrypted/sqlite/")
-	if err != nil {
-		return nil, fmt.Errorf("failed to get absolute path: %w", err)
-	}
-	m, err := migrate.NewWithDatabaseInstance("file://"+absPath, "sqlite3", driver)
-	if err != nil {
-		return nil, fmt.Errorf("Error creating migration sqlite: %w", err)
-	}
-	if err := m.Up(); err != nil && err != migrate.ErrNoChange {
-		log.Fatal(err)
 	}
 
 	return &sqliteRepoService{

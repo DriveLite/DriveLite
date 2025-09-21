@@ -1,9 +1,14 @@
 {
   "name": "drivelite-monorepo",
   "private": true,
+  "type": "module",
   "workspaces": [
-    "apps/web",
     "apps/desktop",
+    "apps/web",
     "packages/*"
-  ]
+  ],
+  "devDependencies": {},
+  "scripts": {
+    "build:web": "bun --filter \"web\" build"
+  }
 }
