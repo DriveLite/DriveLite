@@ -14,35 +14,4 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
- 
-
-name: ✨ Feature Request
-description: Suggest a new feature
-title: "[Feature]: "
-labels: ["enhancement"]
-body:
-  - type: markdown
-    attributes:
-      value: |
-        Thanks for your suggestion!
-
-  - type: textarea
-    id: description
-    attributes:
-      label: Feature Description
-    validations:
-      required: true
-
-  - type: textarea
-    id: motivation
-    attributes:
-      label: Why Is This Feature Needed?
-    validations:
-      required: true
-
-  - type: textarea
-    id: alternatives
-    attributes:
-      label: Alternatives Considered
-    validations:
-      required: false
+blank_pull_request_template_enabled: false

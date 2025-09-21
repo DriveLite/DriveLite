@@ -13,4 +13,7 @@ export default defineConfig({
       { icon: "github", link: "https://github.com/moukhtar-youssef/drivelite" },
     ],
   },
+  sitemap: {
+    hostname: "https://docs.drivelite.org",
+  },
 });

@@ -1,16 +1,16 @@
 // DriveLite - The self-hostable file storage solution.
-// Copyright (C) 2025  
-// 
+// Copyright (C) 2025
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
 // by the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
@@ -72,7 +72,7 @@ func newPostgresRepoService(config Config) (Repository, error) {
 	if err != nil {
 		return nil, fmt.Errorf("Failed to migrate postgres migration: %w", err)
 	}
-	absPath, err := filepath.Abs("./migration/postgres/")
+	absPath, err := filepath.Abs("./migration/encrypted/postgres/")
 	if err != nil {
 		return nil, fmt.Errorf("failed to get absolute path: %w", err)
 	}

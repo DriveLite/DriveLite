@@ -20,6 +20,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "apps/docs/**"
 
   workflow_dispatch:
 
@@ -41,10 +43,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
 

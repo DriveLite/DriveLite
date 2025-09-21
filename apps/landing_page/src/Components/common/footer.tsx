@@ -1,43 +1,37 @@
 // DriveLite - The self-hostable file storage solution.
-// Copyright (C) 2025  
-// 
+// Copyright (C) 2025
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
 // by the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 "use client";
 
 import Link from "next/link";
-import { Button } from "../ui/button";
-import { ModeToggle } from "../ui/mode-toggle";
-import {
-  Github,
-  Twitter,
-  Linkedin,
-  Mail,
-  ArrowRight,
-  Heart,
-} from "lucide-react";
-import { it } from "node:test";
+import { Github, Twitter, Linkedin, Heart } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   const navigation = {
     product: [
-      { name: "Features", href: "#features" },
-      { name: "Pricing", href: "#pricing" },
-      { name: "API", href: "#api" },
-      { name: "Documentation", href: "https://docs.drivelite.org" },
+      { name: "Features", href: "/#features", target: "" },
+      { name: "Pricing", href: "/#pricing", target: "" },
+      { name: "API", href: "/#api", target: "" },
+      {
+        name: "Documentation",
+        href: "https://docs.drivelite.org",
+        target: "_blank",
+      },
     ],
     company: [
       { name: "About", href: "/about" },
@@ -63,7 +57,7 @@ export function Footer() {
       },
       {
         name: "Server",
-        href: "https://github.com/Moukhtar-youssef/DriveLite/tree/main/apps/backend",
+        href: "https://github.com/Moukhtar-youssef/DriveLite/tree/main/apps/server",
       },
       {
         name: "Cli",
@@ -98,7 +92,7 @@ export function Footer() {
             {/* Social Links */}
             <div className="mt-6 flex space-x-4">
               {navigation.social.map((item) => (
-                <a
+                <Link
                   key={item.name}
                   href={item.href}
                   target="_blank"
@@ -107,7 +101,7 @@ export function Footer() {
                 >
                   <span className="sr-only">{item.name}</span>
                   <item.icon size={20} />
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -118,12 +112,13 @@ export function Footer() {
             <ul className="mt-4 space-y-2">
               {navigation.product.map((item) => (
                 <li key={item.name}>
-                  <a
+                  <Link
                     href={item.href}
+                    target={item.target}
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

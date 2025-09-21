@@ -75,7 +75,7 @@ cd apps/landing_page
 bun run dev
 
 # Backend (Go)
-cd apps/backend
+cd apps/server
 go run ./cmd/api
 
 # Frontend (SvelteKit)

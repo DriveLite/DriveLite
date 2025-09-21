@@ -14,20 +14,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
- 
-
-name: License Header Check
-
-on:
-  pull_request:
-  push:
-
-jobs:
-  license:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v5
-
-      - name: Check for license headers
-        run: ./scripts/check_license.sh
+blank_issues_enabled: true
+contact_links:
+  - name: Enhacements, feature requests, feedback and questions
+    url: https://github.com/Moukhtar-youssef/drivelite/discussions
+    about: Please use Discussions for everything apart from the above.

@@ -1,16 +1,16 @@
 // DriveLite - The self-hostable file storage solution.
-// Copyright (C) 2025  
-// 
+// Copyright (C) 2025
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
 // by the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
@@ -20,7 +20,7 @@ import Link from "next/link";
 import { ModeToggle } from "../ui/mode-toggle";
 import { Button } from "../ui/button";
 import { useState, useEffect } from "react";
-import { MenuIcon, XIcon } from "lucide-react";
+import { Github, MenuIcon, XIcon } from "lucide-react";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,11 +43,6 @@ export function Navbar() {
     {
       title: "Contact",
       href: "/contact",
-    },
-    {
-      title: "GitHub",
-      href: "http://github.com/Moukhtar-youssef/Drivelite",
-      target: "_blank",
     },
   ];
 
@@ -82,7 +77,7 @@ export function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-background/75 backdrop-blur-md shadow-sm" : "bg-background"}`}
       >
-        <div className="mx-auto max-w-[1337px] px-4">
+        <div className="mx-auto max-w-[1337px] px-4 md:px-6 lg:px-8 ">
           <div className="flex h-16 items-center justify-between">
             <Link
               href="/"
@@ -106,6 +101,14 @@ export function Navbar() {
             </nav>
 
             <div className="hidden md:flex md:items-center md:justify-center md:gap-2">
+              <Link
+                href="https://github.com/Moukhtar-youssef/Drivelite"
+                className="text-foreground hover:text-primary rounded-full"
+                target="_blank"
+              >
+                <span className="sr-only">Github</span>
+                <Github size={20} />
+              </Link>
               <Button
                 asChild
                 className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
@@ -153,6 +156,14 @@ export function Navbar() {
                 {link.title}
               </Link>
             ))}
+            <Link
+              href="https://github.com/Moukhtar-youssef/Drivelite"
+              target="_blank"
+              className="text-foreground hover:text-primary-foreground py-3 px-4 rounded-lg hover:bg-primary transition-all duration-200 font-medium"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Github
+            </Link>
 
             <div className="mt-2 pt-3 border-t border-border flex flex-col gap-3">
               <div className="flex justify-center px-4">

@@ -25,10 +25,15 @@ on:
       - fix/**
       - docs/**
       - ci/**
+    paths:
+      - 'apps/server/**'
   pull_request:
     branches:
       - main
       - dev
+    paths:
+      - 'apps/server/**'
+
 
 permissions:
   contents: read
@@ -43,11 +48,11 @@ jobs:
 
     defaults:
       run:
-        working-directory: apps/backend
+        working-directory: apps/server
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Go ${{ env.GO_VERSION }}
         uses: actions/setup-go@v5

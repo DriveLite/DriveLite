@@ -14,20 +14,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
- 
-
-name: License Header Check
+name: 'Pull Request Labeler'
 
 on:
-  pull_request:
-  push:
+  - pull_request_target
+
+permission: {}
 
 jobs:
-  license:
+  labeler:
+    permissions:
+      contents: read
+      pull-requests: write
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v5
-
-      - name: Check for license headers
-        run: ./scripts/check_license.sh
+      - uses: actions/labeler@v5
