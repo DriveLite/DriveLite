@@ -1,14 +1,16 @@
 // DriveLite - The self-hostable file storage solution.
-// Copyright (C) 2025
-//
+// Copyright (C) 2025  
+// 
 // This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-//
+// it under the terms of the GNU Affero General Public License as published
+// by the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
-//
+// 
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
@@ -38,9 +40,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 
 	handler := handlers.NewHandler(s.Repo, s.Storage, s.Logger)
 
-	e.GET("/", handler.TestHandler)
-	e.GET("/health", handler.HealthHandler)
-	e.GET("/metrics", echoprometheus.NewHandler())
+	setupRoutes(e, handler)
 
 	return e
 }
@@ -48,23 +48,25 @@ func (s *Server) RegisterRoutes() http.Handler {
 func setupMiddleware(e *echo.Echo) {
 	if config.AppENV == "production" {
 		e.Pre(middleware.HTTPSNonWWWRedirect())
+		e.Pre(middleware.HTTPSRedirect())
 	}
 
 	skipper := func(c echo.Context) bool {
 		path := c.Path()
-		return path == "/health"
+		return path == "/health" || path == "/metric"
 	}
 	e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
+		Skipper:         skipper,
 		LogStatus:       true,
 		LogURI:          true,
-		Skipper:         skipper,
 		LogRemoteIP:     true,
 		LogLatency:      true,
 		LogResponseSize: true,
 		LogValuesFunc: func(_ echo.Context, v middleware.RequestLoggerValues) error {
+			safeIP := network.NormalizeIP(v.RemoteIP)
 			fmt.Printf(
-				"REQUEST: uri: %v, status: %v, IP: %v, Latency: %v, ResponseSize: %v\n",
-				v.URI, v.Status, network.NormalizeIP(v.RemoteIP), v.Latency, v.ResponseSize,
+				"[REQUEST] uri=%v status=%v ip=%v latency=%v size=%v\n",
+				v.URI, v.Status, safeIP, v.Latency, v.ResponseSize,
 			)
 			return nil
 		},
@@ -79,13 +81,21 @@ func setupMiddleware(e *echo.Echo) {
 	e.Use(middleware.ContextTimeout(60 * time.Second))
 	e.Use(middleware.Recover())
 	e.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{
-		Skipper: func(c echo.Context) bool {
-			return c.Path() == "/health" || c.Path() == "/metrics"
-		},
+		Skipper: skipper,
 	}))
 	e.Use(middleware.BodyLimit("10M"))
 	e.Use(middleware.RequestID())
 	e.Use(middleware.Gzip())
 	e.Use(middlewares.SecureMiddleware())
 	e.Use(echoprometheus.NewMiddleware("DriveLite"))
+}
+
+func setupRoutes(e *echo.Echo, handler *handlers.Handler) {
+	e.GET("/", handler.TestHandler)
+	e.GET("/health", handler.HealthHandler)
+	e.GET("/metrics", echoprometheus.NewHandler())
+	apiv1 := e.Group("/api/v1")
+	{
+		apiv1.GET("/", handler.TestHandler)
+	}
 }

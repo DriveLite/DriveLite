@@ -14,18 +14,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { HeroSection } from "@/components/mainpage/HeroSection";
 
 export default function Home() {
-  return (
-    <section className="bg-secondary">
-      <div className="section-container ">
-        <h2 className="text-2xl font-bold text-foreground">My Section</h2>
-        <p className="text-foreground">
-          This content is centered and constrained.
-        </p>
-      </div>
-    </section>
-  );
+  return <HeroSection />;
 }

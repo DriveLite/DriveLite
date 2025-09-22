@@ -14,10 +14,10 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-export default function contact() {
+export default function wailtlist() {
   return (
     <section>
-      <h1>Contact page</h1>
+      <h1> waitlist page </h1>
     </section>
   );
 }

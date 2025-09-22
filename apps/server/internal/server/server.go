@@ -38,8 +38,9 @@ type Server struct {
 
 // NewServer creates and initializes a new Server instance.
 func NewServer() (*Server, error) {
+	RepoConfig := config.RepoConfig()
 	// Initialize repo service
-	RepoService, err := repo.New(config.RepoConfig())
+	RepoService, err := repo.New(RepoConfig)
 	if err != nil {
 		return nil, fmt.Errorf("failed to init DB: %w", err)
 	}

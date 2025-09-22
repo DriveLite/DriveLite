@@ -41,35 +41,34 @@ export function Footer() {
     legal: [
       { name: "Privacy", href: "/privacy" },
       { name: "Terms", href: "/terms" },
-      { name: "Cookie Policy", href: "/cookies" },
     ],
     social: [
       {
         name: "GitHub",
-        href: "http://github.com/Moukhtar-youssef/Drivelite",
+        href: "https://github.com/DriveLite/DriveLite",
         icon: Github,
       },
     ],
     OpneSource: [
       {
         name: "Mobile",
-        href: "https://github.com/Moukhtar-youssef/DriveLite/tree/main/apps/mobile",
+        href: "https://github.com/DriveLite/DriveLite/tree/main/apps/mobile",
       },
       {
         name: "Server",
-        href: "https://github.com/Moukhtar-youssef/DriveLite/tree/main/apps/server",
+        href: "https://github.com/DriveLite/DriveLite/tree/main/apps/server",
       },
       {
         name: "Cli",
-        href: "https://github.com/Moukhtar-youssef/DriveLite/tree/main/apps/cli",
+        href: "https://github.com/DriveLite/DriveLite/tree/main/apps/cli",
       },
       {
         name: "Web",
-        href: "https://github.com/Moukhtar-youssef/DriveLite/tree/main/apps/web",
+        href: "https://github.com/DriveLite/DriveLite/tree/main/apps/web",
       },
       {
         name: "Desktop",
-        href: "https://github.com/Moukhtar-youssef/DriveLite/tree/main/apps/desktop",
+        href: "https://github.com/DriveLite/DriveLite/tree/main/apps/desktop",
       },
     ],
   };

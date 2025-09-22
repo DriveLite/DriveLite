@@ -111,7 +111,7 @@ export function Navbar() {
 
             <div className="hidden md:flex md:items-center md:justify-center md:gap-2">
               <Link
-                href="https://github.com/Moukhtar-youssef/Drivelite"
+                href="https://github.com/DriveLite/DriveLite"
                 className="text-foreground hover:text-primary rounded-full"
                 target="_blank"
               >
@@ -166,7 +166,7 @@ export function Navbar() {
               </Link>
             ))}
             <Link
-              href="https://github.com/Moukhtar-youssef/Drivelite"
+              href="https://github.com/DriveLite/DriveLite"
               target="_blank"
               className="text-foreground hover:text-primary-foreground py-3 px-4 rounded-lg hover:bg-primary transition-all duration-200 font-medium"
               onClick={() => setIsMenuOpen(false)}
