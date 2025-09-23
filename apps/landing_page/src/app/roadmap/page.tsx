@@ -14,10 +14,25 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-export default function cookies() {
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Roadmap",
+  description:
+    "Explore the upcoming features and development roadmap of DriveLite.",
+  openGraph: {
+    title: "Roadmap | DriveLite",
+    description:
+      "Explore the upcoming features and development roadmap of DriveLite.",
+  },
+};
+
+export default function roadmap() {
   return (
     <section>
-      <h1>Cookies page</h1>
+      <div className="section-container">
+        <h1>Roadmap</h1>
+      </div>
     </section>
   );
 }

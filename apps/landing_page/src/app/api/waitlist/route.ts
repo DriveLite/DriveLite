@@ -14,12 +14,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { rateLimit } from "@/lib/ratelimit";
-import { supabaseAdmin } from "@/lib/supabase";
-import { createUnsubscribeToken } from "@/lib/unsubscribe";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
+import { rateLimit } from "@/lib/ratelimit";
+import { supabaseAdmin } from "@/lib/supabase";
+import { createUnsubscribeToken } from "@/lib/unsubscribe";
 
 const WaitlistSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),

@@ -16,12 +16,12 @@
 
 "use client";
 
-import Link from "next/link";
-import { ModeToggle } from "../ui/mode-toggle";
-import { Button } from "../ui/button";
-import { useState, useEffect } from "react";
 import { Github, MenuIcon, XIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
+import { ModeToggle } from "../ui/mode-toggle";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,6 +35,10 @@ export function Navbar() {
     {
       title: "Blog",
       href: "/blog",
+    },
+    {
+      title: "Roadmap",
+      href: "/roadmap",
     },
     {
       title: "Docs",
@@ -120,7 +124,7 @@ export function Navbar() {
               </Link>
               <Button
                 asChild
-                className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
+                className="rounded-md bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 <Link href="/waitlist">Join WaitList!</Link>
               </Button>
@@ -132,7 +136,7 @@ export function Navbar() {
               <Button
                 asChild
                 size="sm"
-                className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
+                className="rounded-md bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 <Link href="/waitlist">Join</Link>
               </Button>
@@ -174,19 +178,10 @@ export function Navbar() {
               Github
             </Link>
 
-            <div className="mt-2 pt-3 border-t border-border flex flex-col gap-3">
+            <div className="mt-2 pt-3 border-t border-border flex flex-col items-center justify-center">
               <div className="flex justify-center px-4">
                 <ModeToggle />
               </div>
-              <Button
-                asChild
-                className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
-                size="lg"
-              >
-                <Link href="/waitlist" onClick={() => setIsMenuOpen(false)}>
-                  Join Waitlist!
-                </Link>
-              </Button>
             </div>
           </nav>
         </div>

@@ -4,16 +4,18 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "DriveLite docs",
   description: "Docs for drivelite the supabase of file storage",
+  outDir: "../public/docs",
+  base: "/docs/",
   themeConfig: {
     nav: [{ text: "Home", link: "/" }],
 
     sidebar: [],
 
     socialLinks: [
-      { icon: "github", link: "https://github.com/moukhtar-youssef/drivelite" },
+      { icon: "github", link: "https://github.com/Drivelite/drivelite" },
     ],
   },
   sitemap: {
-    hostname: "https://docs.drivelite.org",
+    hostname: "https://docs.drivelite.org/",
   },
 });

@@ -8,7 +8,7 @@ hero:
   actions:
     - theme: brand
       text: GitHub Repo
-      link: https://github.com/moukhtar-youssef/drivelite
+      link: https://github.com/DriveLite/drivelite
     - theme: alt
       text: Join the Waitlist
       link: https://drivelite.org

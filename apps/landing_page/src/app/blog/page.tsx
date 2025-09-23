@@ -13,6 +13,18 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description: "Latest news, updates, and tutorials from the DriveLite team.",
+  openGraph: {
+    title: "Blog | DriveLite",
+    description: "Latest news, updates, and tutorials from the DriveLite team.",
+  },
+};
 
 export default function blog() {
   return (

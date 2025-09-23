@@ -17,12 +17,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Navbar } from "@/components/common/navbar";
-import { Footer } from "@/components/common/footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Toaster } from "@/components/ui/sonner";
+import { Footer } from "@/_components/common/footer";
+import { Navbar } from "@/_components/common/navbar";
+import { ThemeProvider } from "@/_components/theme-provider";
+import { Toaster } from "@/_components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,12 +35,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DriveLite – Open-Source Supabase for File Storage",
+  title: {
+    default: "Home | DriveLite",
+    template: "%s | DriveLite",
+  },
   description:
     "Private. Secure. Yours. An open-source Supabase alternative for file storage.",
   metadataBase: new URL("https://drivelite.org"),
   openGraph: {
-    title: "DriveLite – Open-Source Supabase for File Storage",
+    title: "Home | DriveLite",
     description:
       "Private. Secure. Yours. An open-source Supabase alternative for file storage.",
     url: "https://drivelite.org",
@@ -53,7 +56,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "DriveLite – Open-Source Supabase for File Storage",
+    title: "Home | DriveLite",
     description:
       "Private. Secure. Yours. An open-source Supabase alternative for file storage.",
     images: ["/og-image.png"],
@@ -69,9 +72,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" dir="ltr" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <ThemeProvider
           attribute="class"
@@ -80,7 +83,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main>{children}</main>
           <Footer />
           <Toaster richColors position="top-center" />
         </ThemeProvider>
