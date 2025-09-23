@@ -16,16 +16,18 @@
 
 "use client";
 
-import { Github, MenuIcon, XIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { ModeToggle } from "../ui/mode-toggle";
+import { FaGithub } from "react-icons/fa";
+import { X, Menu } from "lucide-react";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const links: { title: string; href: string; target?: string }[] = [
     {
@@ -53,9 +55,12 @@ export function Navbar() {
 
   // Handle scroll effect
   useEffect(() => {
+    setMounted(true);
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -80,9 +85,11 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-background/75 backdrop-blur-md shadow-sm" : "bg-transparent"}`}
+        className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${mounted && isScrolled ? `${isMenuOpen ? "" : "shadow-sm"}` : ""}`}
       >
-        <div className="mx-auto max-w-[1337px] px-4 md:px-6 lg:px-8 ">
+        <div
+          className={`mx-auto max-w-[1337px] px-4 md:px-6 lg:px-8 ${mounted && isScrolled ? `bg-background/75 backdrop-blur-md  ` : "bg-transparent"}`}
+        >
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center justify-center">
               <Image
@@ -114,14 +121,6 @@ export function Navbar() {
             </nav>
 
             <div className="hidden md:flex md:items-center md:justify-center md:gap-2">
-              <Link
-                href="https://github.com/DriveLite/DriveLite"
-                className="text-foreground hover:text-primary rounded-full"
-                target="_blank"
-              >
-                <span className="sr-only">Github</span>
-                <Github size={20} />
-              </Link>
               <Button
                 asChild
                 className="rounded-md bg-primary text-primary-foreground hover:bg-primary/90"
@@ -129,6 +128,14 @@ export function Navbar() {
                 <Link href="/waitlist">Join WaitList!</Link>
               </Button>
               <ModeToggle />
+              <Link
+                href="https://github.com/DriveLite/DriveLite"
+                className="text-foreground hover:text-primary rounded-full"
+                target="_blank"
+              >
+                <span className="sr-only">Github</span>
+                <FaGithub size={20} />
+              </Link>
             </div>
 
             {/* Mobile Navigation Toggle */}
@@ -147,7 +154,7 @@ export function Navbar() {
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Toggle menu"
               >
-                {isMenuOpen ? <XIcon size={20} /> : <MenuIcon size={20} />}
+                {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
               </Button>
             </div>
           </div>
@@ -155,7 +162,7 @@ export function Navbar() {
 
         {/* Mobile Dropdown Menu */}
         <div
-          className={`mobile-menu fixed top-16 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border transition-all duration-300 ease-in-out md:hidden overflow-hidden ${isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
+          className={`fixed top-16 left-0 right-0 z-50 bg-background/75 backdrop-blur-md border-b border-border transition-all duration-300 ease-in-out md:hidden overflow-hidden ${isMenuOpen ? "max-h-96 opacity-100 shadow-sm" : "max-h-0 opacity-0"}`}
         >
           <nav className="flex flex-col p-4">
             {links.map((link) => (

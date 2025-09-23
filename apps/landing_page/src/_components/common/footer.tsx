@@ -16,7 +16,7 @@
 
 "use client";
 
-import { Github, Heart, Linkedin, Twitter } from "lucide-react";
+import { FaGithub, FaHeart } from "react-icons/fa";
 import Link from "next/link";
 
 export function Footer() {
@@ -46,7 +46,7 @@ export function Footer() {
       {
         name: "GitHub",
         href: "https://github.com/DriveLite/DriveLite",
-        icon: Github,
+        icon: FaGithub,
       },
     ],
     OpneSource: [
@@ -181,7 +181,7 @@ export function Footer() {
         <div className="mt-16 border-t border-border pt-8 flex flex-col sm:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm flex items-center gap-1">
             © {currentYear} DriveLite. Made with{" "}
-            <Heart size={14} className="text-red-500 fill-red-500" /> by the
+            <FaHeart size={14} className="text-red-500 fill-red-500" /> by the
             DriveLite team.
           </p>
         </div>
