@@ -23,6 +23,7 @@ import { Button } from "../ui/button";
 import { ModeToggle } from "../ui/mode-toggle";
 import { FaGithub } from "react-icons/fa";
 import { X, Menu } from "lucide-react";
+import SearchInput from "../ui/search-input";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -107,7 +108,7 @@ export function Navbar() {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex md:items-center md:justify-between md:gap-6 md:font-semibold">
+            <nav className="hidden md:flex md:items-center md:justify-between md:gap-2 md:text-sm lg:text-md lg:gap-6 md:font-semibold">
               {links.map((link) => (
                 <Link
                   key={link.href}
@@ -119,6 +120,7 @@ export function Navbar() {
                 </Link>
               ))}
             </nav>
+            <SearchInput className="hidden md:block" />
 
             <div className="hidden md:flex md:items-center md:justify-center md:gap-2">
               <Button
@@ -141,13 +143,6 @@ export function Navbar() {
             {/* Mobile Navigation Toggle */}
             <div className="flex md:hidden items-center gap-2">
               <Button
-                asChild
-                size="sm"
-                className="rounded-md bg-primary text-primary-foreground hover:bg-primary/90"
-              >
-                <Link href="/waitlist">Join</Link>
-              </Button>
-              <Button
                 variant="ghost"
                 size="icon"
                 className="menu-button h-10 w-10 bg-background/70 text-foreground hover:bg-background/90"
@@ -162,7 +157,7 @@ export function Navbar() {
 
         {/* Mobile Dropdown Menu */}
         <div
-          className={`fixed top-16 left-0 right-0 z-50 bg-background/75 backdrop-blur-md border-b border-border transition-all duration-300 ease-in-out md:hidden overflow-hidden ${isMenuOpen ? "max-h-96 opacity-100 shadow-sm" : "max-h-0 opacity-0"}`}
+          className={`fixed top-16 left-0 right-0 z-50 bg-background/75 backdrop-blur-md border-b border-border transition-all duration-300 ease-in-out md:hidden overflow-hidden ${isMenuOpen ? "h-fit opacity-100 shadow-sm" : "max-h-0 opacity-0"}`}
         >
           <nav className="flex flex-col p-4">
             {links.map((link) => (
@@ -189,6 +184,9 @@ export function Navbar() {
               <div className="flex justify-center px-4">
                 <ModeToggle />
               </div>
+              <Button asChild className="w-full mt-4">
+                <Link href="/waitlist">Join Waitlist !</Link>
+              </Button>
             </div>
           </nav>
         </div>
