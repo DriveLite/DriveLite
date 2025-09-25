@@ -14,10 +14,27 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-export default function docs() {
-  return (
-    <section>
-      <h1>Docs </h1>
-    </section>
-  );
+import { useEffect, useState, useRef, useCallback } from "react";
+
+export function useDebounce<T>(value: T, delay: number) {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+  const handlerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    handlerRef.current = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      if (handlerRef.current) clearTimeout(handlerRef.current);
+    };
+  }, [value, delay]);
+
+  const cancel = useCallback(() => {
+    if (handlerRef.current) {
+      clearTimeout(handlerRef.current);
+    }
+  }, []);
+
+  return { debouncedValue, cancel };
 }

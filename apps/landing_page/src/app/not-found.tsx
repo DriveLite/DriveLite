@@ -18,11 +18,11 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <section className="">
-      <div className="section-container flex flex-col items-center justify-center">
+    <section className="h-screen flex items-center justify-center">
+      <div className="section-container flex flex-col items-center text-center">
         <h1 className="text-6xl font-bold mb-4">404</h1>
         <p className="text-xl mb-6">
-          Oops! Looks Like you are lost on the web again!!!
+          Oops! Looks like you are lost on the web again!!!
         </p>
         <Link
           href="/"

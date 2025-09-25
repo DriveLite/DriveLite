@@ -7,11 +7,7 @@
     "apps/web",
     "packages/*"
   ],
-  "devDependencies": {},
   "scripts": {
     "build:web": "bun --filter \"web\" build"
-  },
-  "dependencies": {
-    "@deemlol/next-icons": "^0.1.9"
   }
 }

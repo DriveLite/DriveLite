@@ -23,7 +23,7 @@ import { Button } from "../ui/button";
 import { ModeToggle } from "../ui/mode-toggle";
 import { FaGithub } from "react-icons/fa";
 import { X, Menu } from "lucide-react";
-import SearchInput from "../ui/search-input";
+// import SearchInput from "../ui/search-input";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,8 +36,8 @@ export function Navbar() {
       href: "/about",
     },
     {
-      title: "Blog",
-      href: "/blog",
+      title: "Blogs",
+      href: "/blogs",
     },
     {
       title: "Roadmap",
@@ -120,7 +120,7 @@ export function Navbar() {
                 </Link>
               ))}
             </nav>
-            <SearchInput className="hidden md:block" />
+            {/* <SearchInput className="hidden md:block" /> */}
 
             <div className="hidden md:flex md:items-center md:justify-center md:gap-2">
               <Button
