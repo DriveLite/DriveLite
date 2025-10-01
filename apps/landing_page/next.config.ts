@@ -15,14 +15,23 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
 
 const config: NextConfig = {
   reactStrictMode: true,
   compress: true,
+  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  experimental: {
+    mdxRs: true,
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 60,
   },
 };
 
-export default config;
+const withMDX = createMDX({
+  extension: /\.(md|mdx)$/,
+});
+
+export default withMDX(config);

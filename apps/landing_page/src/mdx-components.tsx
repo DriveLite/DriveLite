@@ -14,23 +14,10 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import type { Metadata } from "next";
+import type { MDXComponents } from "mdx/types";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: "",
-  openGraph: {
-    title: "Contact | DriveLite",
-    description: "",
-  },
-};
+const components: MDXComponents = {};
 
-export default function contact() {
-  return (
-    <section>
-      <div className="section-container">
-        <h1>Contact page </h1>
-      </div>
-    </section>
-  );
+export function useMDXComponents(): MDXComponents {
+  return components;
 }

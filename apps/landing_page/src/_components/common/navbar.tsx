@@ -23,12 +23,14 @@ import { Button } from "../ui/button";
 import { ModeToggle } from "../ui/mode-toggle";
 import { FaGithub } from "react-icons/fa";
 import { X, Menu } from "lucide-react";
+import { usePathname } from "next/navigation";
 // import SearchInput from "../ui/search-input";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
   const links: { title: string; href: string; target?: string }[] = [
     {
@@ -48,10 +50,6 @@ export function Navbar() {
       href: "https://docs.drivelite.org",
       target: "_blank",
     },
-    {
-      title: "Contact",
-      href: "/contact",
-    },
   ];
 
   // Handle scroll effect
@@ -67,26 +65,26 @@ export function Navbar() {
   }, []);
 
   // Close menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (
-        isMenuOpen &&
-        !target.closest(".mobile-menu") &&
-        !target.closest(".menu-button")
-      ) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isMenuOpen]);
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     const target = event.target as HTMLElement;
+  //     if (
+  //       isMenuOpen &&
+  //       !target.closest(".mobile-menu") &&
+  //       !target.closest(".menu-button")
+  //     ) {
+  //       setIsMenuOpen(false);
+  //     }
+  //   };
+  //
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => document.removeEventListener("mousedown", handleClickOutside);
+  // }, [isMenuOpen]);
 
   return (
     <>
       <header
-        className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${mounted && isScrolled ? `${isMenuOpen ? "" : "shadow-sm"}` : ""}`}
+        className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${mounted && isScrolled ? `${isMenuOpen ? "" : "shadow-[0_1px_2px_rgba(0,0,0,0.25)] dark:shadow-[0_1px_2px_rgba(255,255,255,0.25)]"}` : ""}`}
       >
         <div
           className={`mx-auto max-w-[1337px] px-4 md:px-6 lg:px-8 ${mounted && isScrolled ? `bg-background/75 backdrop-blur-md  ` : "bg-transparent"}`}
@@ -108,17 +106,28 @@ export function Navbar() {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex md:items-center md:justify-between md:gap-2 md:text-sm lg:text-md lg:gap-6 md:font-semibold">
-              {links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  target={link.target}
-                  className="text-foreground hover:text-primary transition-colors duration-200"
-                >
-                  {link.title}
-                </Link>
-              ))}
+            <nav className="hidden md:flex md:items-center md:justify-between md:gap-0 md:text-sm lg:text-md lg:gap-4 md:font-semibold">
+              {links.map((link) => {
+                const isActive =
+                  link.target !== "_blank" && pathname === link.href;
+
+                return (
+                  <Button
+                    asChild
+                    variant="ghost"
+                    className={`font-bold text-foreground hover:bg-foreground/10 dark:hover:bg-foreground/10 dark:hover:text-foreground lg:p-5 p-2 transition-colors duration-200 ${
+                      isActive
+                        ? "text-primary hover:text-primary dark:hover:text-primary"
+                        : ""
+                    }`}
+                    key={link.href}
+                  >
+                    <Link key={link.href} href={link.href} target={link.target}>
+                      {link.title}
+                    </Link>
+                  </Button>
+                );
+              })}
             </nav>
             {/* <SearchInput className="hidden md:block" /> */}
 

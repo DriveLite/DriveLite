@@ -151,7 +151,7 @@ Before opening a new issue, check existing ones.
 ## 🧪 Tests
 
 - Backend: `go test ./...`
-- Web: `npm run test`
+- Web: `bun run test`
 
 > If your PR includes logic changes, add or update tests.
 
@@ -159,7 +159,7 @@ Before opening a new issue, check existing ones.
 
 ## 💬 Community & Discussions
 
-- Open a [GitHub Discussion](https://github.com/Moukhtar-youssef/DriveLite/discussions)
+- Open a [GitHub Discussion](https://github.com/DriveLite/DriveLite/discussions)
 - Join our Discord (Coming Soon)
 - Tag maintainers in issues respectfully if needed
 

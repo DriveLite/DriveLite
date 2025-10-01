@@ -36,11 +36,6 @@ export function Footer() {
     company: [
       { name: "About", href: "/about" },
       { name: "Blogs", href: "/blogs" },
-      { name: "Contact", href: "/contact" },
-    ],
-    legal: [
-      { name: "Privacy", href: "/privacy" },
-      { name: "Terms", href: "/terms" },
     ],
     social: [
       {
@@ -77,7 +72,7 @@ export function Footer() {
     <footer className="bg-background border-t border-border mt-auto">
       <div className="mx-auto max-w-[1337px] px-4 py-12 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
-        <div className=" grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-6">
+        <div className=" grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5">
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <Link href="/" className="text-2xl font-bold text-foreground">
@@ -153,23 +148,6 @@ export function Footer() {
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
                     {item.name}{" "}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal Links */}
-          <div>
-            <h3 className="text-sm font-semibold text-foreground">Legal</h3>
-            <ul className="mt-4 space-y-2">
-              {navigation.legal.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {item.name}
                   </Link>
                 </li>
               ))}

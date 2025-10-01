@@ -61,6 +61,17 @@ export const metadata: Metadata = {
       "Private. Secure. Yours. An open-source Supabase alternative for file storage.",
     images: ["/og-image.png"],
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   alternates: {
     canonical: "https://drivelite.org",
   },
@@ -73,6 +84,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "DriveLite",
+              url: "https://drivelite.com",
+              logo: "https://drivelite.com/logo.png",
+              description: "Secure cloud storage solution",
+              sameAs: [
+                "https://twitter.com/drivelite",
+                "https://linkedin.com/company/drivelite",
+              ],
+            }),
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
@@ -83,7 +116,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <main>{children}</main>
+          <main data-pagefind-body>{children}</main>
           <Footer />
           <Toaster richColors position="top-center" />
         </ThemeProvider>
