@@ -14,17 +14,28 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import path from "path";
-import fs from "fs";
-import { defaultLocale } from "./i18n";
+"use client";
+import { useState, useEffect } from "react";
 
-export const docsDirectory = path.join(process.cwd(), "../content/docs");
+export function useLocalStorage<T>(key: string, fallbackValue: T) {
+  const [value, setValue] = useState<T>(() => {
+    if (typeof window === "undefined") return fallbackValue;
+    try {
+      const stored = localStorage.getItem(key);
+      return stored ? JSON.parse(stored) : fallbackValue;
+    } catch (error) {
+      console.error(`Error reading localStorage key "${key}":`, error);
+      return fallbackValue;
+    }
+  });
 
-export function getAllDocs(locale = defaultLocale) {
-  const localePath = path.join(docsDirectory, locale);
+  useEffect(() => {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.error(`Error setting localStorage key "${key}":`, error);
+    }
+  }, [key, value]);
 
-  if (!fs.existsSync(localePath)) {
-    console.warn(`Locale path not found: ${localePath}`);
-    return [];
-  }
+  return [value, setValue] as const;
 }

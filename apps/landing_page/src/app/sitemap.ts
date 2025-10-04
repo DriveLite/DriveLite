@@ -14,11 +14,13 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import { getAllDocs } from "@/lib/docs.server";
+import { locales } from "@/lib/i18n";
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseurl = "https://drivelite.org";
-  return [
+  const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: `${baseurl}/`,
       lastModified: new Date(),
@@ -31,12 +33,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.9,
     },
-    {
-      url: `${baseurl}/docs`,
-
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
   ];
+
+  const docsRoutes: MetadataRoute.Sitemap = [];
+
+  for (const locale of locales) {
+    const docs = getAllDocs(locale);
+
+    docs.forEach((doc) => {
+      const slugPath = doc.slug.join("/");
+      const path = `/docs/${locale}/${slugPath}`;
+
+      docsRoutes.push({
+        url: `${baseurl}${path}`,
+        lastModified: new Date(doc.lastModified),
+        changeFrequency: "monthly",
+        priority: 0.8,
+        alternates: {
+          languages: {},
+        },
+      });
+    });
+  }
+  return [...staticRoutes, ...docsRoutes];
 }

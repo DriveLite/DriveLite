@@ -77,7 +77,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -116,7 +116,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <main data-pagefind-body>{children}</main>
+          <main>{children}</main>
           <Footer />
           <Toaster richColors position="top-center" />
         </ThemeProvider>

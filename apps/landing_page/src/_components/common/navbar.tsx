@@ -24,6 +24,7 @@ import { ModeToggle } from "../ui/mode-toggle";
 import { FaGithub } from "react-icons/fa";
 import { X, Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
+import SearchInput from "../ui/search-input";
 // import SearchInput from "../ui/search-input";
 
 export function Navbar() {
@@ -47,8 +48,7 @@ export function Navbar() {
     },
     {
       title: "Docs",
-      href: "https://docs.drivelite.org",
-      target: "_blank",
+      href: "/docs/en/overview/quick-start",
     },
   ];
 
@@ -129,8 +129,9 @@ export function Navbar() {
                 );
               })}
             </nav>
-            {/* <SearchInput className="hidden md:block" /> */}
-
+            <div className="hidden md:block">
+              <SearchInput />
+            </div>
             <div className="hidden md:flex md:items-center md:justify-center md:gap-2">
               <Button
                 asChild
@@ -151,6 +152,7 @@ export function Navbar() {
 
             {/* Mobile Navigation Toggle */}
             <div className="flex md:hidden items-center gap-2">
+              <SearchInput />
               <Button
                 variant="ghost"
                 size="icon"

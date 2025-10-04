@@ -75,9 +75,11 @@ export function Footer() {
         <div className=" grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5">
           {/* Brand Section */}
           <div className="lg:col-span-2">
-            <Link href="/" className="text-2xl font-bold text-foreground">
-              DriveLite
-            </Link>
+            <h1>
+              <Link href="/" className="text-2xl font-bold text-foreground">
+                DriveLite
+              </Link>
+            </h1>
             <p className="mt-4 max-w-md text-muted-foreground">
               The modern, lightweight cloud storage solution. Fast, secure, and
               designed for the future.
@@ -102,7 +104,7 @@ export function Footer() {
 
           {/* Product Links */}
           <div>
-            <h3 className="text-sm font-semibold text-foreground">Product</h3>
+            <h2 className="text-sm font-semibold text-foreground">Product</h2>
             <ul className="mt-4 space-y-2">
               {navigation.product.map((item) => (
                 <li key={item.name}>
@@ -120,7 +122,7 @@ export function Footer() {
 
           {/* Company Links */}
           <div>
-            <h3 className="text-sm font-semibold text-foreground">Company</h3>
+            <h2 className="text-sm font-semibold text-foreground">Company</h2>
             <ul className="mt-4 space-y-2">
               {navigation.company.map((item) => (
                 <li key={item.name}>
@@ -136,9 +138,9 @@ export function Footer() {
           </div>
           <div>
             {/* Open Source Links */}
-            <h3 className="text-sm font-semibold text-foreground">
+            <h2 className="text-sm font-semibold text-foreground">
               Open-source
-            </h3>
+            </h2>
             <ul className="mt-4 space-y-2">
               {navigation.OpneSource.map((item) => (
                 <li key={item.name}>

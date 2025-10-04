@@ -17,7 +17,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
-import { rateLimit } from "@/lib/ratelimit";
 import { supabaseAdmin } from "@/lib/supabase";
 import { createUnsubscribeToken } from "@/lib/unsubscribe";
 
@@ -29,19 +28,6 @@ const resend = new Resend(process.env.RESEND_API_KEY!);
 
 export async function POST(req: Request) {
   try {
-    const ip =
-      req.headers.get("x-forwarded-for") ||
-      req.headers.get("cf-connecting-ip") ||
-      "unknown";
-    const rateLimitResult = await rateLimit.limit(ip);
-
-    if (!rateLimitResult.success) {
-      return NextResponse.json(
-        { error: "Too many requests. Please try again later." },
-        { status: 429 },
-      );
-    }
-
     // Validate request body
     let body;
     try {
