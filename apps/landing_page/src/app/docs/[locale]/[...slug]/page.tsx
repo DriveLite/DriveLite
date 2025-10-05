@@ -15,8 +15,17 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import DocsBreadCrumbs from "@/_components/docs/DocsBreadCrumb";
-import { getAllDocSlugs, getDocBySlug } from "@/lib/docs.server";
+import DocsHeaderButtons from "@/_components/docs/DocsHeaderButtons";
+import { Button } from "@/_components/ui/button";
+import { ButtonGroup } from "@/_components/ui/button-group";
+import { Separator } from "@/_components/ui/separator";
+import {
+  getAllDocSlugs,
+  getDocBySlug,
+  getPrevNextDoc,
+} from "@/lib/docs.server";
 import { defaultLocale } from "@/lib/i18n";
+import { ArrowDown, ArrowLeftIcon, ArrowRightIcon, Copy } from "lucide-react";
 import { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { notFound } from "next/navigation";
@@ -24,32 +33,91 @@ import { notFound } from "next/navigation";
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return getAllDocSlugs().map(({ locale, slug }) => {
-    return { locale, slug };
-  });
+  return getAllDocSlugs().map(({ locale, slug }) => ({ locale, slug }));
 }
 
-export default async function Blog({
+export default async function DocsPage({
   params,
 }: {
   params: Promise<{ slug?: string[]; locale: string }>;
 }) {
   const { locale = defaultLocale, slug = [] } = await params;
 
-  const slugPath = slug.length > 0 ? slug.join("/") : "index";
+  let slugPath = slug.join("/");
 
   const doc = getDocBySlug(slugPath, locale);
 
-  if (!doc) {
-    console.log(slugPath);
-    notFound();
-  }
+  if (!doc) notFound();
+
+  const markdownPath = `/docs/${locale}/${slugPath}.md`;
+
+  const GithubPath = `https://github.com/DriveLite/DriveLite/blob/main/apps/landing_page/src/content/docs/${locale}/${slugPath}`;
+
+  const { previous: previousDoc, next: nextDoc } = getPrevNextDoc(slugPath);
+
+  const previousDocPath = previousDoc
+    ? `/docs/${locale}/${previousDoc?.slug.join("/")}`
+    : undefined;
+
+  const nextDocPath = nextDoc
+    ? `/docs/${locale}/${nextDoc.slug.join("/")}`
+    : undefined;
 
   return (
     <section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            headline: doc.frontmatter.title,
+            description: doc.frontmatter.description,
+            datePublished: doc.frontmatter.lastModified,
+            dateModified: doc.lastModified,
+            author: {
+              "@type": "Organization",
+              name: "DriveLite",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "DriveLite",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://drivelite.org/logo.png",
+              },
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              // "@id": getCanonicalUrl(`/docs/${slugPath}`, locale),
+            },
+          }),
+        }}
+      />
       <div className="section-container">
-        <div className="text-foreground hover:text-background dark:text-foreground dark:hover:text-background prose prose-headings:font-semibold prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-xl prose-h6:text-lg  prose-headings:text-foreground">
-          <DocsBreadCrumbs />
+        <DocsBreadCrumbs />
+        <header className="my-8 pb-6 border-b border-gray-200">
+          <div className="flex flex-col gap-2">
+            <div className="flex justify-between items-start">
+              <h1 className="scroll-m-20 font-semibold tracking-tight sm:text-3xl xl:text-4xl">
+                {doc.frontmatter.title}
+              </h1>
+              <DocsHeaderButtons
+                NextDocLink={nextDocPath}
+                PreviousDocLink={previousDocPath}
+                ApiDocLink={markdownPath}
+                GithubDocLink={GithubPath}
+                DocContent={doc.content}
+              />
+            </div>
+            {doc.frontmatter.description && (
+              <p className=" text-muted-foreground text-[1.05rem] text-balance sm:text-base">
+                {doc.frontmatter.description}
+              </p>
+            )}
+          </div>
+        </header>
+        <div className="min-w-full prose prose-headings:font-semibold prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-h5:text-md prose-headings:text-foreground prose-a:underline prose-hr:w-full">
           <MDXRemote source={doc.content} />
         </div>
       </div>
@@ -63,21 +131,21 @@ export async function generateMetadata({
   params: Promise<{ slug?: string[]; locale: string }>;
 }): Promise<Metadata> {
   const { locale = defaultLocale, slug = [] } = await params;
-  const slugPath = slug.length > 0 ? slug.join("/") : "index";
+
+  let slugPath = slug.length > 0 ? slug.join("/") : "index";
+  if (slugPath.endsWith(".md")) slugPath = slugPath.replace(/\.md$/, "");
 
   const doc = getDocBySlug(slugPath, locale);
-
   if (!doc) {
     return {
       title: "Page Not Found - DriveLite Docs",
       description: "The requested documentation page was not found.",
     };
   }
+
   return {
-    title: `${doc.frontmatter.title} - DriveLite Documentation`,
+    title: `${doc.frontmatter.title} | DriveLite Documentation`,
     description: doc.frontmatter.description,
-    other: {
-      lang: locale,
-    },
+    other: { lang: locale },
   };
 }

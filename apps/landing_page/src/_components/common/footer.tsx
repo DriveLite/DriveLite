@@ -25,12 +25,10 @@ export function Footer() {
   const navigation = {
     product: [
       { name: "Features", href: "/#features", target: "" },
-      { name: "Pricing", href: "/#pricing", target: "" },
-      { name: "API", href: "/#api", target: "" },
+      { name: "Roadmap", href: "/roadmap", target: "" },
       {
         name: "Documentation",
-        href: "https://docs.drivelite.org",
-        target: "_blank",
+        href: "/docs/en/overview/quick-start",
       },
     ],
     company: [

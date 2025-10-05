@@ -19,6 +19,7 @@ import matter from "gray-matter";
 import fs from "fs";
 import { defaultLocale, locales } from "./i18n";
 import { fileURLToPath } from "url";
+import { boolean } from "zod";
 
 interface Doc {
   slug: string[];
@@ -59,8 +60,6 @@ export interface Slugs {
   locale: string;
   slug: string[];
 }
-
-// export const docsDirectory = path.join(process.cwd(), "../content/docs");
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -154,6 +153,42 @@ export function generateBreadcrumbs(slug: string, locale: string) {
   });
 
   return breadcrumbs;
+}
+
+export function sortDocs(docs: Doc[]): Doc[] {
+  const sortedDocs = docs
+    .slice()
+    .sort(
+      (a, b) => (a.frontmatter.order ?? 999) - (b.frontmatter.order ?? 999),
+    );
+  return sortedDocs;
+}
+
+export function getPrevNextDoc(
+  slug: string[] | string,
+  locale = defaultLocale,
+) {
+  const slugArray = Array.isArray(slug)
+    ? slug
+    : slug.split("/").filter(Boolean);
+
+  const allDocs = getAllDocs(locale);
+
+  const sorteddocs = sortDocs(allDocs);
+
+  const index = sorteddocs.findIndex(
+    (doc) => doc.slug.join("/") === slugArray.join("/"),
+  );
+
+  if (index === -1) {
+    return { previous: undefined, next: undefined };
+  }
+
+  const previous = index > 0 ? sorteddocs[index - 1] : undefined;
+  const next =
+    index < sorteddocs.length - 1 ? sorteddocs[index + 1] : undefined;
+
+  return { previous, next };
 }
 
 function getDocsFromDirectory(

@@ -1,6 +1,9 @@
 ---
 title: Quick Start
+description: An overview on how to use the app
 order: 1
 ---
 
-# Quick Start
+# Set up the server
+
+---
