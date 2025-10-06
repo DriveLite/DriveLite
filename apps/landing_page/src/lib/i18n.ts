@@ -25,5 +25,17 @@ export function getCanonicalUrl(path: string, locale: string = defaultLocale) {
   const baseUrl = "https://drivelite.org";
   const cleanPath = path.replace(/^\/+/, "");
 
-  return `${baseUrl}/${locale}/${cleanPath}`;
+  return `${baseUrl}/docs/${locale}/${cleanPath}`;
+}
+
+export function getAlternateUrl(path: string, currentLocale: string) {
+  const alternates: Record<string, string> = {};
+
+  locales.map((locale) => {
+    if (locale === currentLocale) return;
+
+    alternates[locale] = getCanonicalUrl(path, currentLocale);
+  });
+
+  return alternates;
 }

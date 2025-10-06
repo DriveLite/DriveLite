@@ -5,4 +5,6 @@ keywords: QuickStart
 order: 1
 ---
 
-# Set up the server
+## DriveLite Docs 🚧 Still Under Development
+
+**This documentation site is currently a placeholder while DriveLite is being built.**

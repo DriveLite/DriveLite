@@ -30,7 +30,6 @@ export default function DocsLayoutClient({ children, locale }: Props) {
   const pathname = usePathname();
   const [storedLocale] = useLocale();
 
-  // Redirect if stored locale differs from URL locale
   useEffect(() => {
     if (locale && storedLocale && locale !== storedLocale) {
       const pathParts = pathname.split("/").filter(Boolean);

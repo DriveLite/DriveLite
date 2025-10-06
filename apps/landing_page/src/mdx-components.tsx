@@ -15,8 +15,19 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import type { MDXComponents } from "mdx/types";
+import Heading from "./_components/ui/Heading";
 
-const components: MDXComponents = {};
+const components: MDXComponents = {
+  h1: (props) => <Heading as="h1" {...props} />,
+  h2: (props) => <Heading as="h2" {...props} />,
+  h3: (props) => <Heading as="h3" {...props} />,
+  h4: (props) => <Heading as="h4" {...props} />,
+  a: (props: React.ComponentProps<"a">) => (
+    <a {...props} target="_blank" rel="noopener noreferrer">
+      {props.children}
+    </a>
+  ),
+};
 
 export function useMDXComponents(): MDXComponents {
   return components;

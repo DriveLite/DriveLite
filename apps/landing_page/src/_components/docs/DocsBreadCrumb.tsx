@@ -37,7 +37,6 @@ export default function DocsBreadCrumbs() {
   const breadcrumbs: { href: string; label: string; icon?: React.ReactNode }[] =
     [];
 
-  // Home always comes first
   breadcrumbs.push({
     href: "/docs/en/overview/quick-start",
     label: "Home",

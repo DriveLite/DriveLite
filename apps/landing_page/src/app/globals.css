@@ -16,15 +16,20 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+@layer theme, base, components, utilities;
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-background-highlight: var(--background-highlight);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --color-ring: var(--ring);
@@ -68,6 +73,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   --transition-default: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   --background: oklch(0.99 0.002 247.8);
+  --background-highlight: oklch(0.9 0.02 247.8);
   --foreground: oklch(0.13 0.028 256.8);
 
   --card: oklch(1 0 0);
@@ -100,10 +106,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   --border: oklch(0.91 0.015 247.8);
   --input: oklch(0.95 0.01 247.8);
   --ring: oklch(0.55 0.22 262.4);
+  --sidebar: hsl(0 0% 98%);
+  --sidebar-foreground: hsl(240 5.3% 26.1%);
+  --sidebar-primary: hsl(240 5.9% 10%);
+  --sidebar-primary-foreground: hsl(0 0% 98%);
+  --sidebar-accent: hsl(240 4.8% 95.9%);
+  --sidebar-accent-foreground: hsl(240 5.9% 10%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 
 .dark {
   --background: oklch(0.18 0.02 260);
+  --background-highlight: oklch(0.3 0.02 260);
   --foreground: oklch(0.92 0.01 260);
 
   --card: oklch(0.16 0.025 256.8);
@@ -136,15 +151,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   --border: oklch(0.28 0.03 256.8);
   --input: oklch(0.2 0.022 256.8);
   --ring: oklch(0.65 0.2 262.4);
-
-  --sidebar: oklch(0.16 0.025 256.8);
-  --sidebar-foreground: oklch(0.98 0.002 247.8);
-  --sidebar-primary: oklch(0.65 0.2 262.4);
-  --sidebar-primary-foreground: oklch(0.12 0.028 256.8);
-  --sidebar-accent: oklch(0.2 0.022 256.8);
-  --sidebar-accent-foreground: oklch(0.98 0.002 247.8);
-  --sidebar-border: oklch(0.28 0.03 256.8);
-  --sidebar-ring: oklch(0.65 0.2 262.4);
+  --sidebar: hsl(240 5.9% 10%);
+  --sidebar-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-primary: hsl(224.3 76.3% 48%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(240 3.7% 15.9%);
+  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-border: hsl(240 3.7% 15.9%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 
 @layer base {
@@ -389,4 +403,100 @@ ol {
     transition-duration: 0.01ms;
     scroll-behavior: auto;
   }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+p {
+  overflow-wrap: break-word;
+}
+
+.doc ul,
+.doc ol {
+  padding-left: 1.25rem;
+  margin: 16px 0;
+}
+
+.doc ul {
+  list-style: disc;
+}
+
+.doc ol {
+  list-style: decimal;
+}
+
+.doc li + li {
+  margin-top: 8px;
+}
+
+.doc li > ol,
+.doc li > ul {
+  margin: 8px 0 0;
+}
+
+.doc table {
+  display: block;
+  border-collapse: collapse;
+  margin: 20px 0;
+  overflow-x: auto;
+}
+
+.doc tr {
+  background-color: var(--vp-c-bg);
+  border-top: 1px solid var(--vp-c-divider);
+  transition: background-color 0.5s;
+}
+
+.doc tr:nth-child(2n) {
+  background-color: var(--vp-c-bg-soft);
+}
+
+.doc th,
+.doc td {
+  border: 1px solid var(--vp-c-divider);
+  padding: 8px 16px;
+}
+
+.doc th {
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vp-c-text-2);
+  background-color: var(--vp-c-bg-soft);
+}
+
+.doc td {
+  font-size: 14px;
+}
+
+.prose :where(h1, h2, h3, h4):hover a {
+  text-decoration: none;
+}
+
+/* Smooth transitions for sidebar */
+.sidebar-transition {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Custom scrollbar for sidebar */
+.sidebar-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 2px;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }

@@ -19,8 +19,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import { defaultLocale, locales } from "./i18n";
+import slugify from "slugify";
 
-interface Doc {
+export interface Doc {
   slug: string[];
   locale: string;
   frontmatter: {
@@ -34,13 +35,13 @@ interface Doc {
   lastModified: string;
 }
 
-interface StructureFile {
+export interface StructureFile {
   slug: string;
   name: string;
   path: string;
 }
 
-interface StructureFolder {
+export interface StructureFolder {
   name: string;
   slug: string;
   path: string;
@@ -48,7 +49,7 @@ interface StructureFolder {
   folders: StructureFolder[];
 }
 
-interface DirectoryStructure {
+export interface DirectoryStructure {
   files: StructureFile[];
   folders: StructureFolder[];
 }
@@ -186,6 +187,17 @@ export function getPrevNextDoc(
     index < sorteddocs.length - 1 ? sorteddocs[index + 1] : undefined;
 
   return { previous, next };
+}
+
+export function getHeadingID(content: string): string[] {
+  const IDs = content
+    .split("\n")
+    .filter((line) => line.startsWith("#"))
+    .map((line) => {
+      const text = line.replace(/^#+\s*/, ""); // remove markdown hashes
+      return slugify(text, { lower: true, strict: true });
+    });
+  return IDs;
 }
 
 function getDocsFromDirectory(

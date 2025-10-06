@@ -83,11 +83,9 @@ export function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${mounted && isScrolled ? `${isMenuOpen ? "" : "shadow-[0_1px_2px_rgba(0,0,0,0.25)] dark:shadow-[0_1px_2px_rgba(255,255,255,0.25)] "}` : ""}`}
+      className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${mounted ? `border-b border-foreground/10 bg-background/75 backdrop-blur-md` : ""}`}
     >
-      <div
-        className={`mx-auto max-w-[1337px] px-4 md:px-6 lg:px-8 ${mounted && isScrolled ? `bg-background/75 backdrop-blur-md  ` : "bg-transparent"}`}
-      >
+      <div className={`mx-auto max-w-[1337px] px-4 md:px-6 lg:px-8`}>
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center justify-center">
             <Image src={"/logo_icon.svg"} alt={"logo"} width={60} height={60} />
@@ -162,7 +160,7 @@ export function Navbar() {
 
       {/* Mobile Dropdown Menu */}
       <div
-        className={`sticky top-16 left-0 right-0 z-50 bg-background/75 backdrop-blur-md border-b border-border transition-all duration-300 ease-in-out md:hidden overflow-hidden ${isMenuOpen ? "h-fit opacity-100 shadow-sm" : "max-h-0 opacity-0"}`}
+        className={`sticky top-16 left-0 right-0 z-50 border-b border-border transition-all duration-300 ease-in-out md:hidden overflow-hidden ${isMenuOpen ? "h-fit opacity-100 shadow-sm" : "max-h-0 opacity-0"}`}
       >
         <nav className="flex flex-col p-4">
           {links.map((link) => (

@@ -9,5 +9,6 @@
   ],
   "scripts": {
     "build:web": "bun --filter \"web\" build"
-  }
+  },
+  "dependencies": {}
 }

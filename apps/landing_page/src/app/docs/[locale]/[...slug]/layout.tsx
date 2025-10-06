@@ -22,7 +22,10 @@ interface LayoutProps {
   params: Promise<{ locale: string; slug?: string[] }>;
 }
 
-export default async function DocsLayout({ children, params }: LayoutProps) {
+export default async function DocsRootLayout({
+  children,
+  params,
+}: LayoutProps) {
   const { locale } = await params;
 
   return <DocsLayoutClient locale={locale}>{children}</DocsLayoutClient>;

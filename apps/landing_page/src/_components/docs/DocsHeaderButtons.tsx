@@ -34,13 +34,16 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Separator } from "../ui/separator";
+import DocsBreadCrumbs from "./DocsBreadCrumb";
 
 interface HeaderProps {
   PreviousDocLink: string | undefined;
   NextDocLink: string | undefined;
   ApiDocLink: string;
   GithubDocLink: string;
+  DocTitle: string;
   DocContent: string;
+  DocDescription: string;
 }
 
 export default function DocsHeaderButtons({
@@ -48,55 +51,76 @@ export default function DocsHeaderButtons({
   NextDocLink,
   ApiDocLink,
   GithubDocLink,
+  DocTitle,
   DocContent,
+  DocDescription,
 }: HeaderProps) {
   return (
-    <div className="flex gap-2 border-border/50 bg-background/80 backdrop-blur-sm  fixed bottom-0 inset-x-0 isolate z-50 items-center justify-between border-t px-6 py-4 md:static md:z-0 md:border-t-0 md:bg-transparent md:px-0 md:pt-1.5 md:backdrop-blur-none">
-      <ButtonGroup>
-        <CopyButton text={DocContent}>Copy Page</CopyButton>
-        <Separator orientation="vertical" />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="secondary">
-              <ArrowDown className="hidden md:flex" />
-              <ArrowUp className="flex md:hidden" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-52">
-            <DropdownMenuGroup>
-              <DropdownMenuItem asChild>
-                <Link href={ApiDocLink} target="_blank">
-                  <FaMarkdown />
-                  View as Markdown
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href={GithubDocLink} target="_blank">
-                  <SquarePen />
-                  Edit this page
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </ButtonGroup>
-      <ButtonGroup>
-        {PreviousDocLink && (
-          <Button variant="secondary" size="icon" asChild>
-            <Link href={PreviousDocLink}>
-              <ArrowLeftIcon />
-            </Link>
-          </Button>
+    <header className="my-8 pb-6 border-b border-b-foreground/10">
+      <DocsBreadCrumbs />
+
+      <div className="flex flex-col gap-2 mt-4">
+        <div className="flex justify-between items-start">
+          <h1 className="scroll-m-20 font-semibold sm:text-3xl xl:text-4xl">
+            {DocTitle}
+          </h1>
+
+          <div className="flex gap-2 border-border/50 bg-background/80 backdrop-blur-sm  fixed bottom-0 inset-x-0 isolate z-50 items-center justify-between border-t px-6 py-4 md:static md:z-0 md:border-t-0 md:bg-transparent md:px-0 md:pt-1.5 md:backdrop-blur-none">
+            <ButtonGroup>
+              <CopyButton text={DocContent}>Copy Page</CopyButton>
+              <Separator orientation="vertical" />
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="secondary">
+                    <ArrowDown className="hidden md:flex" />
+                    <ArrowUp className="flex md:hidden" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-52">
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem asChild>
+                      <Link href={ApiDocLink} target="_blank">
+                        <FaMarkdown />
+                        View as Markdown
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href={GithubDocLink} target="_blank">
+                        <SquarePen />
+                        Edit this page
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </ButtonGroup>
+            <ButtonGroup>
+              {PreviousDocLink && (
+                <Button variant="secondary" size="icon" asChild>
+                  <Link href={PreviousDocLink}>
+                    <ArrowLeftIcon />
+                  </Link>
+                </Button>
+              )}
+              {PreviousDocLink && NextDocLink && (
+                <Separator orientation="vertical" />
+              )}
+              {NextDocLink && (
+                <Button variant="secondary" size="icon" asChild>
+                  <Link href={NextDocLink}>
+                    <ArrowRightIcon />
+                  </Link>
+                </Button>
+              )}
+            </ButtonGroup>
+          </div>
+        </div>
+        {DocDescription && (
+          <p className=" text-muted-foreground text-[1.05rem] text-balance sm:text-base">
+            {DocDescription}
+          </p>
         )}
-        {PreviousDocLink && NextDocLink && <Separator orientation="vertical" />}
-        {NextDocLink && (
-          <Button variant="secondary" size="icon" asChild>
-            <Link href={NextDocLink}>
-              <ArrowRightIcon />
-            </Link>
-          </Button>
-        )}
-      </ButtonGroup>
-    </div>
+      </div>
+    </header>
   );
 }
