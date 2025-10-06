@@ -16,8 +16,8 @@
 
 "use client";
 
-import { FaGithub, FaHeart } from "react-icons/fa";
 import Link from "next/link";
+import { FaGithub, FaHeart } from "react-icons/fa";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();

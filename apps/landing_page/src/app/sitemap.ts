@@ -14,9 +14,9 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import type { MetadataRoute } from "next";
 import { getAllDocs } from "@/lib/docs.server";
 import { locales } from "@/lib/i18n";
-import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseurl = "https://drivelite.org";

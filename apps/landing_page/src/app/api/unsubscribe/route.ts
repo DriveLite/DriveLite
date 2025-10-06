@@ -39,5 +39,5 @@ export async function GET(req: Request) {
   await supabaseAdmin.from("waitlist_emails").delete().eq("id", data.id);
   console.log(data.id);
 
-  return NextResponse.redirect("http://localhost:3000/unsubscribed");
+  return NextResponse.redirect("https://DriveLite.org/unsubscribed");
 }

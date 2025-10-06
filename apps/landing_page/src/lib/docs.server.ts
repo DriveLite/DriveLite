@@ -14,12 +14,11 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
-import fs from "fs";
 import { defaultLocale, locales } from "./i18n";
-import { fileURLToPath } from "url";
-import { boolean } from "zod";
 
 interface Doc {
   slug: string[];
@@ -28,9 +27,7 @@ interface Doc {
     title: string;
     description: string;
     keywords?: string;
-    lastModified: string;
     order: number;
-    [key: string]: any; // allow extra frontmatter fields
   };
   content: string;
   filepath: string;
@@ -217,7 +214,7 @@ function getDocsFromDirectory(
         const fileContents = fs.readFileSync(fullpath, "utf8");
         const { data: frontmatter, content } = matter(fileContents);
 
-        let slugPart = item.replace(/\.(mdx|md)$/, "");
+        const slugPart = item.replace(/\.(mdx|md)$/, "");
 
         // If file is index, we use the folder path only
         const slug =
@@ -230,7 +227,6 @@ function getDocsFromDirectory(
             title: frontmatter.title || formatTitle(item),
             description: frontmatter.description || extractDescription(content),
             keywords: frontmatter.keywords || "",
-            lastModified: frontmatter.lastModified || stat.mtime.toISOString(),
             order: frontmatter.order,
             ...frontmatter,
           },

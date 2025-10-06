@@ -17,9 +17,5 @@
 import { HeroSection } from "@/_components/mainpage/HeroSection";
 
 export default function Home() {
-  return (
-    <>
-      <HeroSection />
-    </>
-  );
+  return <HeroSection />;
 }

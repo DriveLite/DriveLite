@@ -1,34 +1,31 @@
 // DriveLite - The self-hostable file storage solution.
-// Copyright (C) 2025  
-// 
+// Copyright (C) 2025
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
 // by the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { MDXRemote } from "next-mdx-remote/rsc";
 import DocsBreadCrumbs from "@/_components/docs/DocsBreadCrumb";
 import DocsHeaderButtons from "@/_components/docs/DocsHeaderButtons";
-import { Button } from "@/_components/ui/button";
-import { ButtonGroup } from "@/_components/ui/button-group";
-import { Separator } from "@/_components/ui/separator";
 import {
   getAllDocSlugs,
   getDocBySlug,
+  getDocsStructure,
   getPrevNextDoc,
 } from "@/lib/docs.server";
 import { defaultLocale } from "@/lib/i18n";
-import { ArrowDown, ArrowLeftIcon, ArrowRightIcon, Copy } from "lucide-react";
-import { Metadata } from "next";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import { notFound } from "next/navigation";
 
 export const dynamicParams = false;
 
@@ -43,7 +40,7 @@ export default async function DocsPage({
 }) {
   const { locale = defaultLocale, slug = [] } = await params;
 
-  let slugPath = slug.join("/");
+  const slugPath = slug.join("/");
 
   const doc = getDocBySlug(slugPath, locale);
 
@@ -51,7 +48,7 @@ export default async function DocsPage({
 
   const markdownPath = `/docs/${locale}/${slugPath}.md`;
 
-  const GithubPath = `https://github.com/DriveLite/DriveLite/blob/main/apps/landing_page/src/content/docs/${locale}/${slugPath}`;
+  const GithubPath = `https://github.com/DriveLite/DriveLite/blob/main/apps/landing_page/src/content/docs/${locale}/${slugPath}.md`;
 
   const { previous: previousDoc, next: nextDoc } = getPrevNextDoc(slugPath);
 
@@ -63,6 +60,8 @@ export default async function DocsPage({
     ? `/docs/${locale}/${nextDoc.slug.join("/")}`
     : undefined;
 
+  console.log(getDocsStructure(locale));
+
   return (
     <section>
       <script
@@ -73,7 +72,6 @@ export default async function DocsPage({
             "@type": "TechArticle",
             headline: doc.frontmatter.title,
             description: doc.frontmatter.description,
-            datePublished: doc.frontmatter.lastModified,
             dateModified: doc.lastModified,
             author: {
               "@type": "Organization",
@@ -117,9 +115,14 @@ export default async function DocsPage({
             )}
           </div>
         </header>
-        <div className="min-w-full prose prose-headings:font-semibold prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-h5:text-md prose-headings:text-foreground prose-a:underline prose-hr:w-full">
-          <MDXRemote source={doc.content} />
-        </div>
+        <main data-pagefind-body>
+          <div className="min-w-full prose prose-headings:font-semibold prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-h5:text-md prose-headings:text-foreground prose-a:underline prose-hr:w-full">
+            <MDXRemote source={doc.content} />
+          </div>
+          <p className="sr-only" data-pagefind-sort="order">
+            {doc.frontmatter.order}
+          </p>
+        </main>
       </div>
     </section>
   );

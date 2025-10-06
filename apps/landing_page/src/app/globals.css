@@ -223,7 +223,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
   /* Input enhancements */
   .input {
-    @apply bg-input border border-border rounded-lg px-3 py-2 transition-all duration-200;
+    @apply bg-input border border-border rounded-md px-3 py-2 transition-all duration-200;
   }
 
   .input:focus {
@@ -371,8 +371,8 @@ ol {
 
 @media print {
   * {
-    box-shadow: none !important;
-    text-shadow: none !important;
+    box-shadow: none;
+    text-shadow: none;
   }
 
   body {
@@ -384,9 +384,9 @@ ol {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+    scroll-behavior: auto;
   }
 }

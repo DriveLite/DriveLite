@@ -14,9 +14,13 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import crypto from "crypto";
+import crypto from "node:crypto";
 
-const UNSUBSCRIBE_SECRET = process.env.UNSUBSCRIBE_SECRET!;
+if (!process.env.UNSUBSCRIBE_SECRET) {
+  throw new Error("The unsubscribe secret is not defined");
+}
+
+const UNSUBSCRIBE_SECRET = process.env.UNSUBSCRIBE_SECRET;
 
 export function createUnsubscribeToken(email: string) {
   if (!email) throw new Error("Email is required");

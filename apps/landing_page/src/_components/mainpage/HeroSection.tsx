@@ -14,10 +14,10 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import { Star } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { MainLogo } from "../ui/main-logo";
-import { Star } from "lucide-react";
 
 export function HeroSection() {
   return (

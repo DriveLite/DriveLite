@@ -24,7 +24,10 @@ const WaitlistSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
 });
 
-const resend = new Resend(process.env.RESEND_API_KEY!);
+if (!process.env.RESEND_API_KEY) {
+  throw new Error("RESEND_API_KEY is not defined in environment variables");
+}
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
@@ -32,7 +35,7 @@ export async function POST(req: Request) {
     let body;
     try {
       body = await req.json();
-    } catch (parseError) {
+    } catch (_parseError) {
       return NextResponse.json(
         { error: "Invalid JSON in request body" },
         { status: 400 },

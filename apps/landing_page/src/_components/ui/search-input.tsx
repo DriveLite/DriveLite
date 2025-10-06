@@ -16,11 +16,11 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
-import SearchDialog from "./search-dialog";
-import { Kbd, KbdGroup } from "./kbd";
+import { useEffect, useState } from "react";
 import { Button } from "./button";
+import { Kbd, KbdGroup } from "./kbd";
+import SearchDialog from "./search-dialog";
 
 export default function SearchInput() {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,7 +51,7 @@ export default function SearchInput() {
       <Button
         variant="blank"
         onClick={() => setIsOpen(true)}
-        className="hidden md:flex items-center space-x-2 px-3 py-2 text-sm border border-gray-300 rounded-lg hover:border-gray-400 transition-colors text-foreground/80 hover:text-gray-700 hover:cursor-pointer"
+        className="hidden md:flex items-center space-x-2 px-3 py-2 text-sm border border-gray-300 rounded-md hover:border-gray-400 transition-colors text-foreground/80 hover:text-gray-700 hover:cursor-pointer"
         aria-label="Search"
       >
         <Search size={16} />

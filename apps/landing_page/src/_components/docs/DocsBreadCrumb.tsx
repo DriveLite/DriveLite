@@ -1,22 +1,25 @@
 // DriveLite - The self-hostable file storage solution.
-// Copyright (C) 2025  
-// 
+// Copyright (C) 2025
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
 // by the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 "use client";
 
+import { ChevronRight } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { FaHome } from "react-icons/fa";
+import { locales } from "@/lib/i18n";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -24,9 +27,6 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "../ui/breadcrumb";
-import { ChevronRight } from "lucide-react";
-import { FaHome } from "react-icons/fa";
-import { locales } from "@/lib/i18n";
 
 export default function DocsBreadCrumbs() {
   const pathname = usePathname();
@@ -45,14 +45,14 @@ export default function DocsBreadCrumbs() {
   });
 
   // Build dynamic crumbs
-  let currentPath = "";
+  let _currentPath = "";
   segments.forEach((segment) => {
     if (segment === "docs" || locales.includes(segment)) {
-      currentPath += `/${segment}`;
+      _currentPath += `/${segment}`;
       return;
     }
 
-    currentPath += `/${segment}`;
+    _currentPath += `/${segment}`;
     breadcrumbs.push({
       href: "",
       label: segment

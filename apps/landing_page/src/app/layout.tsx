@@ -116,9 +116,7 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <main className="min-h-screen" data-pagefind-body>
-            {children}
-          </main>
+          <main className="min-h-screen">{children}</main>
           <Footer />
           <Toaster richColors position="top-center" />
         </ThemeProvider>

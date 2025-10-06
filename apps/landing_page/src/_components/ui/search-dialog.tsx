@@ -16,8 +16,8 @@
 
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import { Search, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { SearchDocs } from "@/lib/search";
 import { Input } from "./input";
 
@@ -63,7 +63,7 @@ export default function SearchDialog({ isOpen, onClose }: SearchDialogProps) {
 
     const timeoutId = setTimeout(search, 300);
     return () => clearTimeout(timeoutId);
-  }, [query]);
+  }, [query, results]);
 
   if (!isOpen) return null;
 
@@ -75,7 +75,7 @@ export default function SearchDialog({ isOpen, onClose }: SearchDialogProps) {
       />
 
       <div className="flex min-h-full items-center justify-center p-4">
-        <div className="relative bg-background text-foreground rounded-lg border shadow-xl max-w-2xl w-full max-h-[80vh] flex flex-col">
+        <div className="relative bg-background text-foreground rounded-md border shadow-xl max-w-2xl w-full max-h-[80vh] flex flex-col">
           <div className="flex items-center px-4 py-4 border-b">
             <Search className="text-gray-400 mr-3" size={20} />
             <Input
@@ -102,9 +102,9 @@ export default function SearchDialog({ isOpen, onClose }: SearchDialogProps) {
             ) : results.length > 0 ? (
               results.map((result, index) => (
                 <a
-                  key={index}
+                  key={result.excerpt}
                   href={result.url}
-                  className="block p-4 hover:bg-gray-50 dark:hover:bg-gray-950 transition-colors"
+                  className={`block p-4 hover:bg-gray-50 dark:hover:bg-gray-950 transition-colors ${index === results.length - 1 ? "rounded-b-md" : ""}`}
                   onClick={onClose}
                 >
                   <div className="font-medium text-foreground/90">
