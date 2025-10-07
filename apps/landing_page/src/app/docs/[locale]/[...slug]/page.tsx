@@ -1,16 +1,16 @@
 // DriveLite - The self-hostable file storage solution.
-// Copyright (C) 2025  
-// 
+// Copyright (C) 2025
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
 // by the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
@@ -21,6 +21,7 @@ import {
   getAllDocSlugs,
   getDocBySlug,
   getDocsStructure,
+  getHeadingID,
   getPrevNextDoc,
 } from "@/lib/docs.server";
 import { defaultLocale, getAlternateUrl, getCanonicalUrl } from "@/lib/i18n";
@@ -30,6 +31,7 @@ import DocsMainPage from "@/_components/docs/DocsMainPage";
 import { DocsSidebar } from "@/_components/docs/DocsSideNavbar";
 import { Doc } from "zod/v4/core";
 import { MobileSidebarToggle } from "@/_components/docs/DocsMobileSideNavbar";
+import DocsOnThisPage from "@/_components/docs/DocsOnThisPage";
 
 export const dynamicParams = false;
 
@@ -65,14 +67,16 @@ export default async function DocsPage({
   const components = useMDXComponents();
   const DocsStructue = getDocsStructure(locale);
 
+  const headingsID = getHeadingID(doc.content);
+
   return (
     <>
-      <section className="w-full h-[100vh] flex">
+      <section className="w-full min-h-screen flex">
         <aside className="hidden md:flex flex-shrink-0">
           <DocsSidebar structure={DocsStructue} locale={locale} />
         </aside>
-        <div className="section-container w-full flex-1 ">
-          <div className="w-full md:w-[75%]">
+        <div className="flex flex-1">
+          <div className="w-full lg:w-[75%] section-container ">
             <MobileSidebarToggle structure={DocsStructue} locale={locale} />
 
             <DocsHeaderButtons
@@ -84,17 +88,22 @@ export default async function DocsPage({
               DocContent={doc.content}
               DocDescription={doc.frontmatter.description}
             />
+
             <DocsMainPage
               Components={components}
               DocOrder={doc.frontmatter.order}
               DocContent={doc.content}
             />
+
             <DocsFooterButtons
               PreviosDocName={previousDocName}
               PreviousDocLink={previousDocPath}
               NextDocName={nextDocName}
               NextDocLink={nextDocPath}
             />
+          </div>
+          <div className="hidden lg:block w-[25%]">
+            <DocsOnThisPage ids={headingsID} />
           </div>
         </div>
       </section>

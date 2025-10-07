@@ -20,9 +20,10 @@ import type { NextConfig } from "next";
 const config: NextConfig = {
   reactStrictMode: true,
   compress: true,
-  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  pageExtensions: ["js", "jsx", "ts", "tsx"],
   experimental: {
     mdxRs: true,
+    optimizeCss: true,
   },
   images: {
     formats: ["image/avif", "image/webp"],

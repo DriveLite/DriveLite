@@ -14,22 +14,36 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import { Button } from "@/_components/ui/button";
+import { MainLogo } from "@/_components/ui/main-logo";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Not Found",
+  description: "You are lost on the web buddy",
+  openGraph: {
+    title: "Not Found | DriveLite",
+    description: "You are lost on the web buddy",
+  },
+};
 
 export default function NotFound() {
   return (
-    <section className="flex items-center justify-center">
-      <div className="section-container flex flex-col items-center text-center">
-        <h1 className="text-6xl font-bold mb-4">404</h1>
-        <p className="text-xl mb-6">
-          Oops! Looks like you are lost on the web again!!!
-        </p>
-        <Link
-          href="/"
-          className="rounded-md bg-primary px-5 py-3 text-primary-foreground hover:bg-primary/90 transition-colors"
-        >
-          Go Home
-        </Link>
+    <section className="min-h-screen section-container">
+      <div className="flex flex-col md:flex-row justify-center items-center gap-10 ">
+        <div className="flex flex-col justify-center items-center md:items-start text-center ">
+          <h1 className="text-6xl font-bold mb-4">404</h1>
+          <p className="text-xl mb-6">
+            Oops! Looks like you are lost on the web again!!!
+          </p>
+          <Button asChild>
+            <Link href="/" className="">
+              Go Home
+            </Link>
+          </Button>
+        </div>
+        <MainLogo />
       </div>
     </section>
   );

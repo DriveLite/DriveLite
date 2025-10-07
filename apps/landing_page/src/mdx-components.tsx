@@ -27,6 +27,16 @@ const components: MDXComponents = {
       {props.children}
     </a>
   ),
+  img: (props: React.ComponentProps<"img">) => (
+    <span className="block text-center">
+      <img
+        {...props}
+        src={props.src}
+        alt={props.alt}
+        className={`inline-block ${props.className ?? ""}`}
+      />
+    </span>
+  ),
 };
 
 export function useMDXComponents(): MDXComponents {

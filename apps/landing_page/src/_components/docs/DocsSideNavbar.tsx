@@ -14,10 +14,9 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-// src/_components/docs/DocsSidebar.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -42,6 +41,24 @@ export function DocsSidebar({ structure, locale }: DocsSidebarProps) {
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(
     new Set(),
   );
+
+  useEffect(() => {
+    const currentPath = pathname.replace(`/docs/${locale}/`, "");
+    if (!currentPath) return;
+
+    const pathParts = currentPath.split("/");
+    const parentFolders = new Set<string>();
+
+    let currentFolderPath = "";
+    for (let i = 0; i < pathParts.length - 1; i++) {
+      currentFolderPath = currentFolderPath
+        ? `${currentFolderPath}/${pathParts[i]}`
+        : pathParts[i];
+      parentFolders.add(currentFolderPath);
+    }
+
+    setExpandedFolders(new Set(parentFolders));
+  }, [pathname, locale]);
 
   const toggleFolder = (folderPath: string) => {
     const newExpanded = new Set(expandedFolders);
@@ -149,13 +166,11 @@ export function DocsSidebar({ structure, locale }: DocsSidebarProps) {
         <p className="text-sm text-muted-foreground mt-1">DriveLite Docs</p>
       </div>
 
-      <ScrollArea className="flex-1 sidebar-scroll">
-        <div className="p-4">
-          <div className="space-y-1">
-            {structure.files.map((file) => renderFile(file))}
+      <ScrollArea className="flex-1 sidebar-scroll p-4">
+        <div className="space-y-1">
+          {structure.files.map((file) => renderFile(file))}
 
-            {structure.folders.map((folder) => renderFolder(folder))}
-          </div>
+          {structure.folders.map((folder) => renderFolder(folder))}
         </div>
       </ScrollArea>
     </div>

@@ -31,8 +31,9 @@ export function HeroSection() {
           </h1>
           <p className="text-md md:text-xl my-5 text-foreground/35 px-0 md:px-36">
             Easily back up, organize, and manage your files on your own server.
-            Drivelite helps you <br /> browse, search and organize your files
-            with ease, without sacrificing your privacy.
+            Drivelite helps you <br className="hidden lg:block" /> browse,
+            search and organize your files with ease, without sacrificing your
+            privacy.
           </p>
           <div className="flex gap-2 items-center justify-center ">
             <Button

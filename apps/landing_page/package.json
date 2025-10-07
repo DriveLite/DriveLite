@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
-    "postbuild": "pagefind --site .next/server/app/ --output-path public/_pagefind",
     "start": "next start",
     "lint": "biome check",
     "lint:fix": "biome check --write",
@@ -23,11 +22,7 @@
     "@radix-ui/react-tooltip": "^1.2.8",
     "@react-email/render": "^1.2.3",
     "@supabase/supabase-js": "^2.57.4",
-    "@types/chrome": "^0.1.22",
-    "@types/firefox-webext-browser": "^120.0.5",
     "@types/mdx": "^2.0.13",
-    "@upstash/ratelimit": "^2.0.6",
-    "@upstash/redis": "^1.35.4",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "class-variance-authority": "^0.7.1",
@@ -53,7 +48,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "pagefind": "^1.4.0",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.8",
     "typescript": "^5"

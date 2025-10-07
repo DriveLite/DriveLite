@@ -24,8 +24,6 @@ import { useEffect, useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { Button } from "../ui/button";
 import { ModeToggle } from "../ui/mode-toggle";
-import SearchInput from "../ui/search-input";
-// import SearchInput from "../ui/search-input";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -87,8 +85,8 @@ export function Navbar() {
     >
       <div className={`mx-auto max-w-[1337px] px-4 md:px-6 lg:px-8`}>
         <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center justify-center">
-            <Image src={"/logo_icon.svg"} alt={"logo"} width={60} height={60} />
+          <div className="flex items-center justify-between gap-2">
+            <Image src={"/logo_icon.svg"} alt={"logo"} width={30} height={30} />
             <Link
               href="/"
               className="font-bold text-2xl text-foreground hover:text-primary transition-colors duration-200"
@@ -121,9 +119,6 @@ export function Navbar() {
               );
             })}
           </nav>
-          <div className="hidden md:block">
-            <SearchInput />
-          </div>
           <div className="hidden md:flex md:items-center md:justify-center md:gap-2">
             <Button
               asChild
@@ -143,8 +138,7 @@ export function Navbar() {
           </div>
 
           {/* Mobile Navigation Toggle */}
-          <div className="flex md:hidden items-center gap-2">
-            <SearchInput />
+          <div className="flex md:hidden items-center">
             <Button
               variant="blank"
               size="icon"

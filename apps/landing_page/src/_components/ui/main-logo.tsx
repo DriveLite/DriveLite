@@ -32,8 +32,10 @@ export function MainLogo() {
       src={"/logo_icon.svg"}
       alt={"DriveLite logo"}
       className="animate-float"
-      width={250}
-      height={250}
+      width={200}
+      height={200}
+      priority={false}
+      loading="lazy"
     />
   );
 }
