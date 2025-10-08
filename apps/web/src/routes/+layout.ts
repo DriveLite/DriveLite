@@ -14,11 +14,14 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { setupI18n } from '@drivelite/i18n';
+import { browser } from '$app/environment';
+import { locale, waitLocale } from 'svelte-i18n';
 import type { LayoutLoad } from './$types';
+import '$lib/i18n';
 
 export const load: LayoutLoad = async () => {
-	// Ensure i18n is ready before SSR render
-	await setupI18n('en');
-	return {};
+	if (browser) {
+		locale.set(window.navigator.language);
+	}
+	await waitLocale();
 };

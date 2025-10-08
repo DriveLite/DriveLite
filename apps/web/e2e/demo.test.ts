@@ -14,8 +14,6 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
- 
-
 import { expect, test } from '@playwright/test';
 
 test('home page has expected h1', async ({ page }) => {

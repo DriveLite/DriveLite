@@ -36,48 +36,6 @@ services:
     volumes:
       - ${POSTGRES_VOLUME}:/var/lib/postgresql/data
 
-  # backend:
-  #   build:
-  #     context: .
-  #     dockerfile: ./infra/docker/server.dockerfile
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - "${BACKEND_PORT}:${BACKEND_PORT}"
-  #   depends_on:
-  #     - postgres
-  #     - valkey
-  #   restart: unless-stopped
-
-  frontend:
-    build:
-      context: .
-      dockerfile: ./infra/docker/web.dockerfile
-    environment:
-      - NODE_ENV=production
-      - PORT=${FRONTEND_PORT}  
-      - HOST=0.0.0.0
-    env_file:
-      - .env
-    networks:
-      - drivelite-network
-    ports:
-      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
-    depends_on:
-      - postgres
-      - valkey
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:${FRONTEND_PORT}"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-
 volumes:
   valkey_data:
   pgdata:
-
-networks:
-  drivelite-network:
-    driver: bridge

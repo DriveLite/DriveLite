@@ -50,16 +50,12 @@ You can contribute by:
 ### Install dependencies
 
 ```bash
-# at repo root
-bun install
-```
-
-- This will install all Bun workspace packages (apps/web, apps/desktop, packages/ui, packages/core).
-- For the landing page (Next.js) and Flutter mobile, install separately.
-
-```bash
 # Landing_page (Next.js)
 cd apps/landing_page
+bun install
+
+# Web (Sveltekit)
+cd apps/web
 bun install
 
 # Mobile app (Flutter)
