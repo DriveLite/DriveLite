@@ -1,0 +1,63 @@
+# DriveLite - The self-hostable file storage solution.
+# Copyright (C) 2025
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+name: Web test
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - feature/**
+      - fix/**
+      - docs/**
+      - ci/**
+    paths:
+      - "apps/web/**"
+  pull_request:
+    branches:
+      - main
+      - dev
+    paths:
+      - "apps/server/**"
+
+permissions:
+  contents: read
+
+jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: check the web
+        run: bun run check
+
+      - name: test the web
+        run: bun run test:unit

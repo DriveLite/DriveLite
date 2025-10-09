@@ -16,18 +16,14 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<script>
-	let navItems = [
-		{ name: 'Home', href: '/' },
-		{ name: 'About', href: '/about' },
-		{ name: 'Dashboard', href: '/dashboard' }
-	];
+<script lang="ts">
+	let navItems = [{ name: 'Home', href: '/' }];
 </script>
 
-<header class="bg-background text-foreground flex h-16 items-center justify-between p-4">
+<header class="flex h-16 items-center justify-between bg-background p-4 text-foreground">
 	<h1 class="text-xl font-bold">My SvelteKit App</h1>
 	<nav>
-		{#each navItems as item}
+		{#each navItems as item (item.href)}
 			<a href={item.href} class="ml-4 hover:underline">{item.name}</a>
 		{/each}
 	</nav>

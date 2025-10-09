@@ -28,27 +28,27 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 	const items = [
 		{
 			title: 'Home',
-			url: '#',
+			url: '/',
 			icon: HouseIcon
 		},
 		{
 			title: 'Inbox',
-			url: '#',
+			url: '/',
 			icon: InboxIcon
 		},
 		{
 			title: 'Calendar',
-			url: '#',
+			url: '/',
 			icon: CalendarIcon
 		},
 		{
 			title: 'Search',
-			url: '#',
+			url: '/',
 			icon: SearchIcon
 		},
 		{
 			title: 'Settings',
-			url: '#',
+			url: '/',
 			icon: SettingsIcon
 		}
 	];
