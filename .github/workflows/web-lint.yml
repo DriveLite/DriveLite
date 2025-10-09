@@ -1,20 +1,20 @@
 # DriveLite - The self-hostable file storage solution.
-# Copyright (C) 2025  
-# 
+# Copyright (C) 2025
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published
 # by the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-name: Web lint
+name: Web Lint (Auto Fix)
 
 on:
   push:
@@ -32,13 +32,14 @@ on:
       - main
       - dev
     paths:
-      - "apps/server/**"
+      - "apps/web/**"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  Lint:
+  lint:
+    name: Lint, Fix, and Commit Web App
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -47,6 +48,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -56,8 +59,19 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Check the web
+      - name: Auto-format code
+        run: bun run format
+
+      - name: Type check
         run: bun run check
 
-      - name: Lint the web
+      - name: Lint code
         run: bun run lint
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff-index --quiet HEAD || git commit -m "chore: auto-format web code"
+          git push
