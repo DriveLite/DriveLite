@@ -18,15 +18,21 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 <script lang="ts">
 	import * as Select from '$lib/components/ui/select/index';
-	import { defaultLang, langs } from '$lib/constants';
+	import { defaultLang, langs, StorageKey } from '$lib/constants';
 	import { locale } from 'svelte-i18n';
 
-	let value = $state(defaultLang.code);
+	let savedLocale: string | null = '';
+	if (typeof window !== 'undefined') {
+		savedLocale = localStorage.getItem(StorageKey.locale);
+	}
+
+	let value = $state(savedLocale ?? defaultLang.code);
 	const triggerContent = $derived(
 		langs.find((lang) => lang.code === value)?.name ?? 'Select a language'
 	);
 	$effect(() => {
 		locale.set(value);
+		localStorage.setItem(StorageKey.locale, value);
 	});
 	const sortedLangs = [...langs].sort((a, b) => a.name.localeCompare(b.name));
 </script>

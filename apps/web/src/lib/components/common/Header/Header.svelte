@@ -24,7 +24,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 	];
 </script>
 
-<header class="flex items-center justify-between bg-gray-800 p-4 text-white">
+<header class="bg-background text-foreground flex h-16 items-center justify-between p-4">
 	<h1 class="text-xl font-bold">My SvelteKit App</h1>
 	<nav>
 		{#each navItems as item}

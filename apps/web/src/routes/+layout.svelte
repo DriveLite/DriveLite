@@ -22,7 +22,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 	import Svgfavicon from '$lib/assets/favicon.svg';
 	import favicon from '$lib/assets/favicon.ico';
 	import { ModeWatcher } from 'mode-watcher';
-	import { Footer, Header } from '$lib/components/common';
 	import { page } from '$app/state';
 
 	let { children } = $props();
@@ -35,8 +34,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 </svelte:head>
 
 <ModeWatcher />
-<Header />
-<main>
-	{@render children?.()}
-</main>
-<Footer />
+{@render children?.()}

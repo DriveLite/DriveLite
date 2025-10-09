@@ -17,9 +17,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
 <script lang="ts">
-	import ChevronUpIcon from "@lucide/svelte/icons/chevron-up";
-	import { Select as SelectPrimitive } from "bits-ui";
-	import { cn, type WithoutChildrenOrChild } from "$lib/utils.js";
+	import ChevronUpIcon from '@lucide/svelte/icons/chevron-up';
+	import { Select as SelectPrimitive } from 'bits-ui';
+	import { cn, type WithoutChildrenOrChild } from '$lib/utils.js';
 
 	let {
 		ref = $bindable(null),
@@ -31,7 +31,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 <SelectPrimitive.ScrollUpButton
 	bind:ref
 	data-slot="select-scroll-up-button"
-	class={cn("flex cursor-default items-center justify-center py-1", className)}
+	class={cn('flex cursor-default items-center justify-center py-1', className)}
 	{...restProps}
 >
 	<ChevronUpIcon class="size-4" />

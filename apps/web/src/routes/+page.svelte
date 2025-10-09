@@ -18,10 +18,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 <script lang="ts">
 	import { LanguageSwitcher, ModeToggle } from '$lib/components/common';
+	import { MainPageLayout } from '$lib/components/layouts';
 	import { t } from 'svelte-i18n';
 </script>
 
-<h1>hi</h1>
-<ModeToggle />
-<LanguageSwitcher />
-<h1>{$t('welcome')}</h1>
+<MainPageLayout>
+	<h1>hi</h1>
+	<ModeToggle />
+	<LanguageSwitcher />
+	<h1>{$t('welcome')}</h1>
+</MainPageLayout>

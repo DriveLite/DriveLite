@@ -18,10 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 @import 'tailwindcss';
 @layer theme, base, components, utilities;
-
 @import 'tw-animate-css';
-
-@custom-variant dark (&:is(.dark *));
 
 @plugin "@tailwindcss/typography";
 @import 'tailwindcss/theme.css' layer(theme);
@@ -118,6 +115,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 	--sidebar-accent-foreground: hsl(240 5.9% 10%);
 	--sidebar-border: hsl(220 13% 91%);
 	--sidebar-ring: hsl(217.2 91.2% 59.8%);
+
+	overscroll-behavior: none;
 }
 
 .dark {
