@@ -28,7 +28,7 @@ export enum ChildKey {
 
 export enum StorageKey {
 	locale = 'locale',
-  BackendEndPoint = 'BackendEndPoint',
+	BackendEndPoint = 'BackendEndPoint'
 }
 
 export const fallbackLocale = {

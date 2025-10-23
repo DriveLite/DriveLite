@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
 <script lang="ts">
-	import { LanguageSwitcher, ModeToggle } from '$lib/components/common';
+	import { LanguageSwitcher } from '$lib/components/common';
 	import Userspagelayout from '$lib/components/layouts/userspagelayout.svelte';
 	import { isTauri } from '$lib/constants';
 	import { t } from 'svelte-i18n';
