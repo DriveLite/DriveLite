@@ -1,33 +1,33 @@
 // DriveLite - The self-hostable file storage solution.
-// Copyright (C) 2025  
-// 
+// Copyright (C) 2025
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
 // by the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
-  ChevronRight,
   ChevronDown,
+  ChevronRight,
   FileText,
   Folder,
   FolderOpen,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import type { DirectoryStructure } from "@/lib/docs.server";
+import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
 
@@ -124,7 +124,7 @@ export function DocsSidebar({ structure, locale }: DocsSidebarProps) {
           onClick={() => hasContent && toggleFolder(folder.path)}
         >
           <Button
-            variant="ghost"
+            variant="blank"
             size="sm"
             className={cn(
               "h-4 w-4 p-0 hover:bg-transparent flex-shrink-0",

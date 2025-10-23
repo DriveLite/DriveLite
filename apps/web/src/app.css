@@ -107,14 +107,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 	--border: oklch(0.91 0.015 247.8);
 	--input: oklch(0.95 0.01 247.8);
 	--ring: oklch(0.55 0.22 262.4);
-	--sidebar: hsl(0 0% 98%);
-	--sidebar-foreground: hsl(240 5.3% 26.1%);
-	--sidebar-primary: hsl(240 5.9% 10%);
-	--sidebar-primary-foreground: hsl(0 0% 98%);
-	--sidebar-accent: hsl(240 4.8% 95.9%);
-	--sidebar-accent-foreground: hsl(240 5.9% 10%);
-	--sidebar-border: hsl(220 13% 91%);
-	--sidebar-ring: hsl(217.2 91.2% 59.8%);
+	--sidebar: oklch(0.99 0.002 247.8);
+	--sidebar-foreground: oklch(0.13 0.028 256.8);
+	--sidebar-primary: oklch(0.55 0.22 262.4);
+	--sidebar-primary-foreground: oklch(0.985 0.002 247.8);
+	--sidebar-accent: oklch(0.97 0 0);
+	--sidebar-accent-foreground: oklch(0.205 0 0);
+	--sidebar-border: oklch(0.91 0.015 247.8);
+	--sidebar-ring: oklch(0.55 0.22 262.4);
 
 	overscroll-behavior: none;
 }
@@ -154,14 +154,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 	--border: oklch(0.28 0.03 256.8);
 	--input: oklch(0.2 0.022 256.8);
 	--ring: oklch(0.65 0.2 262.4);
-	--sidebar: hsl(240 5.9% 10%);
-	--sidebar-foreground: hsl(240 4.8% 95.9%);
-	--sidebar-primary: hsl(224.3 76.3% 48%);
-	--sidebar-primary-foreground: hsl(0 0% 100%);
-	--sidebar-accent: hsl(240 3.7% 15.9%);
-	--sidebar-accent-foreground: hsl(240 4.8% 95.9%);
-	--sidebar-border: hsl(240 3.7% 15.9%);
-	--sidebar-ring: hsl(217.2 91.2% 59.8%);
+	--sidebar: oklch(0.18 0.02 260);
+	--sidebar-foreground: oklch(0.92 0.01 260);
+	--sidebar-primary: oklch(0.65 0.2 262.4);
+	--sidebar-primary-foreground: oklch(0.12 0.028 256.8);
+	--sidebar-accent: oklch(0.269 0 0);
+	--sidebar-accent-foreground: oklch(0.985 0 0);
+	--sidebar-border: oklch(0.28 0.03 256.8);
+	--sidebar-ring: oklch(0.65 0.2 262.4);
 }
 
 @layer base {

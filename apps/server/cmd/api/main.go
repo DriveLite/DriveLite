@@ -39,7 +39,7 @@ func gracefulShutdown(apiServer *server.Server, done chan bool) {
 	<-ctx.Done()
 
 	apiServer.Logger.Infof("Shutting down gracefully, press Ctrl+c again to force")
-	stop() // Allow Ctrl+C to force shutdown
+	stop()
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -58,7 +58,7 @@ func gracefulShutdown(apiServer *server.Server, done chan bool) {
 	if err := apiServer.Storage.Close(); err != nil {
 		apiServer.Logger.Errorf("Error closing storage: %v", err)
 	} else {
-		apiServer.Logger.Infof("Storafe connection closed successfully")
+		apiServer.Logger.Infof("Storage connection closed successfully")
 	}
 
 	apiServer.Logger.Infof("Logger closing")

@@ -18,6 +18,8 @@ export enum AppRoute {
 	AUTH_LOGIN = '/auth/login'
 }
 
+export const isTauri = typeof window !== 'undefined' && !!(window as any).__TAURI__;
+
 export enum ChildKey {
 	AppShell = 'app-shell',
 	AppShellHeader = 'app-shell-header',
@@ -25,7 +27,8 @@ export enum ChildKey {
 }
 
 export enum StorageKey {
-	locale = 'locale'
+	locale = 'locale',
+  BackendEndPoint = 'BackendEndPoint',
 }
 
 export const fallbackLocale = {

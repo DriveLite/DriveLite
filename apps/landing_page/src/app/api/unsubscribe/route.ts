@@ -25,7 +25,6 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "Missing token" }, { status: 400 });
   }
 
-  // Look up in DB
   const { data, error: lookupError } = await supabaseAdmin
     .from("waitlist_emails")
     .select("*")
@@ -35,7 +34,6 @@ export async function GET(req: Request) {
   if (lookupError || !data) {
     return NextResponse.json({ error: "Invalid token" }, { status: 400 });
   }
-  // Mark unsubscribed (or delete)
   await supabaseAdmin.from("waitlist_emails").delete().eq("id", data.id);
   console.log(data.id);
 

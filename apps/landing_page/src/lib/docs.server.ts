@@ -18,8 +18,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
-import { defaultLocale, locales } from "./i18n";
 import slugify from "slugify";
+import { defaultLocale, locales } from "./i18n";
 
 export interface Doc {
   slug: string[];

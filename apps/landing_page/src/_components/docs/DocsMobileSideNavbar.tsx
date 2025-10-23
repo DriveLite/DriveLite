@@ -17,11 +17,11 @@
 // src/_components/docs/MobileSidebarToggle.tsx
 "use client";
 
-import { useState } from "react";
 import { Menu } from "lucide-react";
+import { useState } from "react";
 import type { DirectoryStructure } from "@/lib/docs.server";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import { DocsSidebar } from "./DocsSideNavbar";
 
 interface MobileSidebarToggleProps {
@@ -37,12 +37,14 @@ export function MobileSidebarToggle({
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
-        <Button variant="ghost" size="sm" className="md:hidden h-9 w-9 p-0">
-          <Menu className="h-4 w-4" />
-          <span className="sr-only">Toggle sidebar</span>
-        </Button>
-      </SheetTrigger>
+      <div className="w-full border-foreground/10 border-b">
+        <SheetTrigger asChild>
+          <Button variant="blank" size="sm" className="md:hidden h-9 w-9 p-0">
+            <Menu className="h-4 w-4" />
+            <span className="sr-only">Toggle sidebar</span>
+          </Button>
+        </SheetTrigger>
+      </div>
       <SheetTitle className="sr-only">Documentation Navigation</SheetTitle>
       <SheetContent side="left" className="p-0 w-80">
         <DocsSidebar structure={structure} locale={locale} />

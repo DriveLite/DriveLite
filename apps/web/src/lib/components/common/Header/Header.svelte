@@ -17,6 +17,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
 <script lang="ts">
+	import ModeToggle from "../ModeToggle";
+
 	let navItems = [{ name: 'Home', href: '/' }];
 </script>
 
@@ -27,4 +29,5 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 			<a href={item.href} class="ml-4 hover:underline">{item.name}</a>
 		{/each}
 	</nav>
+  <ModeToggle />
 </header>

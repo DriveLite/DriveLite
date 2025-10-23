@@ -35,6 +35,7 @@ import {
 } from "../ui/dropdown-menu";
 import { Separator } from "../ui/separator";
 import DocsBreadCrumbs from "./DocsBreadCrumb";
+import DocsLanguageSwitcher from "./DocsLanguageSwitch";
 
 interface HeaderProps {
   PreviousDocLink: string | undefined;
@@ -65,7 +66,7 @@ export default function DocsHeaderButtons({
             {DocTitle}
           </h1>
 
-          <div className="flex gap-2 border-border/50 bg-background/80 backdrop-blur-sm  fixed bottom-0 inset-x-0 isolate z-50 items-center justify-between border-t px-6 py-4 md:static md:z-0 md:border-t-0 md:bg-transparent md:px-0 md:pt-1.5 md:backdrop-blur-none">
+          <div className="flex gap-2 border-border/50 bg-background/80 backdrop-blur-sm fixed bottom-0 inset-x-0 isolate z-50 items-center justify-between border-t px-6 py-4 md:static md:z-0 md:border-t-0 md:bg-transparent md:px-0 md:pt-1.5 md:backdrop-blur-none">
             <ButtonGroup>
               <CopyButton text={DocContent}>Copy Page</CopyButton>
               <Separator orientation="vertical" />
@@ -94,6 +95,7 @@ export default function DocsHeaderButtons({
                 </DropdownMenuContent>
               </DropdownMenu>
             </ButtonGroup>
+            <DocsLanguageSwitcher />
             <ButtonGroup>
               {PreviousDocLink && (
                 <Button variant="secondary" size="icon" asChild>

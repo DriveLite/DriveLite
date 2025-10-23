@@ -16,7 +16,12 @@
 
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import DocsFooterButtons from "@/_components/docs/DocsFooterButtons";
 import DocsHeaderButtons from "@/_components/docs/DocsHeaderButtons";
+import DocsMainPage from "@/_components/docs/DocsMainPage";
+import { MobileSidebarToggle } from "@/_components/docs/DocsMobileSideNavbar";
+import DocsOnThisPage from "@/_components/docs/DocsOnThisPage";
+import { DocsSidebar } from "@/_components/docs/DocsSideNavbar";
 import {
   getAllDocSlugs,
   getDocBySlug,
@@ -26,14 +31,9 @@ import {
 } from "@/lib/docs.server";
 import { defaultLocale, getAlternateUrl, getCanonicalUrl } from "@/lib/i18n";
 import { useMDXComponents } from "@/mdx-components";
-import DocsFooterButtons from "@/_components/docs/DocsFooterButtons";
-import DocsMainPage from "@/_components/docs/DocsMainPage";
-import { DocsSidebar } from "@/_components/docs/DocsSideNavbar";
-import { Doc } from "zod/v4/core";
-import { MobileSidebarToggle } from "@/_components/docs/DocsMobileSideNavbar";
-import DocsOnThisPage from "@/_components/docs/DocsOnThisPage";
 
 export const dynamicParams = false;
+export const dynamic = "force-static";
 
 export async function generateStaticParams() {
   return getAllDocSlugs().map(({ locale, slug }) => ({ locale, slug }));
@@ -117,6 +117,7 @@ export default async function DocsPage({
             headline: doc.frontmatter.title,
             description: doc.frontmatter.description,
             dateModified: doc.lastModified,
+            language: locale,
             author: {
               "@type": "Organization",
               name: "DriveLite",
@@ -134,6 +135,11 @@ export default async function DocsPage({
               "@id": getCanonicalUrl(`/${slugPath}`, locale),
             },
           }),
+        }}
+      />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `document.documentElement.setAttribute('lang', '${locale}');`,
         }}
       />
     </>
@@ -162,7 +168,7 @@ export async function generateMetadata({
   const alternateUrl = getAlternateUrl(slugPath, locale);
 
   return {
-    title: `${doc.frontmatter.title} | DriveLite Documentation`,
+    title: `${doc.frontmatter.title}`,
     description: doc.frontmatter.description,
     keywords: doc.frontmatter.keywords,
     authors: [{ name: "DriveLite Team" }],

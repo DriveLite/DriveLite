@@ -14,8 +14,20 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import { FeatureSection } from "@/_components/mainpage/FeaturesSection";
 import { HeroSection } from "@/_components/mainpage/HeroSection";
+import { OSSSection } from "@/_components/mainpage/OSSSection";
+import { StatsSection } from "@/_components/mainpage/StatsSection";
+import { WaitListSection } from "@/_components/mainpage/WaitListSection";
 
 export default function Home() {
-  return <HeroSection />;
+  return (
+    <>
+      <HeroSection />
+      <FeatureSection />
+      <StatsSection />
+      <WaitListSection />
+      <OSSSection />
+    </>
+  );
 }

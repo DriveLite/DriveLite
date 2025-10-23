@@ -30,6 +30,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-background-highlight: var(--background-highlight);
+  --color-background-section-alt: var(--background-section-alt);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --color-ring: var(--ring);
@@ -73,7 +74,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   --transition-default: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   --background: oklch(0.99 0.002 247.8);
-  --background-highlight: oklch(0.9 0.02 247.8);
+  --background-highlight: oklch(0.9 0.002 247.8);
+  --background-section-alt: oklch(0.95 0.002 247.8);
   --foreground: oklch(0.13 0.028 256.8);
 
   --card: oklch(1 0 0);
@@ -119,6 +121,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 .dark {
   --background: oklch(0.18 0.02 260);
   --background-highlight: oklch(0.3 0.02 260);
+  --background-section-alt: oklch(0.2 0.02 260);
   --foreground: oklch(0.92 0.01 260);
 
   --card: oklch(0.16 0.025 256.8);
@@ -179,13 +182,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Smooth focus states */
   *:focus-visible {
     @apply outline-2 outline-ring outline-offset-2;
     transition: outline-offset 0.2s ease;
   }
 
-  /* Better scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -207,6 +208,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   .section-container {
     @apply mx-auto max-w-[1337px] px-4 md:px-6 lg:px-8;
   }
+  .section {
+    @apply my-10 md:my-20;
+  }
+  .section-alt {
+    @apply my-10 md:my-20 bg-background-section-alt py-10;
+  }
 
   .btn {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -224,7 +231,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     @apply brightness-110;
   }
 
-  /* Card enhancements */
   .card {
     @apply bg-card text-card-foreground rounded-xl border border-border p-6 transition-all duration-300;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -235,7 +241,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     transform: translateY(-2px);
   }
 
-  /* Input enhancements */
   .input {
     @apply bg-input border border-border rounded-md px-3 py-2 transition-all duration-200;
   }
@@ -245,17 +250,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     transform: scale(1.01);
   }
 
-  /* Glass morphism utility */
   .glass {
     @apply bg-background/80 backdrop-blur-md border border-border/50;
   }
 
-  /* Gradient text */
   .gradient-text {
     @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
   }
 
-  /* Status indicators */
   .status-success {
     @apply bg-success/20 text-success-foreground border border-success/30;
   }
@@ -270,7 +272,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 }
 
 @layer utilities {
-  /* Enhanced animations */
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
@@ -291,17 +292,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     animation: pulseSubtle 2s ease-in-out infinite;
   }
 
-  /* Text balance for better typography */
   .text-balance {
     text-wrap: balance;
   }
 
-  /* Smooth transitions */
   .transition-smooth {
     transition: var(--transition-default);
   }
 
-  /* Enhanced shadows */
   .shadow-glow {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
   }
@@ -352,8 +350,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     opacity: 0.8;
   }
 }
-
-/* Base HTML improvements */
 html,
 body,
 #__next {
@@ -369,7 +365,6 @@ body {
   line-height: 1.6;
 }
 
-/* Improved list styles */
 ol {
   list-style: none;
 }
@@ -499,4 +494,22 @@ p {
 
 .sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+
+.card-hover {
+  @apply transition-all duration-200 ease-in-out cursor-pointer;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  @apply border border-foreground/10;
+}
+
+.tech-tag {
+  transition: transform 0.2s ease;
+}
+
+.tech-tag:hover {
+  transform: scale(1.05);
 }

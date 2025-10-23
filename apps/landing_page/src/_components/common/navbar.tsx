@@ -21,64 +21,34 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FaGithub } from "react-icons/fa";
 import { Button } from "../ui/button";
 import { ModeToggle } from "../ui/mode-toggle";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
   const links: { title: string; href: string; target?: string }[] = [
     {
-      title: "About",
-      href: "/about",
-    },
-    {
       title: "Blogs",
       href: "/blogs",
     },
     {
-      title: "Roadmap",
-      href: "/roadmap",
-    },
-    {
       title: "Docs",
       href: "/docs/en/overview/quick-start",
+    },
+    {
+      title: `Github `,
+      href: "https://github.com/DriveLite/DriveLite",
+      target: "_blank",
     },
   ];
 
   // Handle scroll effect
   useEffect(() => {
     setMounted(true);
-
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Close menu when clicking outside
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     const target = event.target as HTMLElement;
-  //     if (
-  //       isMenuOpen &&
-  //       !target.closest(".mobile-menu") &&
-  //       !target.closest(".menu-button")
-  //     ) {
-  //       setIsMenuOpen(false);
-  //     }
-  //   };
-  //
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => document.removeEventListener("mousedown", handleClickOutside);
-  // }, [isMenuOpen]);
-
   return (
     <header
       className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${mounted ? `border-b border-foreground/10 bg-background/75 backdrop-blur-md` : ""}`}
@@ -127,14 +97,6 @@ export function Navbar() {
               <Link href="/waitlist">Join WaitList!</Link>
             </Button>
             <ModeToggle />
-            <Link
-              href="https://github.com/DriveLite/DriveLite"
-              className="text-foreground hover:text-primary rounded-full"
-              target="_blank"
-            >
-              <span className="sr-only">Github</span>
-              <FaGithub size={20} />
-            </Link>
           </div>
 
           {/* Mobile Navigation Toggle */}

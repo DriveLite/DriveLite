@@ -25,16 +25,15 @@ export function Footer() {
   const navigation = {
     product: [
       { name: "Features", href: "/#features", target: "" },
-      { name: "Roadmap", href: "/roadmap", target: "" },
+      { name: "Stats", href: "/#stats", target: "" },
+      { name: "WaitList", href: "/waitlist", target: "" },
       {
         name: "Documentation",
         href: "/docs/en/overview/quick-start",
+        target: "",
       },
     ],
-    company: [
-      { name: "About", href: "/about" },
-      { name: "Blogs", href: "/blogs" },
-    ],
+    company: [{ name: "Blogs", href: "/blogs" }],
     social: [
       {
         name: "GitHub",

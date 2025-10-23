@@ -114,6 +114,10 @@ export async function POST(req: Request) {
       })
       .catch((emailError) => {
         console.error("Failed to send welcome email:", emailError);
+        return NextResponse.json(
+          { error: "Internal server error" },
+          { status: 500 },
+        );
       });
 
     return NextResponse.json(

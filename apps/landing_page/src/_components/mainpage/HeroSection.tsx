@@ -21,7 +21,7 @@ import { MainLogo } from "../ui/main-logo";
 
 export function HeroSection() {
   return (
-    <section className="my-10 md:my-20">
+    <section className="section">
       <div className=" section-container">
         <div className="flex items-center justify-center flex-col text-center">
           <MainLogo />
@@ -29,7 +29,7 @@ export function HeroSection() {
             Self-hosted <span className="text-primary">File management</span>{" "}
             Solution
           </h1>
-          <p className="text-md md:text-xl my-5 text-foreground/35 px-0 md:px-36">
+          <p className="text-md md:text-xl my-5 text-foreground/50 px-0 md:px-36">
             Easily back up, organize, and manage your files on your own server.
             Drivelite helps you <br className="hidden lg:block" /> browse,
             search and organize your files with ease, without sacrificing your
@@ -48,7 +48,7 @@ export function HeroSection() {
               className="p-7 rounded-xl font-bold text-sm md:text-md"
             >
               <Link
-                href={"https://github.com/Moukhtar-youssef/drivelite"}
+                href={"https://github.com/DriveLite/drivelite"}
                 target="_blank"
               >
                 <Star />

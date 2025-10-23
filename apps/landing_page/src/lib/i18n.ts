@@ -14,11 +14,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-export const locales = ["en"];
+export const locales = ["en", "es"];
 export const defaultLocale = "en";
 
-export const languageNames = {
+export const languageNames: Record<(typeof locales)[number], string> = {
   en: "English",
+  es: "Spanish",
 };
 
 export function getCanonicalUrl(path: string, locale: string = defaultLocale) {

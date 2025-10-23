@@ -28,9 +28,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${baseurl}/about`,
+      url: `${baseurl}/blogs`,
       lastModified: new Date(),
-      changeFrequency: "yearly",
+      changeFrequency: "weekly",
       priority: 0.9,
     },
   ];
