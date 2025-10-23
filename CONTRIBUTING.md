@@ -50,17 +50,13 @@ You can contribute by:
 ### Install dependencies
 
 ```bash
-# at repo root
-bun install
-```
-
-- This will install all Bun workspace packages (apps/web, apps/desktop, packages/ui, packages/core).
-- For the landing page (Next.js) and Flutter mobile, install separately.
-
-```bash
 # Landing_page (Next.js)
 cd apps/landing_page
-npm install
+bun install
+
+# Web (Sveltekit)
+cd apps/web
+bun install
 
 # Mobile app (Flutter)
 cd apps/mobile
@@ -72,10 +68,10 @@ flutter pub get
 ```bash
 # Landing_page (Next.js)
 cd apps/landing_page
-npm run dev
+bun run dev
 
 # Backend (Go)
-cd apps/backend
+cd apps/server
 go run ./cmd/api
 
 # Frontend (SvelteKit)
@@ -151,7 +147,7 @@ Before opening a new issue, check existing ones.
 ## 🧪 Tests
 
 - Backend: `go test ./...`
-- Web: `npm run test`
+- Web: `bun run test`
 
 > If your PR includes logic changes, add or update tests.
 
@@ -159,7 +155,7 @@ Before opening a new issue, check existing ones.
 
 ## 💬 Community & Discussions
 
-- Open a [GitHub Discussion](https://github.com/Moukhtar-youssef/DriveLite/discussions)
+- Open a [GitHub Discussion](https://github.com/DriveLite/DriveLite/discussions)
 - Join our Discord (Coming Soon)
 - Tag maintainers in issues respectfully if needed
 

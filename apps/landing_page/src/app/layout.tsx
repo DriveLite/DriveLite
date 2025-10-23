@@ -19,12 +19,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import Header from "@/UI/common/header";
-import Footer from "@/UI/common/footer";
-import { Toaster } from "@/Components/ui/sonner";
-import Script from "next/script";
-import { GAnalytics } from "./analytics";
-import { Suspense } from "react";
+import { Footer } from "@/_components/common/footer";
+import { Navbar } from "@/_components/common/navbar";
+import { ThemeProvider } from "@/_components/theme-provider";
+import { Toaster } from "@/_components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,12 +35,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DriveLite – Open-Source Supabase for File Storage",
+  title: {
+    default: "Home | DriveLite",
+    template: "%s | DriveLite",
+  },
   description:
     "Private. Secure. Yours. An open-source Supabase alternative for file storage.",
   metadataBase: new URL("https://drivelite.org"),
   openGraph: {
-    title: "DriveLite – Open-Source Supabase for File Storage",
+    title: "Home | DriveLite",
     description:
       "Private. Secure. Yours. An open-source Supabase alternative for file storage.",
     url: "https://drivelite.org",
@@ -55,52 +56,77 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "DriveLite – Open-Source Supabase for File Storage",
+    title: "Home | DriveLite",
     description:
       "Private. Secure. Yours. An open-source Supabase alternative for file storage.",
     images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   alternates: {
     canonical: "https://drivelite.org",
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <html lang="en">
-        <head>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=G-ET03KCVZW`}
-            strategy="afterInteractive"
-          />
-          <Script id="google-analytics" strategy="afterInteractive">
-            {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-ET03KCVZW');
-          `}
-          </Script>
-        </head>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+    <html suppressHydrationWarning data-scroll-behavior="smooth">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "DriveLite",
+              url: "https://drivelite.com",
+              logo: "https://drivelite.com/logo.png",
+              description: "Secure cloud storage solution",
+              sameAs: [
+                "https://twitter.com/drivelite",
+                "https://linkedin.com/company/drivelite",
+              ],
+            }),
+          }}
+        />
+      </head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-          <Suspense fallback={<div>loading </div>}>
-            <GAnalytics />
-          </Suspense>
-          <Header />
-          <main className=" mx-auto">{children}</main>
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
           <Footer />
           <Toaster richColors position="top-center" />
-          <Analytics />
-          <SpeedInsights />
-        </body>
-      </html>
-    </>
+        </ThemeProvider>
+        {process.env.NODE_ENV === "production" && (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        )}
+      </body>
+    </html>
   );
 }

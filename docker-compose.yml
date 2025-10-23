@@ -36,19 +36,6 @@ services:
     volumes:
       - ${POSTGRES_VOLUME}:/var/lib/postgresql/data
 
-  # backend:
-  #   build:
-  #     context: ./apps/backend
-  #     dockerfile: Dockerfile
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - "${BACKEND_PORT}:${BACKEND_PORT}"
-  #   depends_on:
-  #     - postgres
-  #     - valkey
-  #   restart: unless-stopped
-
 volumes:
   valkey_data:
   pgdata:

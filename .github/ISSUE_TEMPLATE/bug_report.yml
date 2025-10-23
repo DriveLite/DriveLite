@@ -14,45 +14,42 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
- 
-
-name: 🐛 Bug Report
-description: Report a bug
-title: "[Bug]: "
-labels: ["bug"]
+name: Report a bug
+description: Things that were working earlier but don't anymore
+labels: []
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Thanks for reporting a bug. Please complete all fields.
-
-  - type: input
-    id: env
-    attributes:
-      label: Environment
-      description: Browser, OS, DB, etc.
-      placeholder: "e.g., Chrome 125, macOS, PostgreSQL 15"
-    validations:
-      required: true
-
-  - type: textarea
-    id: steps
-    attributes:
-      label: Steps to Reproduce
-      placeholder: "1. Go to...\n2. Click on...\n3. See error"
-    validations:
-      required: true
-
-  - type: textarea
-    id: expected
-    attributes:
-      label: Expected Behavior
-    validations:
-      required: true
-
-  - type: textarea
-    id: actual
-    attributes:
-      label: Actual Behavior
-    validations:
-      required: true
+    - type: markdown
+      attributes:
+          value: |
+              **Checklist**
+              1. You've searched existing [issues](https://github.com/search?q=repo%3AMoukhtar-youssef%2Fdrivelite+&type=issues) and [discussions](https://github.com/search?q=repo%3AMoukhtar-youssef%2Fdrivelite+&type=discussions)
+              2. It was working earlier 
+              3. It is not about self hosting (for those use [this](https://github.com/Moukhtar-youssef/DriveLite/discussions/categories/q-a))
+              4. It is about a new feature (for those use [this](https://github.com/Moukhtar-youssef/DriveLite/discussions/categories/new-features))
+    - type: textarea
+      attributes:
+          label: Description
+    - type: input
+      attributes:
+          label: Version
+          description: The version can be seen at the bottom of settings.
+          placeholder: e.g. v1.2.3
+    - type: dropdown
+      attributes:
+          label: What platform are you using?
+          description: You can select multiple if needed.
+          multiple: true
+          options:
+              - Mobile - iOS
+              - Mobile - Android
+              - Desktop - Linux
+              - Desktop - Windows
+              - Desktop - macOS
+              - Web - Firefox
+              - Web - Chrome
+              - Web - Safari
+              - Web - Edge
+              - Server
+    - type: markdown
+      attributes:
+          value: Thanks ❤️
