@@ -1,0 +1,54 @@
+<!--
+DriveLite - The self-hostable file storage solution.
+Copyright (C) 2025  
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<script lang="ts">
+	import { cn, type WithElementRef } from '$lib/utils.js';
+	import type { Snippet } from 'svelte';
+	import type { HTMLButtonAttributes } from 'svelte/elements';
+
+	let {
+		ref = $bindable(null),
+		class: className,
+		children,
+		child,
+		...restProps
+	}: WithElementRef<HTMLButtonAttributes> & {
+		child?: Snippet<[{ props: Record<string, unknown> }]>;
+	} = $props();
+
+	const mergedProps = $derived({
+		class: cn(
+			'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground outline-hidden absolute right-3 top-3.5 flex aspect-square w-5 items-center justify-center rounded-md p-0 transition-transform focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
+			// Increases the hit area of the button on mobile.
+			'after:absolute after:-inset-2 md:after:hidden',
+			'group-data-[collapsible=icon]:hidden',
+			className
+		),
+		'data-slot': 'sidebar-group-action',
+		'data-sidebar': 'group-action',
+		...restProps
+	});
+</script>
+
+{#if child}
+	{@render child({ props: mergedProps })}
+{:else}
+	<button bind:this={ref} {...mergedProps}>
+		{@render children?.()}
+	</button>
+{/if}

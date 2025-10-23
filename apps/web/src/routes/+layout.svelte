@@ -18,13 +18,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 <script lang="ts">
 	import '../app.css';
-	import favicon from '$lib/assets/favicon.svg';
+
+	import Svgfavicon from '$lib/assets/favicon.svg';
+	import favicon from '$lib/assets/favicon.ico';
+	import { ModeWatcher } from 'mode-watcher';
+	import { page } from '$app/state';
 
 	let { children } = $props();
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<title>{page.data.meta?.title || 'Web'} - DriveLite</title>
+	<link rel="icon" type="image/svg" href={Svgfavicon} />
+	<link rel="icon" type="image/ico" href={favicon} />
 </svelte:head>
 
+<ModeWatcher />
 {@render children?.()}

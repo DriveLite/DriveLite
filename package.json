@@ -1,9 +1,0 @@
-{
-  "name": "drivelite-monorepo",
-  "private": true,
-  "workspaces": [
-    "apps/web",
-    "apps/desktop",
-    "packages/*"
-  ]
-}

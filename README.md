@@ -80,6 +80,18 @@ See the [ROADMAP.md](./ROADMAP.md) for upcoming features and milestones.
 
 ---
 
+## Repo Activity
+
+![Alt](https://repobeats.axiom.co/api/embed/884389cc9607d3db4fd1aaf6e63f91c07bbeec31.svg "Repobeats analytics image")
+
+---
+
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=moukhtar-youssef/DriveLite&type=Date)](https://www.star-history.com/#moukhtar-youssef/DriveLite&Date)
+<a href="https://www.star-history.com/#DriveLite/DriveLIte&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=DriveLite/DriveLIte&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=DriveLite/DriveLIte&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=DriveLite/DriveLIte&type=Date" />
+ </picture>
+</a>

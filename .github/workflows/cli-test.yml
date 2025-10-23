@@ -1,0 +1,70 @@
+# DriveLite - The self-hostable file storage solution.
+# Copyright (C) 2025
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+name: Server lint
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - feature/**
+      - fix/**
+      - docs/**
+      - ci/**
+    paths:
+      - 'apps/cli/**'
+  pull_request:
+    branches:
+      - main
+      - dev
+    paths:
+      - 'apps/cli/**'
+
+
+permissions:
+  contents: read
+
+env:
+  GO_VERSION: '1.25'
+
+jobs:
+  build-and-test:
+    name: CLI Build and Test
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: apps/server
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Go ${{ env.GO_VERSION }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache: true
+
+      - name: Download Dependencies
+        run: go mod download
+
+      - name: Build Binary
+        run: go build -v ./...
+
+      - name: Run Unit Tests
+        run: go test ./... -v -cover
