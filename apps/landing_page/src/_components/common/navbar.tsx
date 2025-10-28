@@ -99,7 +99,6 @@ export function Navbar() {
             <ModeToggle />
           </div>
 
-          {/* Mobile Navigation Toggle */}
           <div className="flex md:hidden items-center">
             <Button
               variant="blank"
@@ -130,15 +129,6 @@ export function Navbar() {
               {link.title}
             </Link>
           ))}
-          <Link
-            href="https://github.com/DriveLite/DriveLite"
-            target="_blank"
-            className="text-foreground hover:text-primary-foreground py-3 px-4 rounded-md hover:bg-primary transition-all duration-200 font-medium"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Github
-          </Link>
-
           <div className="mt-2 pt-3 border-t border-border flex flex-col items-center justify-center">
             <div className="flex justify-center px-4">
               <ModeToggle />

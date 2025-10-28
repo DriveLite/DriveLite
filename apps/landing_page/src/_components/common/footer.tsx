@@ -17,7 +17,7 @@
 "use client";
 
 import Link from "next/link";
-import { FaGithub, FaHeart } from "react-icons/fa";
+import { FaGithub, FaHeart, FaRss } from "react-icons/fa";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -39,6 +39,11 @@ export function Footer() {
         name: "GitHub",
         href: "https://github.com/DriveLite/DriveLite",
         icon: FaGithub,
+      },
+      {
+        name: "Rss",
+        href: "/api/feed",
+        icon: FaRss,
       },
     ],
     OpneSource: [

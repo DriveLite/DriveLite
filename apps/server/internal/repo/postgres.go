@@ -34,6 +34,11 @@ type postgresRepoService struct {
 	usersRepo users.UsersRepository
 }
 
+// Init implements Repository.
+func (s *postgresRepoService) Init() error {
+	panic("unimplemented")
+}
+
 func newPostgresRepoService(config Config) (Repository, error) {
 	connStr := fmt.Sprintf(
 		"postgres://%s:%s@%s:%s/%s?sslmode=%s&search_path=%s",

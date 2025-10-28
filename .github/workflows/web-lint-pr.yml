@@ -13,20 +13,44 @@
 # 
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-name: 'Pull Request Labeler'
+name: Web Lint (pr)
 
 on:
   pull_request:
     branches:
       - main
       - dev
+    paths:
+      - "apps/web/**"
+
+permissions:
+  contents: read
 
 jobs:
-  labeler:
-    permissions:
-      contents: read
-      pull-requests: write
+  lint:
+    name: Lint, Fix, and Commit Web App
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+
     steps:
-      - uses: actions/labeler@v5
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Auto-format code
+        run: bun run format
+
+      - name: Type check
+        run: bun run check
+
+      - name: Lint code
+        run: bun run lint --fix

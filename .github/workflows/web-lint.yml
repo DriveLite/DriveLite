@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-name: Web Lint (Auto Fix)
+name: Web Lint (Auto Fix Non pr)
 
 on:
   push:
@@ -25,12 +25,6 @@ on:
       - fix/**
       - docs/**
       - ci/**
-    paths:
-      - "apps/web/**"
-  pull_request:
-    branches:
-      - main
-      - dev
     paths:
       - "apps/web/**"
 
@@ -64,7 +58,7 @@ jobs:
         run: bun run check
 
       - name: Lint code
-        run: bun run lint
+        run: bun run lint --fix
 
       - name: Commit and push changes
         run: |

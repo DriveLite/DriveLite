@@ -29,6 +29,11 @@ type sqliteRepoService struct {
 	usersRepo users.UsersRepository
 }
 
+// Init implements Repository.
+func (s *sqliteRepoService) Init() error {
+	panic("unimplemented")
+}
+
 func newSQLiteRepoService(cfg Config) (Repository, error) {
 	path := cfg.FilePath
 	if path == "" {

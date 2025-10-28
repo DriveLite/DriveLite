@@ -23,16 +23,12 @@ export async function GET(
   _req: Request,
   context: { params: Promise<{ locale: string; slug: string[] }> },
 ) {
-  // Await the dynamic params
   const { locale = defaultLocale, slug = [] } = await context.params;
 
-  // Join slug segments
   let slugPath = slug.join("/");
 
-  // Strip .md if included
   if (slugPath.endsWith(".md")) slugPath = slugPath.slice(0, -3);
 
-  // Full path to your source markdown
   const docsPath = path.join(
     process.cwd(),
     "src/content/docs",

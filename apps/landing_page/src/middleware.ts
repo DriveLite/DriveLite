@@ -15,7 +15,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import type { NextRequest } from "next/server";
-// src/middleware.ts
 import { NextResponse } from "next/server";
 
 export function middleware(req: NextRequest) {
@@ -23,7 +22,6 @@ export function middleware(req: NextRequest) {
 
   if (pathname.startsWith("/docs/") && pathname.endsWith(".md")) {
     const url = req.nextUrl.clone();
-    // rewrite to API route
     url.pathname = `/api/docs${pathname.replace(/^\/docs/, "")}`;
     return NextResponse.rewrite(url);
   }
