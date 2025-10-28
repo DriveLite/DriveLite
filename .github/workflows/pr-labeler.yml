@@ -22,8 +22,6 @@ on:
       - main
       - dev
 
-permission: {}
-
 jobs:
   labeler:
     permissions:
