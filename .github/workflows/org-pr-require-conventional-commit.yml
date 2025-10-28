@@ -17,6 +17,14 @@
 name: PR Conventional Commit
 
 on:
+  push:
+    branches:
+      - main
+      - dev
+      - feature/**
+      - fix/**
+      - docs/**
+      - ci/**
   pull_request:
     types: [opened, synchronize, reopened, edited]
 
