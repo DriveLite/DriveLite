@@ -17,8 +17,9 @@
 import type { MetadataRoute } from "next";
 import { getAllDocs } from "@/lib/docs.server";
 import { locales } from "@/lib/i18n";
+import { Blogs, getAllBlogs } from "@/lib/Blogs";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseurl = "https://drivelite.org";
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -34,6 +35,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
   ];
+
+  const blogsRoutes: MetadataRoute.Sitemap = [];
+
+  const blogs: Blogs[] | null = await getAllBlogs();
+
+  blogs?.forEach((blog) => {
+    blogsRoutes.push({
+      url: `${baseurl}/blogs/${blog.slug}`,
+      lastModified: blog.published_at,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    });
+  });
 
   const docsRoutes: MetadataRoute.Sitemap = [];
 
@@ -55,5 +69,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       });
     });
   }
-  return [...staticRoutes, ...docsRoutes];
+
+  return [...staticRoutes, ...blogsRoutes, ...docsRoutes];
 }

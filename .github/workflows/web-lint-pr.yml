@@ -1,35 +1,30 @@
 # DriveLite - The self-hostable file storage solution.
-# Copyright (C) 2025
-#
+# Copyright (C) 2025  
+# 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published
 # by the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-#
+# 
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
-#
+# 
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-name: Web Lint (Auto Fix Non pr)
+name: Web Lint (pr)
 
 on:
-  push:
+  pull_request:
     branches:
       - main
       - dev
-      - feature/**
-      - fix/**
-      - docs/**
-      - ci/**
     paths:
       - "apps/web/**"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   lint:
@@ -59,11 +54,3 @@ jobs:
 
       - name: Lint code
         run: bun run lint --fix
-
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git diff-index --quiet HEAD || git commit -m "chore: auto-format web code"
-          git push

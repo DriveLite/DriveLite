@@ -45,6 +45,11 @@ func NewServer() (*Server, error) {
 		return nil, fmt.Errorf("failed to init DB: %w", err)
 	}
 
+	err = RepoService.Init()
+	if err != nil {
+		return nil, fmt.Errorf("failed to migrate the DB: %w", err)
+	}
+
 	// Initialize storage service
 	storageService, err := storage.New(config.StorageType)
 	if err != nil {
