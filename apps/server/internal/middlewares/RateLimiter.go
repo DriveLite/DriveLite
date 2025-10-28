@@ -20,7 +20,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	ratelimter "github.com/moukhtar-youssef/drivelite/backend/internal/utils/Ratelimter"
+	ratelimter "github.com/moukhtar-youssef/drivelite/backend/internal/utils/ratelimterutils"
 	"github.com/ulule/limiter/v3"
 )
 
@@ -29,6 +29,7 @@ type RateLimitMiddleware struct {
 	limit             int64
 	reset             time.Duration
 	ticker            *time.Ticker
+	limit10ReqPerHour *limiter.Limiter
 	limit10ReqPerMin  *limiter.Limiter
 	limit100ReqPerMin *limiter.Limiter
 	limit200ReqPerSec *limiter.Limiter
@@ -36,6 +37,7 @@ type RateLimitMiddleware struct {
 
 func NewRateLimitMiddleware(limit int64, reset time.Duration) *RateLimitMiddleware {
 	rl := &RateLimitMiddleware{
+		limit10ReqPerHour: ratelimter.In_memory_ratelimiter("10-H"),
 		limit10ReqPerMin:  ratelimter.In_memory_ratelimiter("10-M"),
 		limit100ReqPerMin: ratelimter.In_memory_ratelimiter("100-M"),
 		limit200ReqPerSec: ratelimter.In_memory_ratelimiter("200-S"),

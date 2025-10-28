@@ -14,21 +14,41 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-// Package storageutils provides helpers for generating and managing
-// object storage keys.
-package storage
+package repositories
 
 import (
-	"crypto/rand"
 	"fmt"
+
+	"github.com/moukhtar-youssef/drivelite/backend/internal/repositories/users"
 )
 
-// GenerateObjectKey returns a random 32-byte hex string.
-// It panics if the random number generation fails.
-func GenerateObjectKey() string {
-	b := make([]byte, 16)
-	if _, err := rand.Read(b); err != nil {
-		return ""
+type Service interface {
+	Close() error
+	Health() map[string]string
+	Init() error
+
+	Users() users.UsersRepository
+}
+
+type Config struct {
+	Driver   string
+	Host     string
+	Port     string
+	User     string
+	Password string
+	DBName   string
+	SSLMode  string
+	Schema   string
+	FilePath string
+}
+
+func New(cfg Config) (Service, error) {
+	switch cfg.Driver {
+	case "postgres":
+		return newPostgresRepoService(cfg)
+	case "sqlite":
+		return newSQLiteRepoService(cfg)
+	default:
+		return nil, fmt.Errorf("unsupported driver: %s", cfg.Driver)
 	}
-	return fmt.Sprintf("%x", b)
 }

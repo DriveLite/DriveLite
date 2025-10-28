@@ -14,41 +14,24 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-package repo
+// Package cryptotokenutils provides helpers for encrypting, decrypting,
+// and generating authentication tokens securely.
+package tokenutils
 
 import (
-	"fmt"
+	"time"
 
-	"github.com/moukhtar-youssef/drivelite/backend/internal/repo/users"
+	"github.com/golang-jwt/jwt/v5"
+	"github.com/google/uuid"
 )
 
-type Repository interface {
-	Close() error
-	Health() map[string]string
-	Init() error
-
-	Users() users.UsersRepository
-}
-
-type Config struct {
-	Driver   string
-	Host     string
-	Port     string
-	User     string
-	Password string
-	DBName   string
-	SSLMode  string
-	Schema   string
-	FilePath string
-}
-
-func New(cfg Config) (Repository, error) {
-	switch cfg.Driver {
-	case "postgres":
-		return newPostgresRepoService(cfg)
-	case "sqlite":
-		return newSQLiteRepoService(cfg)
-	default:
-		return nil, fmt.Errorf("unsupported driver: %s", cfg.Driver)
+// GenerateAccessToken creates a signed JWT access token for the given user ID.
+func GenerateAccessToken(userID uuid.UUID, secret []byte) (string, error) {
+	exp := time.Now().Add(15 * time.Minute).Unix()
+	claims := jwt.MapClaims{
+		"user_id": userID.String(),
+		"exp":     exp,
 	}
+	token := jwt.NewWithClaims(jwt.SigningMethodES256, claims)
+	return token.SignedString(secret)
 }

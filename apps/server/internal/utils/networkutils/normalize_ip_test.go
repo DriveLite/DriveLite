@@ -13,14 +13,13 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-package network_test
+package networkutils_test
 
 import (
 	"net"
 	"testing"
 
-	"github.com/moukhtar-youssef/drivelite/backend/internal/utils/network"
+	"github.com/moukhtar-youssef/drivelite/backend/internal/utils/networkutils"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -38,7 +37,7 @@ func TestNormalizeIP(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
-			assert.Equal(t, tt.expected, network.NormalizeIP(tt.input))
+			assert.Equal(t, tt.expected, networkutils.NormalizeIP(tt.input))
 		})
 	}
 }
@@ -58,7 +57,7 @@ func FuzzTestNormalizeIP(f *testing.F) {
 	}
 
 	f.Fuzz(func(t *testing.T, input string) {
-		output := network.NormalizeIP(input)
+		output := networkutils.NormalizeIP(input)
 
 		parsed := net.ParseIP(input)
 		if parsed != nil && parsed.IsLoopback() {
@@ -69,8 +68,7 @@ func FuzzTestNormalizeIP(f *testing.F) {
 				"non-loopback or invalid %q should stay unchanged", input)
 		}
 
-		// 🔒 Property test: normalization should be idempotent
-		assert.Equal(t, output, network.NormalizeIP(output),
+		assert.Equal(t, output, networkutils.NormalizeIP(output),
 			"NormalizeIP should be idempotent for %q", input)
 	})
 }

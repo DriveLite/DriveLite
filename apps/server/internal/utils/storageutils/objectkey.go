@@ -14,18 +14,21 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-package ratelimter
+// Package storageutils provides helpers for generating and managing
+// object storage keys.
+package storageutils
 
 import (
-	"github.com/ulule/limiter/v3"
-	"github.com/ulule/limiter/v3/drivers/store/memory"
+	"crypto/rand"
+	"fmt"
 )
 
-func In_memory_ratelimiter(interval string) *limiter.Limiter {
-	store := memory.NewStore()
-	rate, err := limiter.NewRateFromFormatted(interval)
-	if err != nil {
-		panic(err)
+// GenerateObjectKey returns a random 32-byte hex string.
+// It panics if the random number generation fails.
+func GenerateObjectKey() string {
+	b := make([]byte, 16)
+	if _, err := rand.Read(b); err != nil {
+		return ""
 	}
-	return limiter.New(store, rate)
+	return fmt.Sprintf("%x", b)
 }

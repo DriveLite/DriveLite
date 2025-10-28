@@ -20,7 +20,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/moukhtar-youssef/drivelite/backend/internal/repo"
+	"github.com/moukhtar-youssef/drivelite/backend/internal/repositories"
 	"github.com/moukhtar-youssef/drivelite/backend/internal/storage"
 	"github.com/moukhtar-youssef/drivelite/backend/pkg/logger"
 
@@ -29,13 +29,13 @@ import (
 
 // Handler handles HTTP requests.
 type Handler struct {
-	Repo    repo.Repository
+	Repo    repositories.Service
 	Storage storage.Service
 	Logger  logger.Service
 }
 
 // NewHandler creates a new Handler instance.
-func NewHandler(repo repo.Repository, storage storage.Service, logger logger.Service) *Handler {
+func NewHandler(repo repositories.Service, storage storage.Service, logger logger.Service) *Handler {
 	return &Handler{Repo: repo, Storage: storage, Logger: logger}
 }
 

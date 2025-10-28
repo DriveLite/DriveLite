@@ -16,7 +16,7 @@
 
 // Package networkutils provides utilities for working with IP normalization
 // and related network helper functions.
-package network
+package networkutils
 
 import "net"
 

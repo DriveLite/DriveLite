@@ -24,7 +24,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/moukhtar-youssef/drivelite/backend/internal/repo"
+	"github.com/moukhtar-youssef/drivelite/backend/internal/repositories"
 )
 
 var (
@@ -87,8 +87,8 @@ func Load() {
 	}
 }
 
-func RepoConfig() repo.Config {
-	return repo.Config{
+func RepoConfig() repositories.Config {
+	return repositories.Config{
 		Driver:   GetEnv("BACKEND_DB_TYPE", "sqlite"),
 		Host:     GetEnv("BACKEND_DB_HOST", "localhost"),
 		Port:     GetEnv("BACKEND_DB_PORT", "5432"),

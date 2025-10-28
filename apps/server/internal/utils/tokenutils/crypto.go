@@ -16,7 +16,7 @@
 
 // Package cryptotokenutils provides helpers for encrypting, decrypting,
 // and generating authentication tokens securely.
-package token
+package tokenutils
 
 import (
 	"crypto/aes"

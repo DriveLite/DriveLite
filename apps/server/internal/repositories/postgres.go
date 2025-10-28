@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-package repo
+package repositories
 
 import (
 	"context"
@@ -23,7 +23,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/moukhtar-youssef/drivelite/backend/internal/repo/users"
+	"github.com/moukhtar-youssef/drivelite/backend/internal/repositories/users"
 
 	// Import pgx driver for database/sql
 	_ "github.com/jackc/pgx/v5/stdlib"
@@ -39,7 +39,7 @@ func (s *postgresRepoService) Init() error {
 	panic("unimplemented")
 }
 
-func newPostgresRepoService(config Config) (Repository, error) {
+func newPostgresRepoService(config Config) (Service, error) {
 	connStr := fmt.Sprintf(
 		"postgres://%s:%s@%s:%s/%s?sslmode=%s&search_path=%s",
 		config.User,

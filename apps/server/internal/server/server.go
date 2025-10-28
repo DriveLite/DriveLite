@@ -22,7 +22,7 @@ import (
 	"time"
 
 	"github.com/moukhtar-youssef/drivelite/backend/internal/config"
-	"github.com/moukhtar-youssef/drivelite/backend/internal/repo"
+	"github.com/moukhtar-youssef/drivelite/backend/internal/repositories"
 	"github.com/moukhtar-youssef/drivelite/backend/internal/storage"
 	"github.com/moukhtar-youssef/drivelite/backend/pkg/logger"
 )
@@ -31,7 +31,7 @@ import (
 type Server struct {
 	port    int
 	HTTP    *http.Server
-	Repo    repo.Repository
+	Repo    repositories.Service
 	Storage storage.Service
 	Logger  logger.Service
 }
@@ -40,7 +40,7 @@ type Server struct {
 func NewServer() (*Server, error) {
 	RepoConfig := config.RepoConfig()
 	// Initialize repo service
-	RepoService, err := repo.New(RepoConfig)
+	RepoService, err := repositories.New(RepoConfig)
 	if err != nil {
 		return nil, fmt.Errorf("failed to init DB: %w", err)
 	}

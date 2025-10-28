@@ -24,7 +24,7 @@ import (
 
 	"github.com/moukhtar-youssef/drivelite/backend/internal/handlers"
 	"github.com/moukhtar-youssef/drivelite/backend/internal/middlewares"
-	"github.com/moukhtar-youssef/drivelite/backend/internal/utils/network"
+	"github.com/moukhtar-youssef/drivelite/backend/internal/utils/networkutils"
 
 	"github.com/moukhtar-youssef/drivelite/backend/internal/config"
 
@@ -63,7 +63,7 @@ func setupMiddleware(e *echo.Echo) {
 		LogLatency:      true,
 		LogResponseSize: true,
 		LogValuesFunc: func(_ echo.Context, v middleware.RequestLoggerValues) error {
-			safeIP := network.NormalizeIP(v.RemoteIP)
+			safeIP := networkutils.NormalizeIP(v.RemoteIP)
 			fmt.Printf(
 				"[REQUEST] uri=%v status=%v ip=%v latency=%v size=%v\n",
 				v.URI, v.Status, safeIP, v.Latency, v.ResponseSize,

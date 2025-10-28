@@ -14,14 +14,14 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-package repo
+package repositories
 
 import (
 	"database/sql"
 	"fmt"
 
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/moukhtar-youssef/drivelite/backend/internal/repo/users"
+	"github.com/moukhtar-youssef/drivelite/backend/internal/repositories/users"
 )
 
 type sqliteRepoService struct {
@@ -34,7 +34,7 @@ func (s *sqliteRepoService) Init() error {
 	panic("unimplemented")
 }
 
-func newSQLiteRepoService(cfg Config) (Repository, error) {
+func newSQLiteRepoService(cfg Config) (Service, error) {
 	path := cfg.FilePath
 	if path == "" {
 		path = "./drivelite.db"
