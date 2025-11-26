@@ -32,7 +32,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		});
 	}
 
-	event.locals = locale;
+	event.locals.locale = locale;
 
 	return resolve(event);
 };
