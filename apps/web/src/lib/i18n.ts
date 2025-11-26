@@ -26,11 +26,7 @@ const getInitialLocale = () => {
 		return defaultLang.code;
 	}
 
-	return (
-		localStorage.getItem(StorageKey.locale) ||
-		getLocaleFromNavigator() ||
-		defaultLang.code
-	);
+	return localStorage.getItem(StorageKey.locale) || getLocaleFromNavigator() || defaultLang.code;
 };
 
 init({
