@@ -42,9 +42,7 @@ jobs:
           - language: typescript
             build-mode: none
           - language: rust
-            build-mode: cargo
-          - language: dart
-            build-mode: none
+            build-mode: autobuild
 
     steps:
       - name: Checkout repository
