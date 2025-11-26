@@ -1,2 +1,0 @@
-GET {{URL}}/
-HTTP 200

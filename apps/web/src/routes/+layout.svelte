@@ -21,10 +21,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 	import Svgfavicon from '$lib/assets/favicon.svg';
 	import favicon from '$lib/assets/favicon.ico';
-	import { ModeWatcher } from 'mode-watcher';
 	import { page } from '$app/state';
-
+	import { onMount } from 'svelte';
+	import { initThemeWatcher } from '$lib/theme';
+	import '$lib/i18n';
 	let { children } = $props();
+
+	onMount(() => {
+		initThemeWatcher();
+	});
 </script>
 
 <svelte:head>
@@ -33,5 +38,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 	<link rel="icon" type="image/ico" href={favicon} />
 </svelte:head>
 
-<ModeWatcher />
 {@render children?.()}

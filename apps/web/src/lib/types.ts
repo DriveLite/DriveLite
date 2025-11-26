@@ -18,6 +18,8 @@ import type { Snippet } from 'svelte';
 
 export type Gap = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
+export type Theme = 'light' | 'dark' | 'system'
+
 export type ChildData = {
 	snippet: Snippet;
 	class?: string;

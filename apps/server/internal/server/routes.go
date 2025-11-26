@@ -18,7 +18,6 @@
 package server
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
@@ -36,7 +35,7 @@ import (
 // RegisterRoutes registers all routes for the server and returns the HTTP handler.
 func (s *Server) RegisterRoutes() http.Handler {
 	e := echo.New()
-	setupMiddleware(e)
+	setupMiddleware(e, s)
 
 	handler := handlers.NewHandler(s.Repo, s.Storage, s.Logger)
 
@@ -45,7 +44,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	return e
 }
 
-func setupMiddleware(e *echo.Echo) {
+func setupMiddleware(e *echo.Echo, s *Server) {
 	if config.AppENV == "production" {
 		e.Pre(middleware.HTTPSNonWWWRedirect())
 		e.Pre(middleware.HTTPSRedirect())
@@ -64,8 +63,8 @@ func setupMiddleware(e *echo.Echo) {
 		LogResponseSize: true,
 		LogValuesFunc: func(_ echo.Context, v middleware.RequestLoggerValues) error {
 			safeIP := networkutils.NormalizeIP(v.RemoteIP)
-			fmt.Printf(
-				"[REQUEST] uri=%v status=%v ip=%v latency=%v size=%v\n",
+			s.Logger.Requestf(
+				"uri=%v status=%v ip=%v latency=%v size=%v\n",
 				v.URI, v.Status, safeIP, v.Latency, v.ResponseSize,
 			)
 			return nil
@@ -91,11 +90,13 @@ func setupMiddleware(e *echo.Echo) {
 }
 
 func setupRoutes(e *echo.Echo, handler *handlers.Handler) {
-	e.GET("/", handler.TestHandler)
-	e.GET("/health", handler.HealthHandler)
+	e.GET("/health", handler.Healtb)
 	e.GET("/metrics", echoprometheus.NewHandler())
 	apiv1 := e.Group("/api/v1")
 	{
-		apiv1.GET("/", handler.TestHandler)
+		apiv1.GET("/health", handler.Healtb)
 	}
+	// admin := apiv1.Group("/admin")
+	// {
+	// }
 }

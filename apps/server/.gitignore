@@ -27,6 +27,8 @@ go.work.sum
 # env file
 .env
 
+Config.yaml
+
 # Editor/IDE
 .idea/
 .vscode/
@@ -34,3 +36,7 @@ go.work.sum
 
 
 *.db
+*.db.*
+*.db-*
+
+tmp/

@@ -14,19 +14,26 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { init, register } from 'svelte-i18n';
+import { init, register, getLocaleFromNavigator } from 'svelte-i18n';
 import { defaultLang, langs, StorageKey } from './constants';
 
-langs.forEach((lang) => {
+for (const lang of langs) {
 	register(lang.code, lang.loader);
-});
-
-let savedLocale: string | null = '';
-if (typeof window !== 'undefined') {
-	savedLocale = localStorage.getItem(StorageKey.locale);
 }
+
+const getInitialLocale = () => {
+	if (typeof window === 'undefined') {
+		return defaultLang.code;
+	}
+
+	return (
+		localStorage.getItem(StorageKey.locale) ||
+		getLocaleFromNavigator() ||
+		defaultLang.code
+	);
+};
 
 init({
 	fallbackLocale: defaultLang.code,
-	initialLocale: savedLocale ?? defaultLang.code
+	initialLocale: getInitialLocale()
 });

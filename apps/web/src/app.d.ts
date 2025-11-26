@@ -23,6 +23,9 @@ declare global {
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}
+    interface Locals {
+			locale: string;
+		}
 	}
 }
 

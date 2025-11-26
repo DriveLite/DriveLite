@@ -39,15 +39,13 @@ func NewHandler(repo repositories.Service, storage storage.Service, logger logge
 	return &Handler{Repo: repo, Storage: storage, Logger: logger}
 }
 
-// TestHandler is a simple endpoint to test server connectivity.
-func (h *Handler) TestHandler(c echo.Context) error {
-	resp := map[string]string{
-		"message": "This is a test",
-	}
-	return c.JSON(http.StatusOK, resp)
-}
+// Health returns 200 OK status if the server is healthy and return 503 Service Unavailable
+func (h *Handler) Healtb(c echo.Context) error {
+	health := h.Repo.Health()
 
-// HealthHandler returns a 200 OK status to indicate server health and check DB health.
-func (h *Handler) HealthHandler(c echo.Context) error {
-	return c.JSON(http.StatusOK, h.Repo.Health())
+	if health["status"] == "down" {
+		return c.JSON(http.StatusServiceUnavailable, health)
+	}
+
+	return c.JSON(http.StatusOK, health)
 }

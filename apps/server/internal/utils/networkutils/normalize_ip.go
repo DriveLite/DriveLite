@@ -24,7 +24,6 @@ import "net"
 func NormalizeIP(ip string) string {
 	parsed := net.ParseIP(ip)
 	if parsed != nil && parsed.IsLoopback() {
-		// Force IPv4 loopback if IPv6 loopback (::1) is detected
 		return "127.0.0.1"
 	}
 	return ip

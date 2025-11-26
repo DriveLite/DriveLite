@@ -28,11 +28,11 @@ func TestNormalizeIP(t *testing.T) {
 		input    string
 		expected string
 	}{
-		{"127.0.0.1", "127.0.0.1"},       // IPv4 loopback stays the same
-		{"::1", "127.0.0.1"},             // IPv6 loopback normalized
-		{"192.168.1.10", "192.168.1.10"}, // non-loopback IPv4 unchanged
-		{"2001:db8::1", "2001:db8::1"},   // IPv6 non-loopback unchanged
-		{"", ""},                         // empty string unchanged
+		{"127.0.0.1", "127.0.0.1"},
+		{"::1", "127.0.0.1"},
+		{"192.168.1.10", "192.168.1.10"},
+		{"2001:db8::1", "2001:db8::1"},
+		{"", ""},
 	}
 
 	for _, tt := range tests {

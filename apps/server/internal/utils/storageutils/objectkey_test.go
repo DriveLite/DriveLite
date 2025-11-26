@@ -18,6 +18,7 @@ package storageutils_test
 
 import (
 	"encoding/hex"
+	"sync"
 	"testing"
 
 	storageutils "github.com/moukhtar-youssef/drivelite/backend/internal/utils/storageutils"
@@ -37,6 +38,42 @@ func TestGenerateObjectKey(t *testing.T) {
 	_, err := hex.DecodeString(key)
 	if err != nil {
 		t.Fatalf("key is not valid hex: %v", err)
+	}
+}
+
+func TestGenerateObjectKeyUnique(t *testing.T) {
+	const numKeys = 1000000
+	const numWorkers = 10
+
+	var wg sync.WaitGroup
+	keymap := sync.Map{}
+	var duplicateCount int64
+	ch := make(chan string, 100)
+
+	worker := func() {
+		defer wg.Done()
+		for key := range ch {
+			if _, loaded := keymap.LoadOrStore(key, true); loaded {
+				duplicateCount++
+			}
+		}
+	}
+
+	for range numWorkers {
+		wg.Add(1)
+		go worker()
+	}
+
+	for range numKeys {
+		ch <- storageutils.GenerateObjectKey()
+	}
+
+	close(ch)
+
+	wg.Wait()
+
+	if duplicateCount != 0 {
+		t.Fatalf("Found duplicates: %d", duplicateCount)
 	}
 }
 

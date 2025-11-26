@@ -38,26 +38,26 @@ type Server struct {
 
 // NewServer creates and initializes a new Server instance.
 func NewServer() (*Server, error) {
-	RepoConfig := config.RepoConfig()
 	// Initialize repo service
-	RepoService, err := repositories.New(RepoConfig)
+	RepoService, err := repositories.New(config.RepoConfig())
 	if err != nil {
 		return nil, fmt.Errorf("failed to init DB: %w", err)
 	}
 
+	// Migrating repo service
 	err = RepoService.Init()
 	if err != nil {
 		return nil, fmt.Errorf("failed to migrate the DB: %w", err)
 	}
 
 	// Initialize storage service
-	storageService, err := storage.New(config.StorageType)
+	storageService, err := storage.New(config.StorageConfig())
 	if err != nil {
 		return nil, fmt.Errorf("failed to init Storage: %w", err)
 	}
 
 	// Initialize logger service
-	loggerService, err := logger.New(config.LoggerType)
+	loggerService, err := logger.New(config.LoggerConfig())
 	if err != nil {
 		return nil, fmt.Errorf("failed to init logger: %w", err)
 	}

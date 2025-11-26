@@ -36,7 +36,7 @@ type postgresRepoService struct {
 
 // Init implements Repository.
 func (s *postgresRepoService) Init() error {
-	panic("unimplemented")
+	return nil
 }
 
 func newPostgresRepoService(config Config) (Service, error) {

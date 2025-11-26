@@ -31,7 +31,7 @@ type sqliteRepoService struct {
 
 // Init implements Repository.
 func (s *sqliteRepoService) Init() error {
-	panic("unimplemented")
+	return nil
 }
 
 func newSQLiteRepoService(cfg Config) (Service, error) {

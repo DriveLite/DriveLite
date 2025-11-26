@@ -24,8 +24,8 @@ import (
 
 type Service interface {
 	Close() error
-	Health() map[string]string
 	Init() error
+	Health() map[string]string
 
 	Users() users.UsersRepository
 }

@@ -25,9 +25,17 @@ type Service interface {
 	Close() error
 }
 
+type Config struct {
+	Type     string
+	Host     string
+	Port     string
+	User     string
+	Password string
+}
+
 // New creates a new storage service based on the configuration.
-func New(storageType string) (Service, error) {
-	switch storageType {
+func New(cfg Config) (Service, error) {
+	switch cfg.Type {
 	case "MinIO":
 		return newMinIO()
 	default:

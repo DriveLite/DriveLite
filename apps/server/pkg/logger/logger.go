@@ -28,12 +28,17 @@ type Service interface {
 	Warnf(format string, args ...any)
 	Errorf(format string, args ...any)
 	Fatalf(format string, args ...any)
+	Requestf(format string, args ...any)
 	Close() error
 }
 
+type Config struct {
+	LoggerType string
+}
+
 // New returns a logging Service based on the provided type.
-func New(lgtype string) (Service, error) {
-	switch lgtype {
+func New(cfg Config) (Service, error) {
+	switch cfg.LoggerType {
 	case "console":
 		return NewConsoleLogger(), nil
 	default:

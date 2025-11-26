@@ -15,12 +15,24 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import type { Handle } from '@sveltejs/kit';
-import { locale } from 'svelte-i18n';
+import { defaultLang } from '$lib/constants';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	const lang = event.request.headers.get('accept-language')?.split(',')[0];
-	if (lang) {
-		locale.set(lang);
+	let locale = event.cookies.get('locale');
+
+	if (!locale) {
+		// detect from Accept-Language header
+		const header = event.request.headers.get('accept-language');
+		locale = header?.split(',')[0] ?? defaultLang.code;
+
+		// save it for next time
+		event.cookies.set('locale', locale, {
+			path: '/',
+			maxAge: 60 * 60 * 24 * 365 // 1 year
+		});
 	}
+
+	event.locals = locale;
+
 	return resolve(event);
 };

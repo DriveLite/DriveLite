@@ -1,2 +1,2 @@
-GET {{URL}}/health
+GET {{URL}}/ping
 HTTP 200

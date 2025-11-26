@@ -56,6 +56,5 @@ linters-settings:
     threshold: 100
 
   gosec:
-    # ignore weak crypto warnings if needed
     exclude:
       - G401 # e.g., using weak crypto for testing

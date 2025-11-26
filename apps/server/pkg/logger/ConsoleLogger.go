@@ -56,6 +56,11 @@ func (c *ConsoleLogger) Fatalf(format string, args ...any) {
 	log.Fatalf(format, args...)
 }
 
+// Requestf implements Logger.
+func (c *ConsoleLogger) Requestf(format string, args ...any) {
+	log.Printf("[REQUEST] (%s) %s\n", time.Now().Format("2006-01-02 15:04:05"), fmt.Sprintf(format, args...))
+}
+
 // NewConsoleLogger creates a new ConsoleLogger instance.
 func NewConsoleLogger() Service {
 	return &ConsoleLogger{}

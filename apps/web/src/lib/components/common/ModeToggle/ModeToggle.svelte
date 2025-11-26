@@ -20,16 +20,26 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 	import SunIcon from '@lucide/svelte/icons/sun';
 	import MoonIcon from '@lucide/svelte/icons/moon';
 
-	import { toggleMode } from 'mode-watcher';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import { setTheme } from '$lib/stores';
 </script>
 
-<Button onclick={toggleMode} variant="secondary" size="icon">
-	<SunIcon
-		class="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 !transition-all dark:scale-0 dark:-rotate-90"
-	/>
-	<MoonIcon
-		class="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 !transition-all dark:scale-100 dark:rotate-0"
-	/>
-	<span class="sr-only">Toggle theme</span>
-</Button>
+<DropdownMenu.Root>
+	<DropdownMenu.Trigger>
+		<Button variant="outline" size="icon">
+			<SunIcon
+				class="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 !transition-all dark:scale-0 dark:-rotate-90"
+			/>
+			<MoonIcon
+				class="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 !transition-all dark:scale-100 dark:rotate-0"
+			/>
+			<span class="sr-only">Toggle theme</span>
+		</Button>
+	</DropdownMenu.Trigger>
+	<DropdownMenu.Content align="end">
+		<DropdownMenu.Item onclick={() => setTheme('light')}>Light</DropdownMenu.Item>
+		<DropdownMenu.Item onclick={() => setTheme('dark')}>Dark</DropdownMenu.Item>
+		<DropdownMenu.Item onclick={() => setTheme('system')}>System</DropdownMenu.Item>
+	</DropdownMenu.Content>
+</DropdownMenu.Root>
